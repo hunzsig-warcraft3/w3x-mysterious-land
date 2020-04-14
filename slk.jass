@@ -1,0 +1,31 @@
+globals
+    hashtable hash_myslk = null
+endglobals
+
+library mySlk initializer Init
+
+    private function Init takes nothing returns nothing
+        set hash_myslk = InitHashtable()
+        <?
+            local slk = require 'slk'
+            #include "../h-lua/const/hotKey.lua"
+            #include "../h-lua/const/attribute.lua"
+            #include "../h-lua/const/unit.lua"
+            #include "../h-lua/foundation/json.lua"
+            #include "../h-lua/foundation/table.lua"
+            #include "../h-lua/foundation/string.lua"
+            #include "../h-lua/foundation/color.lua"
+            #include "./config/courier.lua"
+            #include "./config/enemys.lua"
+            #include "./config/enemysBoss.lua"
+            #include "./init/common.lua"
+            #include "./init/courierSkill.lua"
+            #include "./init/courier.lua"
+            #include "./init/enemys.lua"
+            #include "./init/enemysBoss.lua"
+            #include "./config/shops.lua"
+            #include "./init/shops.lua"
+        ?>
+    endfunction
+
+endlibrary
