@@ -1,18 +1,6 @@
 game = {
     ALLY_PLAYER = nil,
-    TRIGGER_DE_POINT = nil,
-    bigElfTips = {
-        "给点力撒~",
-        "哎哟好痛~",
-        "痛阿痛~",
-        "守住呀~",
-        "咋回事~",
-        "奥力给~",
-        "噢不~",
-        "又失守了~",
-        "不敢相信~"
-    },
-    enemyTips = {
+    bossTips = {
         "大力点~",
         "不痛~",
         "嘿嘿没死~",
@@ -36,58 +24,10 @@ game = {
         "不痛不痒~",
         "WTF~"
     },
-    runing = true,
-    rule = {
-        yb = {
-            perWaveQty = 18,
-            wave = 1,
-            waveEnd = 100,
-            fresh = 1.5,
-            waitTime = 6,
-            mon = nil,
-            monLife = 50,
-            monLifeInc = 9
-        },
-        hz = {
-            perWaveQty = 12,
-            wave = 1,
-            fresh = 1.3,
-            waitTime = 3,
-            mon = nil,
-            monLife = 40,
-            monLifeInc = 12
-        },
-        dk = {
-            perWaveQty = 10,
-            playerQty = {},
-            wave = {},
-            fresh = 1.5,
-            mon = {},
-            monLimit = {},
-            monData = {},
-            ai = false,
-            shadowMod = {
-                5,
-                5,
-                5,
-                5
-            },
-            monLife = {
-                30,
-                30,
-                30,
-                30
-            }
-        },
-        cur = "yb"
-    },
+    running = true,
     odkTecId = nil,
     currentMon = 0,
     playerOriginLumber = {},
-    playerTower = {},
-    playerTowerLink = {},
-    playerTowerLevel = {},
-    playerTowerEffectModel = {},
     playerCourier = {},
     towersLen = 0,
     towers = {},
