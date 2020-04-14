@@ -1,5 +1,4 @@
 -- courier
-couriersShopIds = {}
 for i, v in ipairs(couriers) do
     -- 处理信使数据
     local Ubertip = "召唤：" .. v.Name

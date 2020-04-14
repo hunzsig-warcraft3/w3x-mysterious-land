@@ -1,11 +1,12 @@
 globals
-    hashtable hash_myslk = null
+    string SLK_COURIER
+    string SLK_COURIER_SKILL
 endglobals
 
 library mySlk initializer Init
 
     private function Init takes nothing returns nothing
-        set hash_myslk = InitHashtable()
+        // include以地图w3x文件相对
         <?
             local slk = require 'slk'
             #include "../h-lua/const/hotKey.lua"
@@ -15,16 +16,12 @@ library mySlk initializer Init
             #include "../h-lua/foundation/table.lua"
             #include "../h-lua/foundation/string.lua"
             #include "../h-lua/foundation/color.lua"
-            #include "./config/courier.lua"
-            #include "./config/enemys.lua"
-            #include "./config/enemysBoss.lua"
-            #include "./init/common.lua"
-            #include "./init/courierSkill.lua"
-            #include "./init/courier.lua"
-            #include "./init/enemys.lua"
-            #include "./init/enemysBoss.lua"
-            #include "./config/shops.lua"
-            #include "./init/shops.lua"
+
+            #include "./slk/courier.lua"
+            ?>
+                set SLK_COURIER = "<?=string.addslashes(json.stringify(COURIERS))?>"
+                set SLK_COURIER_SKILL = "<?=string.addslashes(json.stringify(COURIERS_SKILL))?>"
+            <?
         ?>
     endfunction
 
