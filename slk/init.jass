@@ -1,6 +1,7 @@
 globals
     string SLK_COURIER
     string SLK_COURIER_SKILL
+    string SLK_UNITS
 endglobals
 
 library mySlk initializer Init
@@ -21,6 +22,10 @@ library mySlk initializer Init
             ?>
                 set SLK_COURIER = "<?=string.addslashes(json.stringify(COURIERS))?>"
                 set SLK_COURIER_SKILL = "<?=string.addslashes(json.stringify(COURIERS_SKILL))?>"
+            <?
+            #include "./slk/units.lua"
+            ?>
+                set SLK_UNITS = "<?=string.addslashes(json.stringify(UNITS))?>"
             <?
         ?>
     endfunction
