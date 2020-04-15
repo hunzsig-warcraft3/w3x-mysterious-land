@@ -2,6 +2,9 @@ globals
     string SLK_COURIER
     string SLK_COURIER_SKILL
     string SLK_UNITS
+    string SLK_SHOPS
+    string SLK_ENEMY
+    string SLK_BOSS
 endglobals
 
 library mySlk initializer Init
@@ -26,6 +29,18 @@ library mySlk initializer Init
             #include "./slk/units.lua"
             ?>
                 set SLK_UNITS = "<?=string.addslashes(json.stringify(UNITS))?>"
+            <?
+            #include "./slk/shops.lua"
+            ?>
+                set SLK_SHOPS = "<?=string.addslashes(json.stringify(SHOPS))?>"
+            <?
+            #include "./slk/enemy.lua"
+            ?>
+                set SLK_ENEMY = "<?=string.addslashes(json.stringify(ENEMY))?>"
+            <?
+            #include "./slk/boss.lua"
+            ?>
+                set SLK_BOSS = "<?=string.addslashes(json.stringify(BOSS))?>"
             <?
         ?>
     endfunction

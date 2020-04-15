@@ -28,24 +28,9 @@ game = {
     diff = 0,
     playerOriginLumber = {},
     playerCourier = {},
-    thisEnemys = {},
-    thisEnemysBoss = {},
+    enemy = {},
+    boss = {},
     shops = {},
-    courier = {},
-    -- 左上第一顺时针设定的
-    rebornStone = {
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-        { loc = { -1760, -2859 }, reborn = { -3818, -1450 }, facing = 270 },
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
-    },
-    door = {
-        { loc = { -1154, 247 }, to = { "七灵", -195, 70 } },
-    },
     shopsConfig = {
         { "稀奇古怪黑科技", { -1088, 1088 } },
         { "稀奇古怪黑科技", { 1088, 1088 } },
@@ -61,5 +46,20 @@ game = {
         { "奇异屋", { 512, 512 } },
         { "铁箱子", { 512, 0 } },
         { "营地", { 512, -512 } }
-    }
+    },
+    courier = {},
+    -- 左上第一顺时针设定的
+    rebornStone = {
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+        { loc = { -1760, -2859 }, reborn = { -3818, -1450 }, facing = 270 },
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+        { loc = { -1154, 247 }, reborn = { -195, 70 }, facing = 270 },
+    },
+    door = {
+        { loc = { -1154, 247 }, to = { "七灵", -195, 70 } },
+    },
 }

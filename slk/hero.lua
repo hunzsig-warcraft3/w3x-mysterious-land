@@ -1,111 +1,3 @@
--- towers
---兵塔变敌军单位
-local createTowerShadowUnit = function(v,sti,tlv)
-    local sobj = slk.unit.ogru:new("this_tower_shadow_" .. v.INDEX)
-    sobj.Name = "["..tlv.."阶]" .. v.Name
-    sobj.upgrades = ""
-    sobj.file = v.file
-    sobj.Art = v.Art
-    sobj.modelScale = 1.00
-    sobj.scale = 1.20
-    sobj.HP = 100
-    sobj.spd = 100
-    sobj.sight = 1200
-    sobj.nsight = 1200
-    sobj.unitSound = v.unitSound or ""
-    sobj.weapsOn = 1
-    sobj.dmgplus1 = 1 -- 基础攻击
-    sobj.showUI1 = 0 -- 不显示攻击按钮
-    sobj.fused = 0
-    sobj.canFlee = 0
-    local targs1 = "vulnerable,ground,ward,structure,organic,mechanical,tree,debris,air" --攻击目标
-    sobj.targs1 = targs1
-    if (v.weapTp1 == "msplash" or v.weapTp1 == "artillery") then
-        --溅射/炮火
-        sobj.Farea1 = v.Farea1 or 1
-        sobj.Qfact1 = v.Qfact1 or 0.05
-        sobj.Qarea1 = v.Qarea1 or 500
-        sobj.Hfact1 = v.Hfact1 or 0.15
-        sobj.Harea1 = v.Harea1 or 350
-        sobj.splashTargs1 = targs1 .. ",enemies"
-    end
-    if (v.weapTp1 == "mbounce") then
-        --弹射
-        sobj.Farea1 = v.Farea1 or 450
-        sobj.targCount1 = v.targCount1 or 4
-        sobj.damageLoss1 = v.damageLoss1 or 0.3
-        sobj.splashTargs1 = targs1 .. ",enemies"
-    end
-    if (v.weapTp1 == "mline") then
-        --穿透
-        sobj.spillRadius = v.spillRadius or 200
-        sobj.spillDist1 = v.spillDist1 or 450
-        sobj.damageLoss1 = v.damageLoss1 or 0.3
-        sobj.splashTargs1 = targs1 .. ",enemies"
-    end
-    if (v.weapTp1 == "aline") then
-        --炮火穿透
-        sobj.Farea1 = v.Farea1 or 1
-        sobj.Qfact1 = v.Qfact1 or 0.05
-        sobj.Qarea1 = v.Qarea1 or 500
-        sobj.Hfact1 = v.Hfact1 or 0.15
-        sobj.Harea1 = v.Harea1 or 350
-        sobj.spillRadius = v.spillRadius or 200
-        sobj.spillDist1 = v.spillDist1 or 450
-        sobj.damageLoss1 = v.damageLoss1 or 0.3
-        sobj.splashTargs1 = targs1 .. ",enemies"
-    end
-    sobj.acquire = 749 + (v.RangeInc or 0)
-    sobj.backSw1 = v.backSw1 or 0.500
-    sobj.dmgpt1 = v.dmgpt1 or 0.500
-    sobj.rangeN1 = 750 + (v.RangeInc or 0)
-    sobj.cool1 = v.cool1 or 2.00
-    sobj.armor = "Flesh" -- 被击声音
-    sobj.targType = "ground" --作为目标类型
-    sobj.Missileart = v.Missileart -- 箭矢模型
-    sobj.Missilespeed = 1100 -- 箭矢速度
-    sobj.Missilearc = v.Missilearc or 0.05
-    sobj.weapTp1 = v.weapTp1 or "normal" --攻击类型
-    sobj.weapType1 = "" --攻击声音
-    sobj.upgrades = ""
-    sobj.Builds = ""
-    local movetp = v.movetp or "foot"
-    local moveHeight = v.moveHeight or 0
-    if(movetp == 'fly')then
-        moveHeight = 250
-    end
-    sobj.movetp = movetp --移动类型
-    sobj.moveHeight = moveHeight --移动高度
-    sobj.moveFloor = moveHeight * 0.25 --最低高度
-    sobj.regenHP = 0
-    sobj.regenType = ""
-    sobj.def = 0
-    local abl = {}
-    if(type(v.abilList) == "string")then
-        abl = string.explode(',', abl)
-    elseif(type(v.abilList) == "table")then
-        for _,t in pairs(v.abilList) do
-            table.insert( abl, t )
-        end
-    end
-    if(#abl ==0)then
-        abl = {
-            towerSpxKV["封印枷锁之一"],
-            towerSpxKV["封印枷锁之二"]
-        }
-    elseif(#abl == 1)then
-        table.insert( abl, towerSpxKV["封印枷锁之二"] )
-    end
-    table.insert( abl, v.DESC_ABILITY_ID )
-    table.insert( abl, unitPowerMap[tlv] )
-    sobj.abilList = string.implode(",",abl) .. "," .. string.implode(",",LINK_ABILITY_STACK)
-    v.TOWER_ID = v.UNIT_ID
-    v.TYPE = "tower_shadow"
-    v.UNIT_ID = sobj:get_id()
-    ?>
-    call SaveStr(hash_myslk, StringHash("towers_shadow"), <?=sti?>, "<?=string.addslashes(json.stringify(v))?>")
-    <?
-end
 
 
 towers = {
@@ -398,7 +290,7 @@ for tlv, tow in pairs(towers) do
                 TOWER_POWER = tlv,
             }
             ?>
-            call SaveStr(hash_myslk, StringHash("towers"), <?=towersTi?>, "<?=string.addslashes(json.stringify(v))?>")
+            call SaveStr(hash_myslk, StringHash("hero"), <?=towersTi?>, "<?=string.addslashes(json.stringify(v))?>")
             call SaveStr(hash_myslk, StringHash("towersItems"), <?=towersTi?>, "<?=string.addslashes(json.stringify(hitem))?>")
             <?
             --shadow
@@ -408,5 +300,5 @@ for tlv, tow in pairs(towers) do
 end
 
 ?>
-call SaveInteger(hash_myslk, StringHash("towers"), -1, <?=towersTi?>)
+call SaveInteger(hash_myslk, StringHash("hero"), -1, <?=towersTi?>)
 <?

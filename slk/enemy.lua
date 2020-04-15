@@ -1,4 +1,5 @@
-enemys = {
+ENEMY = {}
+ENEMY_CONF = {
     {
         Name = "鬼影",
         file = "units\\undead\\Shade\\Shade",
@@ -55,3 +56,30 @@ enemys = {
         moveHeight = 50,
     },
 }
+
+-- enemys
+for _, v in ipairs(ENEMY_CONF) do
+    local obj = slk.unit.ogru:new("this_enemys_" .. v.Name)
+    obj.Name = v.Name
+    obj.abilList = ""
+    obj.file = v.file
+    obj.Art = "ReplaceableTextures\\CommandButtons\\BTNShade.blp"
+    obj.modelScale = v.modelScale or 1.00
+    obj.scale = v.scale or 1.00
+    obj.HP = 100
+    obj.spd = 220
+    obj.sight = 500
+    obj.nsight = 500
+    obj.unitSound = v.unitSound or ""
+    obj.weapsOn = 0
+    obj.movetp = v.movetp or "foot"--移动类型
+    obj.moveHeight = v.moveHeight or 0 --移动高度
+    obj.moveFloor = (v.moveHeight or 0) * 0.25 --最低高度
+    obj.regenHP = 0
+    obj.regenType = ""
+    obj.def = 0
+    obj.upgrades = ""
+    obj.Builds = ""
+    obj.fused = 0
+    table.insert(ENEMY, { UNIT_ID = id, Name = v.Name })
+end

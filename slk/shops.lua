@@ -1,4 +1,5 @@
-shops = {
+SHOPS = {}
+SHOPS_CONF = {
     {
         Name = "巫毒商店",
         pathTex = "PathTextures\\8x8SimpleSolid.tga",
@@ -63,3 +64,22 @@ shops = {
         scale = 2.70
     }
 }
+
+-- shops
+for _, v in ipairs(SHOPS_CONF) do
+    local obj = slk.unit.ngme:new("shops_" .. v.Name)
+    obj.Name = v.Name
+    obj.pathTex = v.pathTex
+    obj.abilList = "Avul,Apit,Aall"
+    obj.file = v.file
+    obj.modelScale = v.modelScale or 1.00
+    obj.scale = v.scale or 1.00
+    obj.HP = 99999
+    obj.sight = 1000
+    obj.nsight = 1000
+    obj.unitSound = v.unitSound or ""
+    obj.Makeitems = ""
+    obj.Sellitems = ""
+    obj.UberSplat = ""
+    table.insert(SHOPS, { UNIT_ID = obj:get_id(), Name = v.Name })
+end
