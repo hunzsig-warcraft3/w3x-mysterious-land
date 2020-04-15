@@ -58,20 +58,64 @@ hquest.create(
     }
 )
 
--- 商店
-THIS_SHOPS = {}
-for spi, sp in ipairs(game.shopsConfig) do
-    THIS_SHOPS[spi] = hunit.create(
+-- 复活石、复活阵
+for _, f in ipairs(game.rebornStone) do
+    local id
+    if (f.type == 1) then
+        id = game.name2id.units["复活石(面向东南的)"]
+    elseif (f.type == 2) then
+        id = game.name2id.units["复活石(面向西南的)"]
+    end
+    local stone = hunit.create(
         {
             register = false,
             whichPlayer = game.ALLY_PLAYER,
-            unitId = game.shops[sp[1]].UNIT_ID,
+            unitId = id,
             qty = 1,
-            x = sp[2][1],
-            y = sp[2][2]
+            x = f.loc[1],
+            y = f.loc[2]
+        }
+    )
+    local rePoint = hunit.create(
+        {
+            register = false,
+            whichPlayer = game.ALLY_PLAYER,
+            unitId = game.name2id.units["复活阵"],
+            qty = 1,
+            x = f.reborn[1],
+            y = f.reborn[2]
         }
     )
 end
 
+-- 传送门
+for _, f in ipairs(game.door) do
+    local portal = hunit.create(
+        {
+            register = false,
+            whichPlayer = game.ALLY_PLAYER,
+            unitId = game.name2id.units["传送门"],
+            qty = 1,
+            x = f.from[1],
+            y = f.from[2]
+        }
+    )
+end
+
+-- 商店
+--THIS_SHOPS = {}
+--for spi, sp in ipairs(game.shopsConfig) do
+--    THIS_SHOPS[spi] = hunit.create(
+--        {
+--            register = false,
+--            whichPlayer = game.ALLY_PLAYER,
+--            unitId = game.shops[sp[1]].UNIT_ID,
+--            qty = 1,
+--            x = sp[2][1],
+--            y = sp[2][2]
+--        }
+--    )
+--end
+
 -- game start(这里需要用时间事件延时N秒，不然很多动作会在初始化失效)
-require "game.schedule"
+--require "game.schedule"

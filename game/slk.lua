@@ -18,6 +18,13 @@ for _, v in ipairs(game.shops) do
 end
 
 -- 敌人单位
+local units = json.parse(cg.SLK_UNITS)
+for _, v in ipairs(units) do
+    hRuntime.register.unit(v)
+    game.name2id.units[v.Name] = v.UNIT_ID
+end
+
+-- 敌人单位
 game.enemy = json.parse(cg.SLK_ENEMY)
 for _, v in ipairs(game.enemy) do
     hRuntime.register.unit(v)
