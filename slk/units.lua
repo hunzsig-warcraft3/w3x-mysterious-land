@@ -10,8 +10,8 @@ UNITS_CONF = {
         scale = 3.60,
         HP = 99999,
         spd = 0,
-        sight = 800,
-        nsight = 800,
+        sight = 1000,
+        nsight = 1000,
         unitSound = "",
         weapsOn = 0,
     },
@@ -24,8 +24,8 @@ UNITS_CONF = {
         scale = 3.60,
         HP = 99999,
         spd = 0,
-        sight = 800,
-        nsight = 800,
+        sight = 1000,
+        nsight = 1000,
         unitSound = "",
         weapsOn = 0,
     },
@@ -75,6 +75,7 @@ for _, v in ipairs(UNITS_CONF) do
     obj.nsight = v.nsight
     obj.unitSound = v.unitSound or ""
     obj.weapsOn = v.weapsOn or 0
+    obj.unitShadow = ""
     obj.regenHP = 0
     obj.regenType = ""
     obj.fused = 0

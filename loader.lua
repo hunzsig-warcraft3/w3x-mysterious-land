@@ -100,6 +100,11 @@ for _, f in ipairs(game.door) do
             y = f.from[2]
         }
     )
+    hevent.onEnterUnitRange(portal, 50, function(evtData)
+        local enterUnit = evtData.enterUnit
+        cj.SetUnitPosition(enterUnit, f.to[2], f.to[3])
+        hcamera.toXY(cj.GetOwningPlayer(enterUnit), 0, f.to[2], f.to[3])
+    end)
 end
 
 -- 商店
