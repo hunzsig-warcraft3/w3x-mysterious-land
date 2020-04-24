@@ -124,5 +124,20 @@ end
 --    )
 --end
 
+-- env岛屿环境
+local islands = {
+    { type = "sea", rect = hrect.create(-5520, -5200, 5800, 7300) }, -- 斑斓海
+    { type = "winterDeep", rect = hrect.create(-6640, 5100, 5120, 7700) }, -- 冰极雪原
+    { type = "fire", rect = hrect.create(2030, 5888, 4096, 4096) }, -- 火蛇岛
+    { type = "poor", rect = hrect.create(6970, 0, 4096, 4096) }, -- 铁环山
+    { type = "ruins", rect = hrect.create(6788, -6781, 4608, 5120) }, -- 遗迹草原
+    { type = "summer", rect = hrect.create(400, -6900, 2816, 3800) }, -- 秘潭幽林
+    { type = "dark", rect = hrect.create(7544, 6759, 3800, 4608) }, -- 枯死岸
+}
+for _, v in ipairs(islands) do
+    henv.random(v.rect, v.type, nil, nil, true)
+    henv.random(v.rect, v.type, nil, nil, true)
+end
+
 -- game start(这里需要用时间事件延时N秒，不然很多动作会在初始化失效)
 require "game.schedule"

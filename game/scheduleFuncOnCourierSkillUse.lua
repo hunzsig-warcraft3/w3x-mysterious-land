@@ -276,7 +276,7 @@ onCourierSkillUesd = function(evtData)
                     0.25
                 )
                 if (gold >= 1888) then
-                    hmsg.echo(hColor.sky(cj.GetPlayerName(p)) .. "抽到了|cff" .. color .. label .. "|r，大家祝贺TA！")
+                    echo(hColor.sky(cj.GetPlayerName(p)) .. "抽到了|cff" .. color .. label .. "|r，大家祝贺TA！")
                 end
             else
                 hsound.sound2Player(cg.gg_snd_sell_item, p)
@@ -349,7 +349,7 @@ onCourierSkillUesd = function(evtData)
                     whichUnit = u
                 }
             )
-            hmsg.echo(
+            echo(
                 hColor.sky(cj.GetPlayerName(p)) ..
                     "利用" .. hColor.yellow(itemQty) .. "件装备升华出了" .. hColor.green(randIt.Name) .. "！"
             )

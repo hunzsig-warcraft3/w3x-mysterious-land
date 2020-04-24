@@ -40,7 +40,7 @@ enemyGenYB = function(waiting)
                                     if (game.currentMon <= 0) then
                                         htime.delTimer(t3)
                                         hmark.create("war3mapImported\\mark_win.blp", 4.00)
-                                        hmsg.echo("通过了" .. game.rule.yb.waveEnd .. "波!|cffffff00恭喜！欢乐！|r，10秒后会退出游戏")
+                                        echo("通过了" .. game.rule.yb.waveEnd .. "波!|cffffff00恭喜！欢乐！|r，10秒后会退出游戏")
                                         htime.setTimeout(
                                             10,
                                             function(t)
@@ -62,7 +62,7 @@ enemyGenYB = function(waiting)
                             function(p, pi)
                                 if (his.playing(p)) then
                                     hsound.sound2Player(cg.gg_snd_coin_1, p)
-                                    hmsg.echo(hplayer.getSelection(p))
+                                    echo(hplayer.getSelection(p))
                                     dzSetLumber(p, game.rule.yb.wave)
                                     hplayer.addGold(p, gold, game.playerTower[pi])
                                     local tempGold = cj.R2I(gold * hplayer.getGoldRatio(p) / 100)
@@ -150,7 +150,7 @@ enemyGenHZ = function(waiting)
                             function(p, pi)
                                 if (his.playing(p)) then
                                     hsound.sound2Player(cg.gg_snd_coin_1, p)
-                                    hmsg.echo(hplayer.getSelection(p))
+                                    echo(hplayer.getSelection(p))
                                     dzSetLumber(p, game.rule.hz.wave)
                                     hplayer.addGold(p, gold, game.playerTower[pi])
                                     local tempGold = cj.R2I(gold * hplayer.getGoldRatio(p) / 100)

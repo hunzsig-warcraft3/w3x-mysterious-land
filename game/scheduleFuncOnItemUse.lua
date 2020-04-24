@@ -107,14 +107,14 @@ onUnitItemsUesd = function(evtData)
                     return
                 elseif (btnIdx == 0) then
                     local u = createMyTower(playerIndex, game.towers[itemSLK.INDEX].UNIT_ID)
-                    hmsg.echo(
+                    echo(
                         hColor.sky(cj.GetPlayerName(p)) ..
                             "召唤了主塔：[" .. hColor.yellow(game.towers[itemSLK.INDEX].Name) .. "]"
                     )
                     addTowerSkillsRaceTeam(playerIndex)
                 else
                     local u = createMyTowerLink(playerIndex, btnIdx, game.towers[itemSLK.INDEX].UNIT_ID)
-                    hmsg.echo(
+                    echo(
                         hColor.sky(cj.GetPlayerName(p)) ..
                             "召唤了辅塔：[" .. hColor.yellow(game.towers[itemSLK.INDEX].Name) .. "]"
                     )
@@ -247,7 +247,7 @@ onUnitItemsUesd = function(evtData)
                 },
                 function(btnIdx)
                     local u = createMyCourier(playerIndex, game.courier[btnIdx].UNIT_ID)
-                    hmsg.echo(
+                    echo(
                         hColor.sky(cj.GetPlayerName(p)) .. "召唤了信使：[" .. hColor.yellow(game.courier[btnIdx].Name) .. "]"
                     )
                     if (u ~= nil and cj.GetLocalPlayer() == p) then
@@ -463,7 +463,7 @@ onUnitItemsUesd = function(evtData)
                                     dmg = math.random(100, 76 * htime.min)
                                 end
                                 hunit.subCurLife(game.playerTower[pi], dmg)
-                                hmsg.echo(
+                                echo(
                                     hColor.sky(cj.GetPlayerName(hplayer.players[pi])) ..
                                         "被黑色悍马雷劈掉了" .. hColor.red(dmg) .. "血"
                                 )

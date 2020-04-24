@@ -222,7 +222,7 @@ end
 -- 创造兵塔
 createMyTower = function(playerIndex, towerId, towerLevel)
     if (playerIndex == nil or towerId == nil or towerId == "") then
-        hmsg.echo("兵塔石出bug了")
+        echo("兵塔石出bug了")
         return nil
     end
     if (hplayer.getStatus(hplayer.players[playerIndex]) == hplayer.player_status.gaming) then

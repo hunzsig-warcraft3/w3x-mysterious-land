@@ -42,7 +42,7 @@ addTowerLevel = function(playerIndex, lockLv)
         hmsg.echo00(hplayer.players[playerIndex], "主塔天赋变为：" .. hColor.yellow(unitLv) .. "级")
         if (unitLv == 9) then
             hsound.sound2Player(cg.gg_snd_jsws, hplayer.players[playerIndex])
-            hmsg.echo(
+            echo(
                 hColor.sky("(>▽<)" .. cj.GetPlayerName(hplayer.players[playerIndex])) ..
                     "得到了" .. hColor.yellow(unitLv) .. "级天赋主塔，大家祝贺TA！"
             )
@@ -114,7 +114,7 @@ addTowerLinkLevel = function(playerIndex, targetLi, lockLv)
         hmsg.echo00(hplayer.players[playerIndex], "辅塔天赋变为：" .. hColor.yellow(unitLv) .. "级")
         if (unitLv == 9) then
             hsound.sound2Player(cg.gg_snd_jsws, hplayer.players[playerIndex])
-            hmsg.echo(
+            echo(
                 hColor.sky("(>▽<)" .. cj.GetPlayerName(hplayer.players[playerIndex])) ..
                     "得到了" .. hColor.yellow(unitLv) .. "级天赋辅塔，大家祝贺TA！"
             )
