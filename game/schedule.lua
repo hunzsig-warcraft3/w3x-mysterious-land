@@ -33,129 +33,48 @@ hevent.onPlayerLeave(
     end
 )
 
---兵塔命令控制
-game.TRIGGER_DE = cj.CreateTrigger()
-cj.TriggerAddAction(
-    game.TRIGGER_DE,
-    function()
-        if (cj.GetIssuedOrderId() == 851971 or cj.GetIssuedOrderId() == 851986) then
-            local index = hplayer.index(cj.GetOwningPlayer(cj.GetTriggerUnit()))
-            cj.IssuePointOrderById(
-                cj.GetTriggerUnit(),
-                851983,
-                cj.GetUnitX(cj.GetTriggerUnit()),
-                cj.GetUnitY(cj.GetTriggerUnit())
-            )
-        end
+--- boss击杀计算
+dzSetKnockdown = function(p)
+    if (game.playerKnockdown[p] == nil) then
+        game.playerKnockdown[p] = hdzapi.server.get.int(p, "knockdown") or 0
     end
-)
-
---兵塔位置控制
-htime.setInterval(
-    40,
-    function()
-        hplayer.loop(
-            function(p, pi)
-                if (game.playerTower[pi] ~= nil) then
-                    cj.SetUnitPosition(game.playerTower[pi], game.towerPoint[pi][1], game.towerPoint[pi][2])
-                end
-                for i = 1, 4, 1 do
-                    if (game.playerTowerLink[pi] ~= nil and game.playerTowerLink[pi][i] ~= nil) then
-                        local x = game.towerPoint[pi][1] + game.towerLinkOffset[i][1]
-                        local y = game.towerPoint[pi][2] + game.towerLinkOffset[i][2]
-                        cj.SetUnitPosition(game.playerTowerLink[pi][i].unit, x, y)
-                    end
-                    if
-                    (game.playerTowerLink[pi] == nil or game.playerTowerLink[pi][i] == nil or
-                        his.alive(game.playerTowerLink[pi][i].unit) == false)
-                    then
-                        createMyTowerLink(pi, i)
-                    end
-                end
-            end
-        )
-    end
-)
-
---兵塔攻击debug
-towerAttackDebug = function(k)
-    cj.IssuePointOrderById(
-        game.playerTower[k],
-        851983,
-        cj.GetUnitX(game.playerTower[k]),
-        cj.GetUnitY(game.playerTower[k])
-    )
-    for li = 1, 4, 1 do
-        if (game.playerTowerLink[k][li] ~= nil) then
-            cj.IssuePointOrderById(
-                game.playerTowerLink[k][li].unit,
-                851983,
-                cj.GetUnitX(game.playerTowerLink[k][li].unit),
-                cj.GetUnitY(game.playerTowerLink[k][li].unit)
-            )
-        end
-    end
-end
-
-dzSetLumber = function(p, curWave)
-    local lv = hdzapi.mapLv(p)
-    if (lv == nil or lv < 1) then
-        lv = 1
-    end
-    hdzapi.server.set.int(p, "lumber", hplayer.getLumber(p) + curWave + lv)
-end
-
-dzSetPrestige = function(p, iscs, isss)
-    local cs = hdzapi.server.get.int(p, "prestigecs")
-    local ss = hdzapi.server.get.int(p, "prestigess")
-    if (iscs) then
-        cs = cs + 1
-        hdzapi.server.set.int(p, "prestigecs", cs)
-        hdzapi.setRoomStat(p, "prestigecs", cs)
-    end
-    if (isss) then
-        if (htime.count >= 300) then
-            ss = ss + 1
-            hdzapi.server.set.int(p, "prestigess", ss)
-            hdzapi.setRoomStat(p, "prestigess", ss)
-            local playerIndex = hplayer.index(p)
-            dzSetLumber(p, 100 + game.rule.dk.wave[playerIndex])
-        else
-            hmsg.echo00(p, hColor.green("温馨提示：由于本局游戏时间过短，本局的胜负不会被记录"))
-        end
-    end
+    game.playerKnockdown[p] = game.playerKnockdown[p] + 1
+    local kd = game.playerKnockdown[p]
+    hdzapi.server.set.int(p, "knockdown", kd)
     local prestige
-    if (cs >= 500 and ss >= 100) then
+    if (kd >= 999) then
         prestige = "九天至尊"
-    elseif (cs >= 300 and ss >= 75) then
-        prestige = "六道大仙"
-    elseif (cs >= 200 and ss >= 50) then
-        prestige = "神游三界"
-    elseif (cs >= 150 and ss >= 25) then
+    elseif (kd >= 500) then
+        prestige = "三清天尊"
+    elseif (kd >= 400) then
+        prestige = "六御天帝"
+    elseif (kd >= 300) then
+        prestige = "得道金仙"
+    elseif (kd >= 250) then
         prestige = "灭劫星窍"
-    elseif (cs >= 125 and ss >= 15) then
+    elseif (kd >= 200) then
+        prestige = "神游山海"
+    elseif (kd >= 180) then
         prestige = "灵通三魂"
-    elseif (cs >= 100 and ss >= 13) then
+    elseif (kd >= 130) then
         prestige = "身越七魄"
-    elseif (cs >= 90 and ss >= 11) then
-        prestige = "超凡入圣"
-    elseif (cs >= 80 and ss >= 9) then
-        prestige = "超然世外"
-    elseif (cs >= 70 and ss >= 7) then
-        prestige = "猎尽天下"
-    elseif (cs >= 60 and ss >= 5) then
+    elseif (kd >= 100) then
+        prestige = "修真始体"
+    elseif (kd >= 90) then
+        prestige = "天选之人"
+    elseif (kd >= 70) then
         prestige = "登峰造极"
-    elseif (cs >= 50 and ss >= 3) then
-        prestige = "当世雄豪"
-    elseif (cs >= 40 and ss >= 2) then
-        prestige = "名扬四方"
-    elseif (cs >= 30 and ss >= 1) then
+    elseif (kd >= 50) then
+        prestige = "当世英豪"
+    elseif (kd >= 40) then
+        prestige = "名扬山海"
+    elseif (kd >= 30) then
         prestige = "一战成名"
-    elseif (cs >= 20 and ss >= 0) then
+    elseif (kd >= 20) then
         prestige = "游刃有余"
-    elseif (cs >= 10 and ss >= 0) then
+    elseif (kd >= 10) then
         prestige = "初露锋芒"
-    elseif (cs >= 5 and ss >= 0) then
+    elseif (kd >= 5) then
         prestige = "略有小成"
     else
         prestige = "初出茅庐"

@@ -10,14 +10,6 @@ require "game.slk"
 -- 加载test
 require "game.test"
 
--- 预读 preread（为了有效您需要注意hRuntime.register.ability的初始化 abilitiesKV）
-local u = cj.CreateUnit(hplayer.player_passive, hslk_global.unit_token, 0, 0, 0)
-for id, _ in pairs(hslk_global.abilitiesKV) do
-    cj.UnitAddAbility(u, id)
-    cj.UnitRemoveAbility(u, id)
-end
-hunit.del(u)
-
 -- 镜头模式
 hcamera.setModel("normal")
 
@@ -86,6 +78,16 @@ for _, f in ipairs(game.rebornStone) do
             y = f.reborn[2]
         }
     )
+    game.unitsReborn[stone] = { x = f.reborn[1], y = f.reborn[1] }
+    hevent.onEnterUnitRange(stone, 150, function(evtData)
+        local centerUnit = evtData.centerUnit
+        local enterUnit = evtData.enterUnit
+        if (his.hero(enterUnit)) then
+            game.unitsReborn[enterUnit] = game.unitsReborn[centerUnit]
+            httg.create2Unit(enterUnit, "重生记录", 11, nil, 1, 1, 100)
+            heffect.bindUnit("Abilities\\Spells\\Demon\\ReviveDemon\\ReviveDemon.mdl", enterUnit, "origin", 1)
+        end
+    end)
 end
 
 -- 传送门
@@ -123,4 +125,4 @@ end
 --end
 
 -- game start(这里需要用时间事件延时N秒，不然很多动作会在初始化失效)
---require "game.schedule"
+require "game.schedule"

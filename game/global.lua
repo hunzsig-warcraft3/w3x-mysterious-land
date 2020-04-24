@@ -26,6 +26,8 @@ game = {
     },
     running = true,
     diff = 0,
+    unitsReborn = {},
+    playerKnockdown = {},
     playerOriginLumber = {},
     playerCourier = {},
     name2id = {
