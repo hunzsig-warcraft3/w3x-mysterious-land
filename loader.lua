@@ -8,9 +8,6 @@ hcamera.setModel("normal")
 hplayer.qty_max = 7 -- 最大玩家数
 hplayer.convert_ratio = 1000000 -- 换算比率，100金 -> 1木
 
--- 设定友军
-game.ALLY_PLAYER = hplayer.players[12]
-
 -- 设定敌军
 henemy.setName("山海道兽")
 -- henemy.setShareSight(true)
@@ -23,6 +20,8 @@ henemy.setPlayer(hplayer.players[11])
 -- 加载本地图的设置
 require "game.setting.global"
 require "game.setting.slk"
+-- 设定友军
+game.ALLY_PLAYER = hplayer.players[12]
 require "game.setting.f9"
 require "game.setting.rebornStone"
 require "game.setting.portal"

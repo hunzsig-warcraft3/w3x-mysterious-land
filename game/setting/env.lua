@@ -36,7 +36,7 @@ local islands = {
     },
     {
         name = "铁环山",
-        rect = hrect.create(6970, 0, 4096, 4096),
+        rect = hrect.create(6970, 0, 4096, 4300),
         env = "poor",
         color = hColor.yellow,
         allowWeather = {
@@ -60,7 +60,7 @@ local islands = {
     },
     {
         name = "秘潭幽林",
-        rect = hrect.create(400, -6900, 2816, 3800),
+        rect = hrect.create(400, -6900, 2900, 3900),
         env = "summer",
         color = hColor.green,
         allowWeather = {
@@ -192,8 +192,8 @@ autoWeather = function(obj, during)
                 for _ = 1, (3 + game.diff) do
                     local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                     local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                    local radius = 256
-                    htexture.alertCircle(radius, x, y, 2)
+                    local radius = 250
+                    htexture.alertCircle(radius * 2, x, y, 2)
                     htime.setTimeout(2, function(t2)
                         htime.delTimer(t2)
                         heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)
@@ -390,8 +390,8 @@ autoWeather = function(obj, during)
                 for _ = 1, (5 + game.diff) do
                     local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                     local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                    local radius = 384
-                    htexture.alertCircle(radius, x, y, 2)
+                    local radius = 350
+                    htexture.alertCircle(radius * 2, x, y, 2)
                     htime.setTimeout(2, function(t2)
                         htime.delTimer(t2)
                         heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)

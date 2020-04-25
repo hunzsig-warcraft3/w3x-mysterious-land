@@ -27,7 +27,7 @@ for _, f in ipairs(game.rebornStone) do
         }
     )
     game.unitsReborn[stone] = { x = f.reborn[1], y = f.reborn[1] }
-    hevent.onEnterUnitRange(stone, 150, function(evtData)
+    hevent.onEnterUnitRange(stone, 225, function(evtData)
         local centerUnit = evtData.centerUnit
         local enterUnit = evtData.enterUnit
         if (his.hero(enterUnit)) then
