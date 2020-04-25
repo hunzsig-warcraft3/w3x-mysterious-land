@@ -1,9 +1,9 @@
 require "game.scheduleFunc"
 
 if (HLUA_DEBUG == true) then
-    hmark.setFogStatus(false, false)
+    henv.setFogStatus(false, false)
 else
-    hmark.setFogStatus(true, true)
+    henv.setFogStatus(true, true)
 end
 
 --- boss击杀计算
@@ -111,13 +111,13 @@ cj.TriggerAddAction(
                 local diff = 1
                 local diffColor = hColor.sky
                 if (btnIdx == "历险的老手") then
-                    diff = 3
+                    diff = 2
                     diffColor = hColor.green
                 elseif (btnIdx == "冒险的高手") then
-                    diff = 7
+                    diff = 4
                     diffColor = hColor.yellow
                 elseif (btnIdx == "无畏的达人") then
-                    diff = 15
+                    diff = 10
                     diffColor = hColor.red
                 end
                 echo("选择了难度：" .. diffColor(btnIdx))

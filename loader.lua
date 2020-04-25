@@ -131,7 +131,6 @@ local islands = {
         rect = hrect.create(-5520, -5200, 5800, 7300),
         env = "sea",
         color = hColor.sea,
-        weather = nil,
         allowWeather = {
             { weather = "time", desc = "风光无限好" },
             { weather = hweather.rain, desc = "忽然下起了小雨" },
@@ -144,7 +143,6 @@ local islands = {
         rect = hrect.create(-6640, 5100, 5120, 7700),
         env = "winterDeep",
         color = hColor.sky,
-        weather = nil,
         allowWeather = {
             { weather = hweather.rain, desc = "下起了冻雨" },
             { weather = hweather.snow, desc = "下起了雪，冰封大地" },
@@ -157,7 +155,6 @@ local islands = {
         rect = hrect.create(2030, 5888, 4096, 4096),
         env = "fire",
         color = hColor.red,
-        weather = nil,
         allowWeather = {
             { weather = hweather.mistred, desc = "热火焚身，天火遍野" },
             { weather = hweather.wind, desc = "刮起了风，带了一丝清凉" },
@@ -168,7 +165,6 @@ local islands = {
         rect = hrect.create(6970, 0, 4096, 4096),
         env = "poor",
         color = hColor.yellow,
-        weather = nil,
         allowWeather = {
             { weather = "time", desc = "一派大好河山的景象" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -180,7 +176,6 @@ local islands = {
         rect = hrect.create(6788, -6781, 4608, 5120),
         env = "ruins",
         color = hColor.greenLight,
-        weather = nil,
         allowWeather = {
             { weather = "time", desc = "展现原野靓景" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -194,7 +189,6 @@ local islands = {
         rect = hrect.create(400, -6900, 2816, 3800),
         env = "summer",
         color = hColor.green,
-        weather = nil,
         allowWeather = {
             { weather = "time", desc = "万物逗趣，生机勃勃" },
             { weather = hweather.rain, desc = "下雨了，空气十分凉爽" },
@@ -206,7 +200,6 @@ local islands = {
         rect = hrect.create(7544, 6759, 3800, 4608),
         env = "dark",
         color = hColor.purple,
-        weather = nil,
         allowWeather = {
             { weather = hweather.shield, desc = "可看到紫色灵魂升天的奇象" },
             { weather = hweather.mistgreen, desc = "毒雾弥漫，注意小心" },
@@ -216,10 +209,7 @@ local islands = {
     },
 }
 -- 自动天气
-autoWeather = function(obj)
-    if (obj.weather ~= nil) then
-        hweather.del(obj.weather)
-    end
+autoWeather = function(obj, during)
     if (#obj.allowWeather > 0) then
         local which = obj.allowWeather[math.random(1, #obj.allowWeather)]
         if (which.weather == "time") then
@@ -232,15 +222,174 @@ autoWeather = function(obj)
             end
         end
         echo(obj.color(obj.name) .. "此时" .. which.desc)
-        obj.weather = hweather.create({
+        hweather.create({
             whichRect = obj.rect,
-            type = which.weather
+            type = which.weather,
+            during = during
         })
+        local dur = 0
+        htime.setInterval(3, function(t)
+            dur = dur + 3
+            if (dur >= during) then
+                htime.delTimer(t)
+                autoWeather(obj, math.random(120, 300))
+                return
+            end
+            if (which.weather == hweather.sun and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 10) == 3) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "阳光回照", 10, "FFD700", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\NightElf\\Rejuvenation\\RejuvenationTarget.mdl",
+                            enumUnit, "origin", 5
+                        )
+                        hattr.set(enumUnit, 5, {
+                            mana_back = "+" .. (75 - 2 * game.diff),
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.moon and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 10) == 3) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "月光护佑", 10, "00BFFF", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Items\\ClarityPotion\\ClarityTarget.mdl",
+                            enumUnit, "origin", 5
+                        )
+                        hattr.set(enumUnit, 5, {
+                            mana_back = "+" .. (60 - 2 * game.diff),
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.rain and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 5) == 3) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "雨水浸透", 10, "87CEFA", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Other\\AcidBomb\\BottleImpact.mdl",
+                            enumUnit, "origin", 5
+                        )
+                        hattr.set(enumUnit, 5, {
+                            move = "-" .. (10 + game.diff),
+                            defend = "-" .. (1 + game.diff),
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.rainstorm and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 5) == 3) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "大雨蹉跎", 10, "4682B4", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Other\\AcidBomb\\BottleImpact.mdl",
+                            enumUnit, "origin", 7
+                        )
+                        hattr.set(enumUnit, 7, {
+                            attack_speed = "-" .. (6 + game.diff),
+                            move = "-" .. (20 + game.diff),
+                            defend = "-" .. (3 + game.diff),
+                        })
+                    end
+                end, true)
+                -- 雷暴
+                local x = math.random(hrect.getStartX(obj.rect), hrect.getStartY(obj.rect))
+                local y = math.random(hrect.getStartY(obj.rect), hrect.getStartY(obj.rect))
+                htexture.alertCircle(128, x, y, 2)
+                htime.setTimeout(2, function(t2)
+                    htime.delTimer(t2)
+                    heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)
+                    local g2 = hgroup.createByXY(x, y, function(filterUnit)
+                        return his.hero(filterUnit) and his.alive(filterUnit)
+                    end)
+                    hgroup.loop(g2, function(enumUnit)
+                        hskill.swim({
+                            whichUnit = enumUnit,
+                            during = 0.5 + 0.1 * game.diff,
+                            odds = 100,
+                            effect = "Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl",
+                            damageKind = CONST_DAMAGE_KIND.special,
+                            damageType = { CONST_DAMAGE_TYPE.thunder }
+                        })
+                        hunit.subCurLife(enumUnit, (0.35 + 0.05 * game.diff) * hunit.getCurLife(enumUnit))
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl",
+                            enumUnit, "origin", 7
+                        )
+                        hattr.set(enumUnit, 10, {
+                            attack_speed = "-" .. (20 + game.diff),
+                            move = "-" .. (35 + game.diff),
+                        })
+                    end, true)
+                end)
+            elseif (which.weather == hweather.snow and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 2) == 1) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "飘雪冻结", 10, "F0FFFF", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.toUnit("Abilities\\Spells\\Human\\Blizzard\\BlizzardTarget.mdl", enumUnit)
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Undead\\FrostArmor\\FrostArmorDamage.mdl",
+                            enumUnit, "origin", 12
+                        )
+                        hattr.set(enumUnit, 12, {
+                            attack_speed = "-" .. (4 + game.diff),
+                            move = "-" .. (11 + game.diff),
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.snowstorm and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 2) == 1) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "雪崩", 10, "F0FFFF", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.toUnit("Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl", enumUnit)
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Undead\\FrostArmor\\FrostArmorDamage.mdl",
+                            enumUnit, "origin", 12
+                        )
+                        hattr.set(enumUnit, 12, {
+                            attack_speed = "-" .. (6 + game.diff),
+                            move = "-" .. (13 + game.diff),
+                            defend = "-" .. game.diff,
+                        })
+                    end
+                end, true)
+            end
+        end)
     end
-    htime.setTimeout(math.random(120, 300), function(t)
-        htime.delTimer(t)
-        autoWeather(obj)
-    end)
 end
 
 for _, v in ipairs(islands) do
@@ -248,8 +397,9 @@ for _, v in ipairs(islands) do
     henv.random(v.rect, v.env, nil, nil, false)
     htime.setTimeout(math.random(20, 30), function(t)
         htime.delTimer(t)
-        autoWeather(v)
+        autoWeather(v, math.random(120, 300))
     end)
+
 end
 
 -- game start(这里需要用时间事件延时N秒，不然很多动作会在初始化失效)
