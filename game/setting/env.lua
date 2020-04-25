@@ -114,7 +114,7 @@ autoWeather = function(obj, during)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 5) == 1) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "阳光回照", 10, "FFD700", 1, 2, 50),
                             'scale', 0, 0.05
@@ -133,7 +133,7 @@ autoWeather = function(obj, during)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 5) == 1) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "月光护佑", 10, "00BFFF", 1, 2, 50),
                             'scale', 0, 0.05
@@ -203,18 +203,18 @@ autoWeather = function(obj, during)
                         hgroup.loop(g2, function(enumUnit)
                             hskill.swim({
                                 whichUnit = enumUnit,
-                                during = 0.5 + 0.1 * game.diff,
+                                damage = (0.35 + 0.05 * game.diff) * hunit.getCurLife(enumUnit),
+                                during = 2 + 0.3 * game.diff,
                                 odds = 100,
                                 effect = "Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl",
                                 damageKind = CONST_DAMAGE_KIND.special,
                                 damageType = { CONST_DAMAGE_TYPE.thunder }
                             })
-                            hunit.subCurLife(enumUnit, (0.35 + 0.05 * game.diff) * hunit.getCurLife(enumUnit))
                             heffect.bindUnit(
                                 "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl",
                                 enumUnit, "origin", 7
                             )
-                            hattr.set(enumUnit, 10, {
+                            hattr.set(enumUnit, 7, {
                                 attack_speed = "-" .. (20 + game.diff),
                                 move = "-" .. (100 + game.diff),
                             })
@@ -264,7 +264,7 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.wind and math.random(1, 3) == 1) then
+            elseif (which.weather == hweather.wind) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -288,7 +288,7 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.windstorm and math.random(1, 3) == 1) then
+            elseif (which.weather == hweather.windstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -298,7 +298,7 @@ autoWeather = function(obj, during)
                             httg.create2Unit(enumUnit, "狂风割裂", 10, "00FA9A", 1, 2, 50),
                             'scale', 0, 0.05
                         )
-                        heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
+                        heffect.toUnit("Abilities\\Spells\\NightElf\\Cyclone\\CycloneTarget.mdl", enumUnit, 1)
                         hskill.crackFly({
                             whichUnit = enumUnit,
                             damage = 0,
@@ -312,7 +312,7 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.mistwhite and math.random(1, 3) == 1) then
+            elseif (which.weather == hweather.mistwhite) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -328,6 +328,96 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
+            elseif (which.weather == hweather.mistred) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    httg.style(
+                        httg.create2Unit(enumUnit, "烈焰焚身", 10, "FF6347", 1, 2, 50),
+                        'scale', 0, 0.05
+                    )
+                    heffect.bindUnit("Environment\\LargeBuildingFire\\LargeBuildingFire0.mdl", enumUnit, "origin", 7)
+                    local burn = 200 * game.diff
+                    local oppose = hattr.get(enumUnit, "natural_fire_oppose") or 0
+                    burn = math.round(burn * (1 - oppose * 0.01))
+                    if (burn > 0) then
+                        hattr.set(enumUnit, 5, {
+                            life_back = "-" .. burn,
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.mistgreen) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    httg.style(
+                        httg.create2Unit(enumUnit, "毒雾侵蚀", 10, "7FFF00", 1, 2, 50),
+                        'scale', 0, 0.05
+                    )
+                    heffect.bindUnit("Abilities\\Spells\\Human\\Banish\\BanishTarget.mdl", enumUnit, "origin", 7)
+                    local poison = 500 * game.diff
+                    local oppose = hattr.get(enumUnit, "natural_poison_oppose") or 0
+                    poison = math.round(poison * (1 - oppose * 0.01))
+                    if (poison > 0) then
+                        hattr.set(enumUnit, 5, {
+                            life_back = "-" .. poison,
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.mistblue) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    httg.style(
+                        httg.create2Unit(enumUnit, "蛊惑蓝烟", 10, "4169E1", 1, 2, 50),
+                        'scale', 0, 0.05
+                    )
+                    hskill.swim({
+                        whichUnit = enumUnit,
+                        damage = 25 * game.diff,
+                        during = 0.5 + 0.2 * game.diff,
+                        odds = 100,
+                        effect = "Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround.mdl",
+                        damageKind = CONST_DAMAGE_KIND.special,
+                        damageType = { CONST_DAMAGE_TYPE.dark }
+                    })
+                end, true)
+            elseif (which.weather == hweather.shield) then
+                -- 紫光爆炸
+                for _ = 1, (5 + game.diff) do
+                    local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
+                    local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
+                    local radius = 384
+                    htexture.alertCircle(radius, x, y, 2)
+                    htime.setTimeout(2, function(t2)
+                        htime.delTimer(t2)
+                        heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)
+                        local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
+                            return his.hero(filterUnit) and his.alive(filterUnit)
+                        end)
+                        hgroup.loop(g2, function(enumUnit)
+                            hskill.swim({
+                                whichUnit = enumUnit,
+                                damage = (0.4 + 0.05 * game.diff) * hunit.getMaxLife(enumUnit),
+                                during = 2 + 0.3 * game.diff,
+                                odds = 100,
+                                effect = "Objects\\Spawnmodels\\Undead\\UndeadDissipate\\UndeadDissipate.mdl",
+                                damageKind = CONST_DAMAGE_KIND.special,
+                                damageType = { CONST_DAMAGE_TYPE.thunder }
+                            })
+                            heffect.bindUnit(
+                                "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl",
+                                enumUnit, "origin", 7
+                            )
+                            hattr.set(enumUnit, 7, {
+                                defend = "-" .. (5 + 2 * game.diff),
+                            })
+                        end, true)
+                    end)
+                end
             end
         end)
     end
