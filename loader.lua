@@ -235,12 +235,12 @@ autoWeather = function(obj, during)
                 autoWeather(obj, math.random(120, 300))
                 return
             end
-            if (which.weather == hweather.sun and math.random(1, 5) == 3) then
+            if (which.weather == hweather.sun) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 10) == 3) then
+                    if (math.random(1, 5) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "阳光回照", 10, "FFD700", 1, 2, 50),
                             'scale', 0, 0.05
@@ -254,12 +254,12 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.moon and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.moon) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 10) == 3) then
+                    if (math.random(1, 5) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "月光护佑", 10, "00BFFF", 1, 2, 50),
                             'scale', 0, 0.05
@@ -273,12 +273,12 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.rain and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.rain) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 5) == 3) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "雨水浸透", 10, "87CEFA", 1, 2, 50),
                             'scale', 0, 0.05
@@ -293,12 +293,12 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.rainstorm and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.rainstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 5) == 3) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "大雨蹉跎", 10, "4682B4", 1, 2, 50),
                             'scale', 0, 0.05
@@ -317,11 +317,13 @@ autoWeather = function(obj, during)
                 -- 雷暴
                 local x = math.random(hrect.getStartX(obj.rect), hrect.getStartY(obj.rect))
                 local y = math.random(hrect.getStartY(obj.rect), hrect.getStartY(obj.rect))
-                htexture.alertCircle(128, x, y, 2)
+                local radius = 128
+                print(x, y, radius)
+                htexture.alertCircle(radius, x, y, 2)
                 htime.setTimeout(2, function(t2)
                     htime.delTimer(t2)
                     heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)
-                    local g2 = hgroup.createByXY(x, y, function(filterUnit)
+                    local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
                         return his.hero(filterUnit) and his.alive(filterUnit)
                     end)
                     hgroup.loop(g2, function(enumUnit)
@@ -344,12 +346,12 @@ autoWeather = function(obj, during)
                         })
                     end, true)
                 end)
-            elseif (which.weather == hweather.snow and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.snow) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 2) == 1) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "飘雪冻结", 10, "F0FFFF", 1, 2, 50),
                             'scale', 0, 0.05
@@ -365,7 +367,7 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.snowstorm and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.snowstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -387,12 +389,12 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.wind and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.wind and math.random(1, 3) == 1) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 2) == 1) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
                             'scale', 0, 0.05
@@ -411,14 +413,14 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.windstorm and math.random(1, 5) == 3) then
+            elseif (which.weather == hweather.windstorm and math.random(1, 3) == 1) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 2) == 1) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
-                            httg.create2Unit(enumUnit, "狂风割裂", 10, "7FFFAA", 1, 2, 50),
+                            httg.create2Unit(enumUnit, "狂风割裂", 10, "00FA9A", 1, 2, 50),
                             'scale', 0, 0.05
                         )
                         heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
@@ -432,6 +434,22 @@ autoWeather = function(obj, during)
                         })
                         hattr.set(enumUnit, 2.5, {
                             move = "-" .. (30 + game.diff),
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.mistwhite and math.random(1, 3) == 1) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 2) == 1) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "白雾蔽目", 10, "F5FFFA", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.bindUnit("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl", enumUnit, "head", 7)
+                        hattr.set(enumUnit, 7, {
+                            sight = "-" .. (300 + 50 * game.diff),
                         })
                     end
                 end, true)
