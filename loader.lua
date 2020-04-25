@@ -288,7 +288,7 @@ autoWeather = function(obj, during)
                             enumUnit, "origin", 5
                         )
                         hattr.set(enumUnit, 5, {
-                            move = "-" .. (10 + game.diff),
+                            move = "-" .. (20 + game.diff),
                             defend = "-" .. (1 + game.diff),
                         })
                     end
@@ -308,44 +308,45 @@ autoWeather = function(obj, during)
                             enumUnit, "origin", 7
                         )
                         hattr.set(enumUnit, 7, {
-                            attack_speed = "-" .. (6 + game.diff),
-                            move = "-" .. (20 + game.diff),
+                            attack_speed = "-" .. (10 + game.diff),
+                            move = "-" .. (30 + game.diff),
                             defend = "-" .. (3 + game.diff),
                         })
                     end
                 end, true)
                 -- 雷暴
-                local x = math.random(hrect.getStartX(obj.rect), hrect.getStartY(obj.rect))
-                local y = math.random(hrect.getStartY(obj.rect), hrect.getStartY(obj.rect))
-                local radius = 128
-                print(x, y, radius)
-                htexture.alertCircle(radius, x, y, 2)
-                htime.setTimeout(2, function(t2)
-                    htime.delTimer(t2)
-                    heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)
-                    local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
-                        return his.hero(filterUnit) and his.alive(filterUnit)
+                for _ = 1, (3 + game.diff) do
+                    local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
+                    local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
+                    local radius = 256
+                    htexture.alertCircle(radius, x, y, 2)
+                    htime.setTimeout(2, function(t2)
+                        htime.delTimer(t2)
+                        heffect.toXY("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", x, y)
+                        local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
+                            return his.hero(filterUnit) and his.alive(filterUnit)
+                        end)
+                        hgroup.loop(g2, function(enumUnit)
+                            hskill.swim({
+                                whichUnit = enumUnit,
+                                during = 0.5 + 0.1 * game.diff,
+                                odds = 100,
+                                effect = "Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl",
+                                damageKind = CONST_DAMAGE_KIND.special,
+                                damageType = { CONST_DAMAGE_TYPE.thunder }
+                            })
+                            hunit.subCurLife(enumUnit, (0.35 + 0.05 * game.diff) * hunit.getCurLife(enumUnit))
+                            heffect.bindUnit(
+                                "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl",
+                                enumUnit, "origin", 7
+                            )
+                            hattr.set(enumUnit, 10, {
+                                attack_speed = "-" .. (20 + game.diff),
+                                move = "-" .. (100 + game.diff),
+                            })
+                        end, true)
                     end)
-                    hgroup.loop(g2, function(enumUnit)
-                        hskill.swim({
-                            whichUnit = enumUnit,
-                            during = 0.5 + 0.1 * game.diff,
-                            odds = 100,
-                            effect = "Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl",
-                            damageKind = CONST_DAMAGE_KIND.special,
-                            damageType = { CONST_DAMAGE_TYPE.thunder }
-                        })
-                        hunit.subCurLife(enumUnit, (0.35 + 0.05 * game.diff) * hunit.getCurLife(enumUnit))
-                        heffect.bindUnit(
-                            "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl",
-                            enumUnit, "origin", 7
-                        )
-                        hattr.set(enumUnit, 10, {
-                            attack_speed = "-" .. (20 + game.diff),
-                            move = "-" .. (35 + game.diff),
-                        })
-                    end, true)
-                end)
+                end
             elseif (which.weather == hweather.snow) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
@@ -363,7 +364,7 @@ autoWeather = function(obj, during)
                         )
                         hattr.set(enumUnit, 12, {
                             attack_speed = "-" .. (4 + game.diff),
-                            move = "-" .. (11 + game.diff),
+                            move = "-" .. (15 + game.diff),
                         })
                     end
                 end, true)
@@ -384,7 +385,7 @@ autoWeather = function(obj, during)
                         )
                         hattr.set(enumUnit, 12, {
                             attack_speed = "-" .. (6 + game.diff),
-                            move = "-" .. (13 + game.diff),
+                            move = "-" .. (18 + game.diff),
                             defend = "-" .. game.diff,
                         })
                     end
@@ -409,7 +410,7 @@ autoWeather = function(obj, during)
                             during = 1.0,
                         })
                         hattr.set(enumUnit, 2.5, {
-                            move = "-" .. (20 + game.diff),
+                            move = "-" .. (30 + game.diff),
                         })
                     end
                 end, true)
@@ -433,7 +434,7 @@ autoWeather = function(obj, during)
                             during = 1.4,
                         })
                         hattr.set(enumUnit, 2.5, {
-                            move = "-" .. (30 + game.diff),
+                            move = "-" .. (50 + game.diff),
                         })
                     end
                 end, true)
@@ -459,8 +460,7 @@ autoWeather = function(obj, during)
 end
 
 for _, v in ipairs(islands) do
-    henv.random(v.rect, v.env, nil, nil, false)
-    henv.random(v.rect, v.env, nil, nil, false)
+    henv.random(v.rect, v.env, false, false)
     htime.setTimeout(math.random(20, 30), function(t)
         htime.delTimer(t)
         autoWeather(v, math.random(120, 300))
