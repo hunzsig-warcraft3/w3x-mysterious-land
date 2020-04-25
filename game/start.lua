@@ -1,5 +1,3 @@
-require "game.scheduleFunc"
-
 if (HLUA_DEBUG == true) then
     henv.setFogStatus(false, false)
 else
