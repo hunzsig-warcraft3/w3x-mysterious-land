@@ -387,6 +387,54 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
+            elseif (which.weather == hweather.wind and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 2) == 1) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
+                        hskill.crackFly({
+                            whichUnit = enumUnit,
+                            damage = 0,
+                            odds = 100,
+                            distance = 200,
+                            high = 0,
+                            during = 1.0,
+                        })
+                        hattr.set(enumUnit, 2.5, {
+                            move = "-" .. (20 + game.diff),
+                        })
+                    end
+                end, true)
+            elseif (which.weather == hweather.windstorm and math.random(1, 5) == 3) then
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 2) == 1) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "狂风割裂", 10, "7FFFAA", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
+                        hskill.crackFly({
+                            whichUnit = enumUnit,
+                            damage = 0,
+                            odds = 100,
+                            distance = 350,
+                            high = 100,
+                            during = 1.4,
+                        })
+                        hattr.set(enumUnit, 2.5, {
+                            move = "-" .. (30 + game.diff),
+                        })
+                    end
+                end, true)
             end
         end)
     end
