@@ -119,6 +119,7 @@ cj.TriggerAddAction(
                     diffColor = hColor.red
                 end
                 echo("选择了难度：" .. diffColor(btnIdx))
+                game.diff = diff
                 --- 英雄酒馆
 
                 --- 创建多面板
