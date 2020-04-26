@@ -120,7 +120,18 @@ cj.TriggerAddAction(
                 end
                 echo("选择了难度：" .. diffColor(btnIdx))
                 game.diff = diff
-                --- 英雄酒馆
+                --- 英雄选择
+                hhero.setBornXY(1004, 142)
+                hhero.buildSelector({
+                    heroes = { "H001", "H002" }, -- 可以选择的单位ID
+                    during = 60,
+                    type = "tavern",
+                    buildX = -517, -- 构建点X
+                    buildY = 314, -- 构建点Y
+                    buildDistance = 256,
+                    buildRowQty = 2,
+                    buildTavernQty = 10, -- 酒馆模式下，一个酒馆最多拥有几种单位
+                })
 
                 --- 创建多面板
                 hmultiBoard.create(
