@@ -30,8 +30,8 @@ local islands = {
         env = "fire",
         color = hColor.red,
         allowWeather = {
-            { weather = hweather.mistred, desc = "热火焚身，天火遍野" },
-            { weather = hweather.wind, desc = "刮起了风，带了一丝清凉" },
+            { weather = hweather.mistred, desc = "热火焚身，天火坠落" },
+            { weather = hweather.wind, desc = "刮起了风，火星满天" },
         },
     },
     {
@@ -194,7 +194,7 @@ autoWeather = function(obj, during)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                         local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                        local radius = 200
+                        local radius = 100
                         htexture.alertCircle(radius * 2, x, y, 2)
                         htime.setTimeout(2, function(tl)
                             htime.delTimer(tl)
@@ -337,11 +337,11 @@ autoWeather = function(obj, during)
                 end)
                 hgroup.loop(g, function(enumUnit)
                     httg.style(
-                        httg.create2Unit(enumUnit, "烈焰焚身", 10, "FF6347", 1, 2, 50),
+                        httg.create2Unit(enumUnit, "山火焚身", 10, "FF6347", 1, 2, 50),
                         'scale', 0, 0.05
                     )
                     heffect.bindUnit("Environment\\LargeBuildingFire\\LargeBuildingFire0.mdl", enumUnit, "origin", 7)
-                    local burn = 200 * game.diff
+                    local burn = 250 * game.diff
                     local oppose = hattr.get(enumUnit, "natural_fire_oppose") or 0
                     burn = math.round(burn * (1 - oppose * 0.01))
                     if (burn > 0) then
@@ -350,6 +350,34 @@ autoWeather = function(obj, during)
                         })
                     end
                 end, true)
+                -- 陨石
+                for i = 1, (3 + game.diff) do
+                    htime.setTimeout(i * 0.1, function(ti)
+                        htime.delTimer(ti)
+                        local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
+                        local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
+                        local radius = 180
+                        htexture.alertCircle(radius * 2, x, y, 2)
+                        heffect.toXY("Units\\Demon\\Infernal\\InfernalBirth.mdl", x, y)
+                        htime.setTimeout(0.8, function(tl)
+                            htime.delTimer(tl)
+                            local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
+                                return his.hero(filterUnit) and his.alive(filterUnit)
+                            end)
+                            hgroup.loop(g2, function(enumUnit)
+                                hskill.swim({
+                                    whichUnit = enumUnit,
+                                    damage = (0.5 + 0.1 * game.diff) * hunit.getCurLife(enumUnit),
+                                    during = 1.6 + 0.2 * game.diff,
+                                    odds = 100,
+                                    effect = "Abilities\\Spells\\Other\\Volcano\\VolcanoDeath.mdl",
+                                    damageKind = CONST_DAMAGE_KIND.special,
+                                    damageType = { CONST_DAMAGE_TYPE.fire, CONST_DAMAGE_TYPE.real }
+                                })
+                            end, true)
+                        end)
+                    end)
+                end
             elseif (which.weather == hweather.mistgreen) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
@@ -395,7 +423,7 @@ autoWeather = function(obj, during)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                         local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                        local radius = 300
+                        local radius = 150
                         htexture.alertCircle(radius * 2, x, y, 2)
                         htime.setTimeout(2, function(tl)
                             htime.delTimer(tl)
