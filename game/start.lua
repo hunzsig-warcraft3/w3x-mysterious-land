@@ -123,7 +123,7 @@ cj.TriggerAddAction(
                 --- 英雄选择
                 hhero.setBornXY(1004, 142)
                 hhero.buildSelector({
-                    heroes = { "H001", "H002" }, -- 可以选择的单位ID
+                    heroes = { "Hpal", "Hamg" }, -- 可以选择的单位ID
                     during = 60,
                     type = "tavern",
                     buildX = -517, -- 构建点X
