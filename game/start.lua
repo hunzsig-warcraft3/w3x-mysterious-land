@@ -132,7 +132,6 @@ cj.TriggerAddAction(
                     buildRowQty = 2,
                     buildTavernQty = 10, -- 酒馆模式下，一个酒馆最多拥有几种单位
                 })
-
                 --- 创建多面板
                 hmultiBoard.create(
                     "player",
