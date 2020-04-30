@@ -1,4 +1,5 @@
 -- 复活石、复活阵
+FirstRebornPoint = nil
 for _, f in ipairs(game.rebornStone) do
     local id
     if (f.type == 1) then
@@ -26,12 +27,16 @@ for _, f in ipairs(game.rebornStone) do
             y = f.reborn[2]
         }
     )
-    game.unitsReborn[stone] = { x = f.reborn[1], y = f.reborn[1] }
-    hevent.onEnterUnitRange(stone, 225, function(evtData)
+    if (FirstRebornPoint == nil) then
+        FirstRebornPoint = { x = f.reborn[1], y = f.reborn[2] }
+    end
+    game.unitsReborn[stone] = { x = f.reborn[1], y = f.reborn[2] }
+    hevent.onEnterUnitRange(stone, 400, function(evtData)
         local centerUnit = evtData.centerUnit
         local enterUnit = evtData.enterUnit
         if (his.hero(enterUnit)) then
             game.unitsReborn[enterUnit] = game.unitsReborn[centerUnit]
+            print_r(game.unitsReborn[enterUnit])
             httg.create2Unit(enterUnit, "重生记录", 11, nil, 1, 1, 100)
             heffect.bindUnit("Abilities\\Spells\\Demon\\ReviveDemon\\ReviveDemon.mdl", enterUnit, "origin", 1)
         end

@@ -55,6 +55,24 @@ dzSetKnockdown = function(p)
     hdzapi.setRoomStat(p, "prestige", prestige)
 end
 
+--- 英雄被选择
+hevent.onPickHero(function(evtData)
+    --- 默认给个复活石
+    game.unitsReborn[evtData.triggerUnit] = FirstRebornPoint
+    --- 复活动作
+    hevent.onDead(evtData.triggerUnit, function(evtDeadData)
+        local rebornTime = 5 + hhero.getCurLevel(evtDeadData.triggerUnit) * 5
+        if (rebornTime > 90) then
+            rebornTime = 90
+        end
+        hunit.rebornAtXY(
+            evtDeadData.triggerUnit, rebornTime, 3,
+            game.unitsReborn[evtDeadData.triggerUnit].x, game.unitsReborn[evtDeadData.triggerUnit].y,
+            true
+        )
+    end)
+end)
+
 local startTrigger = cj.CreateTrigger()
 cj.TriggerRegisterTimerEvent(startTrigger, 1.0, false)
 cj.TriggerAddAction(
