@@ -331,7 +331,7 @@ autoWeather = function(obj, during)
                         local duri = 7
                         heffect.bindUnit("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl", enumUnit, "head", duri)
                         hattr.set(enumUnit, duri, {
-                            sight = "-" .. (300 + 50 * game.diff),
+                            sight = "-" .. (300 + 75 * game.diff),
                         })
                         htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, cj.GetOwningPlayer(enumUnit), 255, 255, 255)
                     end

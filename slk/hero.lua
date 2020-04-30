@@ -16,7 +16,7 @@ for key, v in pairs(heros) do
     local Propernames = string.implode("、", v.Propernames)
     local Ubertip = ""
     Ubertip = Ubertip .. hColor.sky("特征：" .. Propernames)
-    Ubertip = Ubertip .. "|n" .. hColor.red("攻击类型：" .. CONST_WEAPON_TYPE[v.weapTp1] .. "(" .. v.cool1 .. "秒/击)")
+    Ubertip = Ubertip .. "|n" .. hColor.red("攻击类型：" .. CONST_WEAPON_TYPE[v.weapTp1].label .. "(" .. v.cool1 .. "秒/击)")
     Ubertip = Ubertip .. "|n" .. hColor.redLight("基础攻击：" .. v.dmgplus1)
     Ubertip = Ubertip .. "|n" .. hColor.seaLight("攻击范围：" .. v.rangeN1)
     if (Primary == "STR") then
@@ -34,7 +34,7 @@ for key, v in pairs(heros) do
     else
         Ubertip = Ubertip .. "|n" .. hColor.yellowLight("智力：" .. v.INT .. "(+" .. v.INTplus .. ")")
     end
-    Ubertip = Ubertip .. "|n" .. hColor.greenLight("移速：" .. v.spd)
+    Ubertip = Ubertip .. "|n" .. hColor.greenLight("移动：" .. v.spd .. " " .. CONST_MOVE_TYPE[v.movetp].label)
     Ubertip = Ubertip .. "|n|n" .. hColor.grey(v.Ubertip)
     --
     obj.Hotkey = ""
@@ -143,7 +143,7 @@ for key, v in pairs(heros) do
     obj.Missilespeed = 1100 -- 箭矢速度
     obj.Missilearc = v.Missilearc or 0.05
     obj.weapTp1 = v.weapTp1 or "normal" --攻击类型
-    obj.weapType1 = "" --攻击声音
+    obj.weapType1 = v.weapType1 or "" --攻击声音
     obj.Primary = Primary
     obj.dmgplus1 = v.dmgplus1 or 10 -- 基础攻击
     obj.showUI1 = 1 -- 显示攻击按钮

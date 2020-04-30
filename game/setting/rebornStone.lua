@@ -36,7 +36,6 @@ for _, f in ipairs(game.rebornStone) do
         local enterUnit = evtData.enterUnit
         if (his.hero(enterUnit)) then
             game.unitsReborn[enterUnit] = game.unitsReborn[centerUnit]
-            print_r(game.unitsReborn[enterUnit])
             httg.create2Unit(enterUnit, "重生记录", 11, nil, 1, 1, 100)
             heffect.bindUnit("Abilities\\Spells\\Demon\\ReviveDemon\\ReviveDemon.mdl", enterUnit, "origin", 1)
         end
