@@ -61,11 +61,11 @@ hevent.onPickHero(function(evtData)
     game.unitsReborn[evtData.triggerUnit] = FirstRebornPoint
     --- 复活动作
     hevent.onDead(evtData.triggerUnit, function(evtDeadData)
-        local rebornTime = hhero.getCurLevel(evtDeadData.triggerUnit) * 3 + diff
+        local rebornTime = hhero.getCurLevel(evtDeadData.triggerUnit) * 3 + game.diff
         if (rebornTime > 90) then
             rebornTime = 90
         end
-        hunit.rebornAtXY(
+        hhero.rebornAtXY(
             evtDeadData.triggerUnit, rebornTime, 3,
             game.unitsReborn[evtDeadData.triggerUnit].x, game.unitsReborn[evtDeadData.triggerUnit].y,
             true
