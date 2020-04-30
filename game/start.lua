@@ -73,25 +73,22 @@ cj.TriggerAddAction(
             hplayer.setAllowCameraDistance(hplayer.players[i], true)
         end
         --设置三围基础
-        hattr.setThreeBuff(
-            {
-                str = {
-                    life = 7,
-                    attack_white = 0.06,
-                    toughness = 0.02,
-                    aim = 0.003
-                },
-                agi = {
-                    attack_white = 0.10,
-                    attack_speed = 0.015,
-                    avoid = 0.005
-                },
-                int = {
-                    attack_white = 0.08,
-                    resistance = 0.005
-                }
+        hattr.setThreeBuff({
+            primary = 1,
+            str = {
+                life = 16,
+                toughness = 0.02,
+                aim = 0.003
+            },
+            agi = {
+                attack_speed = 0.01,
+                avoid = 0.003
+            },
+            int = {
+                mana = 8,
+                mana_back = 0.02
             }
-        )
+        })
         -- 第 1 玩家选择模式
         echo("第一位玩家正在选择难度", nil, 10)
         hdialog.create(
@@ -121,9 +118,9 @@ cj.TriggerAddAction(
                 echo("选择了难度：" .. diffColor(btnIdx))
                 game.diff = diff
                 --- 英雄选择
-                hhero.setBornXY(1004, 142)
+                hhero.setBornXY(0, 0)
+                hhero.setHeroIds(game.heroIds)
                 hhero.buildSelector({
-                    heroes = { "Hpal", "Hamg" }, -- 可以选择的单位ID
                     during = 60,
                     type = "tavern",
                     buildX = -517, -- 构建点X
@@ -169,7 +166,7 @@ cj.TriggerAddAction(
                                 local toughness = "-"
                                 local resistance = "-"
                                 local avoid = "-"
-                                hero = game.playerHero[pi]
+                                hero = hhero.player_heroes[p][1]
                                 if (hero ~= nil) then
                                     avatar = hunit.getAvatar(hero)
                                     name = hunit.getName(hero)

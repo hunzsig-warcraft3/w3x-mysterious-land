@@ -146,13 +146,15 @@ for key, v in pairs(heros) do
     obj.weapType1 = "" --攻击声音
     obj.Primary = Primary
     obj.dmgplus1 = v.dmgplus1 or 10 -- 基础攻击
-    obj.showUI1 = 0 -- 不显示攻击按钮
+    obj.showUI1 = 1 -- 显示攻击按钮
     obj.STR = v.STR
     obj.AGI = v.AGI
     obj.INT = v.INT
     obj.STRplus = v.STRplus
     obj.AGIplus = v.AGIplus
     obj.INTplus = v.INTplus
+    obj.goldcost = 0
+    obj.lumbercost = 0
     HEROS[key] = {
         UNIT_ID = obj:get_id(),
         Name = v.Name,

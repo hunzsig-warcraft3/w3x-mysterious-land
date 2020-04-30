@@ -252,7 +252,6 @@ createMyTower = function(playerIndex, towerId, towerLevel)
                 y = game.towerPoint[playerIndex][2]
             }
         )
-        hhero.setIsHero(u, true)
         hunit.setCurLifePercent(u, prevHeroLifePercent)
         --属性
         local tpv = hslk_global.unitsKV[towerId].TOWER_POWER

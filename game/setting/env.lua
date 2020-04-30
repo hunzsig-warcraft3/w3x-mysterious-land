@@ -212,14 +212,16 @@ autoWeather = function(obj, during)
                                     damageKind = CONST_DAMAGE_KIND.special,
                                     damageType = { CONST_DAMAGE_TYPE.thunder }
                                 })
+                                local duri = 7
                                 heffect.bindUnit(
                                     "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl",
-                                    enumUnit, "origin", 7
+                                    enumUnit, "origin", duri
                                 )
-                                hattr.set(enumUnit, 7, {
+                                hattr.set(enumUnit, duri, {
                                     attack_speed = "-" .. (20 + game.diff),
                                     move = "-" .. (100 + game.diff),
                                 })
+                                htexture.mark(htexture.DEFAULT_MARKS.DIAGONAL_SLASH, duri, cj.GetOwningPlayer(enumUnit), 0, 0, 255)
                             end, true)
                         end)
                     end)
@@ -317,7 +319,8 @@ autoWeather = function(obj, during)
                 end, true)
             elseif (which.weather == hweather.mistwhite) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    return his.hero(filterUnit) and his.alive(filterUnit)
+                    local playerIndex = hplayer.index(cj.GetOwningPlayer(filterUnit))
+                    return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                 end)
                 hgroup.loop(g, function(enumUnit)
                     if (math.random(1, 2) == 1) then
@@ -325,15 +328,18 @@ autoWeather = function(obj, during)
                             httg.create2Unit(enumUnit, "白雾蔽目", 10, "F5FFFA", 1, 2, 50),
                             'scale', 0, 0.05
                         )
-                        heffect.bindUnit("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl", enumUnit, "head", 7)
-                        hattr.set(enumUnit, 7, {
+                        local duri = 7
+                        heffect.bindUnit("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl", enumUnit, "head", duri)
+                        hattr.set(enumUnit, duri, {
                             sight = "-" .. (300 + 50 * game.diff),
                         })
+                        htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, cj.GetOwningPlayer(enumUnit), 255, 255, 255)
                     end
                 end, true)
             elseif (which.weather == hweather.mistred) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    return his.hero(filterUnit) and his.alive(filterUnit)
+                    local playerIndex = hplayer.index(cj.GetOwningPlayer(filterUnit))
+                    return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                 end)
                 hgroup.loop(g, function(enumUnit)
                     httg.style(
@@ -348,6 +354,7 @@ autoWeather = function(obj, during)
                         hattr.set(enumUnit, 5, {
                             life_back = "-" .. burn,
                         })
+                        htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, cj.GetOwningPlayer(enumUnit), 255, 0, 0)
                     end
                 end, true)
                 -- 陨石
