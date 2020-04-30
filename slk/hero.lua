@@ -13,9 +13,8 @@ for key, v in pairs(heros) do
     if (acquire < 1000) then
         acquire = 1000
     end
-    local Propernames = string.implode("、", v.Propernames)
     local Ubertip = ""
-    Ubertip = Ubertip .. hColor.sky("特征：" .. Propernames)
+    Ubertip = Ubertip .. hColor.sky("特征：" .. string.implode(",", v.Features))
     Ubertip = Ubertip .. "|n" .. hColor.red("攻击类型：" .. CONST_WEAPON_TYPE[v.weapTp1].label .. "(" .. v.cool1 .. "秒/击)")
     Ubertip = Ubertip .. "|n" .. hColor.redLight("基础攻击：" .. v.dmgplus1)
     Ubertip = Ubertip .. "|n" .. hColor.seaLight("攻击范围：" .. v.rangeN1)
@@ -69,7 +68,7 @@ for key, v in pairs(heros) do
     local targs1 = "vulnerable,ground,ward,structure,organic,mechanical,tree,debris,air" --攻击目标
     obj.targs1 = targs1
     obj.EditorSuffix = ""
-    obj.Propernames = Propernames
+    obj.Propernames = v.Propernames
     local abl = {}
     if (type(v.abilList) == "string") then
         abl = string.explode(',', abl)
@@ -119,9 +118,9 @@ for key, v in pairs(heros) do
     end
     obj.Tip = "选择 " .. v.Name
     obj.Name = v.Name
-    obj.Awakentip = "复活 " .. v.Name
-    obj.Revivetip = "复活 " .. v.Name
-    obj.Tip = "呼唤 " .. v.Name
+    obj.Awakentip = "复活 " .. v.Name .. " · " .. v.Propernames
+    obj.Revivetip = "复活 " .. v.Name .. " · " .. v.Propernames
+    obj.Tip = "呼唤 " .. v.Name .. " · " .. v.Propernames
     obj.Ubertip = Ubertip
     obj.unitSound = v.unitSound -- 声音
     obj.modelScale = v.modelScale --模型缩放
@@ -160,7 +159,6 @@ for key, v in pairs(heros) do
         Name = v.Name,
         Art = v.Art,
         Primary = Primary,
-        Propernames = v.Propernames,
-        dmgplus1 = v.dmgplus1,
+        Features = v.Features,
     }
 end

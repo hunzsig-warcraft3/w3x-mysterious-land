@@ -1,6 +1,7 @@
 HERO_MOUNTAIN_KING_BOL = {
-    Name = "山丘之王·波尔",
-    Propernames = { "领袖", "矮人" },
+    Name = "山丘之王",
+    Propernames = "波尔",
+    Features = { "领袖", "矮人" },
     Ubertip = "波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。",
     Art = "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp",
     file = "units\\human\\HeroMountainKing\\HeroMountainKing",
