@@ -5,6 +5,7 @@ globals
     string SLK_SHOPS
     string SLK_ENEMY
     string SLK_BOSS
+    string SLK_HERO_MOUNTAIN_KING_BOL
 endglobals
 
 library mySlk initializer Init
@@ -41,6 +42,11 @@ library mySlk initializer Init
             #include "./slk/boss.lua"
             ?>
                 set SLK_BOSS = "<?=string.addslashes(json.stringify(BOSS))?>"
+            <?
+            #include "./slk/hero/MountainKingBol.lua"
+            #include "./slk/hero.lua"
+            ?>
+                set SLK_HERO_MOUNTAIN_KING_BOL = "<?=string.addslashes(json.stringify(HEROS.MOUNTAIN_KING_BOL))?>"
             <?
         ?>
     endfunction

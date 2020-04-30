@@ -33,9 +33,10 @@ game = {
     name2id = {
         enemy = {},
         boss = {},
-        shops = {},
+        shop = {},
         courier = {},
-        units = {},
+        unit = {},
+        hero = {},
     },
     shopsConfig = {
         { "稀奇古怪黑科技", { -1088, 1088 } },

@@ -1,0 +1,27 @@
+HERO_MOUNTAIN_KING_BOL = {
+    Name = "山丘之王·波尔",
+    Propernames = { "领袖", "矮人" },
+    Ubertip = "波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。",
+    Art = "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp",
+    file = "units\\human\\HeroMountainKing\\HeroMountainKing",
+    unitSound = "HeroMountainKing",
+    movetp = "foot",
+    moveHeight = 0.00,
+    spd = 260, -- 移动速度
+    rangeN1 = 150, -- 攻击范围
+    dmgplus1 = 32, -- 基础攻击
+    weapTp1 = "normal", -- 攻击类型
+    Missileart = "", -- 箭矢
+    cool1 = 2.1, -- 攻击周期
+    dmgpt1 = 0.65, -- 攻击前摇
+    backSw1 = 0.35, -- 攻击后摇
+    modelScale = 1.30,
+    scale = 1.30,
+    Primary = "STR",
+    STR = 33,
+    AGI = 18,
+    INT = 24,
+    STRplus = 3.0,
+    AGIplus = 1.9,
+    INTplus = 2.3,
+}

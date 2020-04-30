@@ -4,7 +4,7 @@ for _, f in ipairs(game.door) do
         {
             register = false,
             whichPlayer = game.ALLY_PLAYER,
-            unitId = game.name2id.units["传送门"],
+            unitId = game.name2id.unit["传送门"],
             qty = 1,
             x = f.from[1],
             y = f.from[2]
