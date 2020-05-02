@@ -59,7 +59,6 @@ end
 hevent.onPickHero(function(evtData)
     --- 默认给个复活石
     game.unitsReborn[evtData.triggerUnit] = FirstRebornPoint
-    htexture.mark("war3mapImported\\mark_seven.blp", 20, evtData.triggerPlayer)
     --- 复活动作
     hevent.onDead(evtData.triggerUnit, function(evtDeadData)
         local rebornTime = hhero.getCurLevel(evtDeadData.triggerUnit) * 3 + game.diff
