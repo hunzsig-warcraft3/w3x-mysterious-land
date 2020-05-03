@@ -84,7 +84,7 @@ cj.TriggerAddAction(
             这里开始游戏正式开始了
             发挥你的想象力吧~
         ]]
-        hsound.bgmStop(nil)
+        hsound.bgm(cg.gg_snd_bgm_seven)
         echo("^_^ 您来到了山海灵界，请在七灵岛，选择" .. hColor.yellow("你的英雄"))
         for i = 1, hplayer.qty_max, 1 do
             dzSetKnockdown(hplayer.players[i])
