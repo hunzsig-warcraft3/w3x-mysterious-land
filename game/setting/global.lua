@@ -1,5 +1,7 @@
 game = {
     ALLY_PLAYER = nil,
+    running = true,
+    diff = 0,
     bossTips = {
         "大力点~",
         "不痛~",
@@ -24,8 +26,7 @@ game = {
         "不痛不痒~",
         "WTF~"
     },
-    running = true,
-    diff = 0,
+    island = {},
     unitsReborn = {},
     playerKnockdown = {},
     playerCourier = {},

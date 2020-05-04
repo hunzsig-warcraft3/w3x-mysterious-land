@@ -1,8 +1,17 @@
 -- env岛屿环境
 local islands = {
     {
+        name = "七灵岛",
+        rect = hrect.create(1024, 1024, 4096, 5120, "七灵岛"),
+        env = nil,
+        color = hColor.gold,
+        allowWeather = {
+            { weather = "time", desc = "悠然自在~" },
+        },
+    },
+    {
         name = "斑斓海",
-        rect = hrect.create(-5520, -5200, 5800, 7300),
+        rect = hrect.create(-5520, -5200, 5800, 7300, "斑斓海"),
         env = "sea",
         color = hColor.sea,
         allowWeather = {
@@ -14,7 +23,7 @@ local islands = {
     },
     {
         name = "冰极雪原",
-        rect = hrect.create(-6640, 5100, 5120, 7700),
+        rect = hrect.create(-6640, 5100, 5120, 7700, "冰极雪原"),
         env = "winterDeep",
         color = hColor.sky,
         allowWeather = {
@@ -26,7 +35,7 @@ local islands = {
     },
     {
         name = "火蛇岛",
-        rect = hrect.create(2030, 5888, 4096, 4096),
+        rect = hrect.create(2030, 5888, 4096, 4096, "火蛇岛"),
         env = "fire",
         color = hColor.red,
         allowWeather = {
@@ -36,7 +45,7 @@ local islands = {
     },
     {
         name = "铁环山",
-        rect = hrect.create(6970, 0, 4096, 4300),
+        rect = hrect.create(6970, 0, 4096, 4300, "铁环山"),
         env = "poor",
         color = hColor.yellow,
         allowWeather = {
@@ -47,7 +56,7 @@ local islands = {
     },
     {
         name = "遗迹草原",
-        rect = hrect.create(6788, -6781, 4608, 5120),
+        rect = hrect.create(6788, -6781, 4608, 5120, "遗迹草原"),
         env = "ruins",
         color = hColor.greenLight,
         allowWeather = {
@@ -60,7 +69,7 @@ local islands = {
     },
     {
         name = "秘潭幽林",
-        rect = hrect.create(400, -6900, 2900, 3900),
+        rect = hrect.create(400, -6900, 2900, 3900, "秘潭幽林"),
         env = "summer",
         color = hColor.green,
         allowWeather = {
@@ -71,7 +80,7 @@ local islands = {
     },
     {
         name = "枯死岸",
-        rect = hrect.create(7544, 6759, 3800, 4608),
+        rect = hrect.create(7544, 6759, 3800, 4608, "枯死岸"),
         env = "dark",
         color = hColor.purple,
         allowWeather = {
@@ -95,6 +104,7 @@ autoWeather = function(obj, during)
                 which.desc = "月色照耀，" .. which.desc
             end
         end
+        game.island[obj.name] = which.weather
         echo(obj.color(obj.name) .. "此时" .. which.desc)
         hweather.create({
             whichRect = obj.rect,
@@ -464,11 +474,27 @@ autoWeather = function(obj, during)
     end
 end
 
+-- 进岛事件
+local enterIsland = function(evtData)
+    local rn = hrect.getName(evtData.triggerRect)
+    local p = cj.GetOwningPlayer(evtData.triggerUnit)
+    if (his.computer(p)) then
+        return
+    end
+    if (rn == "七灵岛") then
+        
+        return
+    end
+    local weather = game.island[rn]
+
+end
 for _, v in ipairs(islands) do
-    henv.random(v.rect, v.env, false, false)
+    if (v.env ~= nil) then
+        henv.random(v.rect, v.env, false, false)
+    end
     htime.setTimeout(math.random(20, 30), function(t)
         htime.delTimer(t)
         autoWeather(v, math.random(120, 300))
     end)
-
+    hevent.onEnterRect(v.rect, enterIsland)
 end
