@@ -107,22 +107,7 @@ towers_s = {
         Missileart = "Abilities\\Weapons\\BloodElfMissile\\BloodElfMissile.mdl",
         cool1 = 2.00,
         Primary = "INT",
-        abilList = {towerSpxKV["火之元素"], towerSpxKV["烈焰风暴"]}
-    },
-    {
-        Name = "矮人·山丘之王·波尔",
-        Ubertip = "矮人族暴力狂王者，时常冲锋陷阵",
-        unitSound = "HeroMountainKing",
-        file = "units\\human\\HeroMountainKing\\HeroMountainKing",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp",
-        modelScale = 2.10,
-        scale = 2.10,
-        moveHeight = 0.00,
-        weapTp1 = "missile",
-        Missileart = "Abilities\\Spells\\Human\\StormBolt\\StormBoltMissile.mdl",
-        cool1 = 2.20,
-        Primary = "STR",
-        abilList = {towerSpxKV["矮人之盾"], towerSpxKV["雷霆一击"]}
+        abilList = { towerSpxKV["火之元素"], towerSpxKV["烈焰风暴"] }
     },
     {
         Name = "兽人·剑圣·逸风",

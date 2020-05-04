@@ -1,5 +1,5 @@
 -- env岛屿环境
-local islands = {
+islands = {
     {
         name = "七灵岛",
         rect = hrect.create(1024, 1024, 4096, 5120, "七灵岛"),
@@ -92,10 +92,12 @@ local islands = {
     },
 }
 -- 自动天气
-autoWeather = function(obj, during)
+autoWeather = function(obj)
+    local during = math.random(120, 300)
     if (#obj.allowWeather > 0) then
         local which = obj.allowWeather[math.random(1, #obj.allowWeather)]
         if (which.weather == "time") then
+            during = 45
             if (his.day()) then
                 which.weather = hweather.sun
                 which.desc = "阳光灿烂，" .. which.desc
@@ -116,7 +118,7 @@ autoWeather = function(obj, during)
             dur = dur + 3
             if (dur >= during) then
                 htime.delTimer(t)
-                autoWeather(obj, math.random(120, 300))
+                autoWeather(obj)
                 return
             end
             if (which.weather == hweather.sun) then
@@ -474,27 +476,12 @@ autoWeather = function(obj, during)
     end
 end
 
--- 进岛事件
-local enterIsland = function(evtData)
-    local rn = hrect.getName(evtData.triggerRect)
-    local p = cj.GetOwningPlayer(evtData.triggerUnit)
-    if (his.computer(p)) then
-        return
-    end
-    if (rn == "七灵岛") then
-        
-        return
-    end
-    local weather = game.island[rn]
-
-end
 for _, v in ipairs(islands) do
     if (v.env ~= nil) then
         henv.random(v.rect, v.env, false, false)
     end
     htime.setTimeout(math.random(20, 30), function(t)
         htime.delTimer(t)
-        autoWeather(v, math.random(120, 300))
+        autoWeather(v)
     end)
-    hevent.onEnterRect(v.rect, enterIsland)
 end

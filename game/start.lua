@@ -71,6 +71,42 @@ hevent.onPickHero(function(evtData)
             true
         )
     end)
+    --- 每秒检测音效
+    htime.setInterval(2, function(curTimer)
+        local p = cj.GetOwningPlayer(evtData.triggerUnit)
+        if (his.deleted(evtData.triggerUnit)) then
+            htime.delTimer(curTimer)
+            hsound.bgmStop(p)
+            return
+        end
+        if (his.death(evtData.triggerUnit)) then
+            hsound.bgmStop(p)
+            return
+        end
+        if (his.damaging(evtData.triggerUnit)) then
+            hsound.bgm(cg.gg_snd_bgm_battle, p)
+            return
+        end
+        for _, obj in ipairs(islands) do
+            if (his.inRect(obj.rect, cj.GetUnitX(evtData.triggerUnit), cj.GetUnitY(evtData.triggerUnit)) == true) then
+                if (obj.name == "七灵岛") then
+                    hsound.bgm(cg.gg_snd_bgm_seven, p)
+                else
+                    local weather = game.island[obj.name]
+                    if (weather == hweather.sun) then
+                        hsound.bgm(cg.gg_snd_bgm_sun, p)
+                    elseif (weather == hweather.moon) then
+                        hsound.bgm(cg.gg_snd_bgm_moon, p)
+                    elseif (weather == hweather.rainstorm) then
+                        hsound.bgm(cg.gg_snd_bgm_thunder, p)
+                    elseif (weather == hweather.wind or weather == hweather.windstorm) then
+                        hsound.bgm(cg.gg_snd_bgm_wind, p)
+                    end
+                end
+                break
+            end
+        end
+    end)
 end)
 
 local startTrigger = cj.CreateTrigger()
@@ -84,7 +120,7 @@ cj.TriggerAddAction(
             这里开始游戏正式开始了
             发挥你的想象力吧~
         ]]
-        hsound.bgm(cg.gg_snd_bgm_seven)
+        hsound.bgmStop()
         echo("^_^ 您来到了山海灵界，请在七灵岛，选择" .. hColor.yellow("你的英雄"))
         for i = 1, hplayer.qty_max, 1 do
             dzSetKnockdown(hplayer.players[i])
