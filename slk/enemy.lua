@@ -1,59 +1,36 @@
 ENEMY = {}
 ENEMY_CONF = {
     {
-        Name = "鬼影",
-        file = "units\\undead\\Shade\\Shade",
+        Name = "小鱼人",
+        file = "units\\creeps\\Murloc\\Murloc",
         modelScale = 1.00,
         scale = 1.00,
-        unitSound = "Shade",
-        movetp = "hover",
-        moveHeight = 50,
+        unitSound = "murloc",
+
     },
     {
-        Name = "食尸鬼",
-        file = "units\\undead\\Ghoul\\Ghoul",
-        modelScale = 1.00,
+        Name = "小虾",
+        file = "Units\\Creeps\\Lobstrokkred\\Lobstrokkred",
+        modelScale = 0.35,
         scale = 1.00,
-        unitSound = "Ghoul",
+        unitSound = "Lobstrokk",
+        weapTp1 = CONST_WEAPON_TYPE.normal.value,
     },
     {
-        Name = "憎恶",
-        file = "units\\undead\\Abomination\\Abomination",
-        modelScale = 0.90,
-        scale = 2.10,
-        unitSound = "Abomination",
-    },
-    {
-        Name = "绞肉车",
-        file = "units\\undead\\MeatWagon\\MeatWagon",
-        modelScale = 0.90,
-        scale = 2.40,
-        unitSound = "MeatWagon",
-    },
-    {
-        Name = "穴居恶魔",
-        file = "units\\undead\\CryptFiend\\CryptFiend",
-        modelScale = 0.90,
-        scale = 1.90,
-        unitSound = "CryptFiend",
-    },
-    {
-        Name = "石像鬼",
-        file = "units\\undead\\Gargoyle\\Gargoyle",
-        modelScale = 1.00,
-        scale = 1.25,
-        unitSound = "Gargoyle",
-        movetp = "fly",
-        moveHeight = 150,
-    },
-    {
-        Name = "女妖",
-        file = "units\\undead\\Banshee\\Banshee",
-        modelScale = 1.00,
+        Name = "小蓝虾",
+        file = "Units\\Creeps\\Lobstrokkblue\\Lobstrokkblue",
+        modelScale = 0.35,
         scale = 1.00,
-        unitSound = "Banshee",
-        movetp = "hover",
-        moveHeight = 50,
+        unitSound = "Lobstrokk",
+        weapTp1 = CONST_WEAPON_TYPE.normal.value,
+    },
+    {
+        Name = "小绿虾",
+        file = "Units\\Creeps\\Lobstrokkgreen\\Lobstrokkgreen",
+        modelScale = 0.35,
+        scale = 1.00,
+        unitSound = "Lobstrokk",
+        weapTp1 = CONST_WEAPON_TYPE.normal.value,
     },
 }
 
@@ -67,11 +44,11 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.modelScale = v.modelScale or 1.00
     obj.scale = v.scale or 1.00
     obj.HP = 100
-    obj.spd = 220
-    obj.sight = 500
-    obj.nsight = 500
+    obj.spd = 230
+    obj.sight = 300
+    obj.nsight = 300
     obj.unitSound = v.unitSound or ""
-    obj.weapsOn = 0
+    obj.weapsOn = 1
     obj.movetp = v.movetp or "foot"--移动类型
     obj.moveHeight = v.moveHeight or 0 --移动高度
     obj.moveFloor = (v.moveHeight or 0) * 0.25 --最低高度
@@ -81,5 +58,19 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.upgrades = ""
     obj.Builds = ""
     obj.fused = 0
-    table.insert(ENEMY, { UNIT_ID = id, Name = v.Name })
+    obj.dmgplus1 = 1
+    obj.cool1 = 1.5
+    obj.dmgpt1 = 0.5
+    obj.backSw1 = 0.5
+    if (obj.weapTp1 == CONST_WEAPON_TYPE.missile.value) then
+        obj.acquire = 300
+        obj.rangeN1 = 300
+        obj.Missileart = v.Missileart or "Abilities\\Weapons\\SpiritOfVengeanceMissile\\SpiritOfVengeanceMissile.mdl"
+        obj.Missilearc = 0.1
+    else
+        obj.acquire = 200
+        obj.rangeN1 = 110
+        obj.weapType1 = CONST_WEAPON_SOUND.WoodHeavyBash.value
+    end
+    table.insert(ENEMY, { UNIT_ID = obj:get_id(), Name = v.Name })
 end

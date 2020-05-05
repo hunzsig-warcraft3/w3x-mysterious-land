@@ -83,8 +83,14 @@ hevent.onPickHero(function(evtData)
             hsound.bgmStop(p)
             return
         end
-        if (his.damaging(evtData.triggerUnit)) then
+        local pi = hplayer.index(p)
+        if (his.damaging(evtData.triggerUnit) == true) then
+            hRuntime.sound[pi].prevBgm = hRuntime.sound[pi].currentBgm
             hsound.bgm(cg.gg_snd_bgm_battle, p)
+            return
+        elseif (hRuntime.sound[pi].prevBgm ~= nil) then
+            hsound.bgm(hRuntime.sound[pi].prevBgm, p)
+            hRuntime.sound[pi].prevBgm = nil
             return
         end
         for _, obj in ipairs(islands) do
@@ -101,6 +107,8 @@ hevent.onPickHero(function(evtData)
                         hsound.bgm(cg.gg_snd_bgm_thunder, p)
                     elseif (weather == hweather.wind or weather == hweather.windstorm) then
                         hsound.bgm(cg.gg_snd_bgm_wind, p)
+                    else
+                        hsound.bgmStop(p)
                     end
                 end
                 break
@@ -131,6 +139,7 @@ cj.TriggerAddAction(
             primary = 1,
             str = {
                 life = 16,
+                life_back = 0.05,
                 toughness = 0.02,
                 aim = 0.003
             },

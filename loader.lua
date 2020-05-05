@@ -1,5 +1,7 @@
 -- 加载h-lua
 require "h-lua"
+--F9任务
+hf9({ 'hlua', 'apm', 'sight', 'eff', 'hero' })
 
 -- 镜头模式
 hcamera.setModel("normal")
@@ -26,6 +28,7 @@ require "game.setting.f9"
 require "game.setting.rebornStone"
 require "game.setting.portal"
 require "game.setting.env"
+require "game.setting.monster"
 
 -- 商店
 --THIS_SHOPS = {}

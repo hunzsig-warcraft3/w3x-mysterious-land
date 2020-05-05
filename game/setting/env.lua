@@ -5,6 +5,7 @@ islands = {
         rect = hrect.create(1024, 1024, 4096, 5120, "七灵岛"),
         env = nil,
         color = hColor.gold,
+        voice = nil,
         allowWeather = {
             { weather = "time", desc = "悠然自在~" },
         },
@@ -14,6 +15,7 @@ islands = {
         rect = hrect.create(-5520, -5200, 5800, 7300, "斑斓海"),
         env = "sea",
         color = hColor.sea,
+        voice = cg.gg_snd_voice_sea,
         allowWeather = {
             { weather = "time", desc = "风光无限好" },
             { weather = hweather.rain, desc = "忽然下起了小雨" },
@@ -26,6 +28,7 @@ islands = {
         rect = hrect.create(-6640, 5100, 5120, 7700, "冰极雪原"),
         env = "winterDeep",
         color = hColor.sky,
+        voice = nil,
         allowWeather = {
             { weather = hweather.rain, desc = "下起了冻雨" },
             { weather = hweather.snow, desc = "下起了雪，冰封大地" },
@@ -38,6 +41,7 @@ islands = {
         rect = hrect.create(2030, 5888, 4096, 4096, "火蛇岛"),
         env = "fire",
         color = hColor.red,
+        voice = nil,
         allowWeather = {
             { weather = hweather.mistred, desc = "热火焚身，天火坠落" },
             { weather = hweather.wind, desc = "刮起了风，火星满天" },
@@ -48,6 +52,7 @@ islands = {
         rect = hrect.create(6970, 0, 4096, 4300, "铁环山"),
         env = "poor",
         color = hColor.yellow,
+        voice = nil,
         allowWeather = {
             { weather = "time", desc = "一派大好河山的景象" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -59,6 +64,7 @@ islands = {
         rect = hrect.create(6788, -6781, 4608, 5120, "遗迹草原"),
         env = "ruins",
         color = hColor.greenLight,
+        voice = nil,
         allowWeather = {
             { weather = "time", desc = "展现原野靓景" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -72,6 +78,7 @@ islands = {
         rect = hrect.create(400, -6900, 2900, 3900, "秘潭幽林"),
         env = "summer",
         color = hColor.green,
+        voice = nil,
         allowWeather = {
             { weather = "time", desc = "万物逗趣，生机勃勃" },
             { weather = hweather.rain, desc = "下雨了，空气十分凉爽" },
@@ -83,6 +90,7 @@ islands = {
         rect = hrect.create(7544, 6759, 3800, 4608, "枯死岸"),
         env = "dark",
         color = hColor.purple,
+        voice = nil,
         allowWeather = {
             { weather = hweather.shield, desc = "可看到紫色灵魂升天的奇象" },
             { weather = hweather.mistgreen, desc = "毒雾弥漫，注意小心" },
@@ -136,7 +144,7 @@ autoWeather = function(obj)
                             enumUnit, "origin", 5
                         )
                         hattr.set(enumUnit, 5, {
-                            mana_back = "+" .. (75 - 2 * game.diff),
+                            life_back = "+" .. (75 - 2 * game.diff),
                         })
                     end
                 end, true)
@@ -206,7 +214,7 @@ autoWeather = function(obj)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                         local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                        local radius = 100
+                        local radius = 120 + 10 * game.diff
                         htexture.alertCircle(radius * 2, x, y, 2)
                         htime.setTimeout(2, function(tl)
                             htime.delTimer(tl)
@@ -234,6 +242,7 @@ autoWeather = function(obj)
                                     move = "-" .. (100 + game.diff),
                                 })
                                 htexture.mark(htexture.DEFAULT_MARKS.DIAGONAL_SLASH, duri, cj.GetOwningPlayer(enumUnit), 0, 0, 255)
+                                hsound.sound2Player(cg.gg_snd_voice_thunder, cj.GetOwningPlayer(enumUnit))
                             end, true)
                         end)
                     end)
@@ -303,6 +312,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 2.5, {
                             move = "-" .. (30 + game.diff),
                         })
+                        hsound.sound2Player(cg.gg_snd_voice_wind, cj.GetOwningPlayer(enumUnit))
                     end
                 end, true)
             elseif (which.weather == hweather.windstorm) then
@@ -327,6 +337,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 2.5, {
                             move = "-" .. (50 + game.diff),
                         })
+                        hsound.sound2Player(cg.gg_snd_voice_wind, cj.GetOwningPlayer(enumUnit))
                     end
                 end, true)
             elseif (which.weather == hweather.mistwhite) then
@@ -375,7 +386,7 @@ autoWeather = function(obj)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                         local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                        local radius = 180
+                        local radius = 180 + 10 * game.diff
                         htexture.alertCircle(radius * 2, x, y, 2)
                         heffect.toXY("Units\\Demon\\Infernal\\InfernalBirth.mdl", x, y)
                         htime.setTimeout(0.8, function(tl)
@@ -437,12 +448,12 @@ autoWeather = function(obj)
                 end, true)
             elseif (which.weather == hweather.shield) then
                 -- 紫光爆炸
-                for i = 1, (9 + game.diff) do
+                for i = 1, (8 + game.diff) do
                     htime.setTimeout(i * 0.3, function(ti)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
                         local y = math.random(hrect.getStartY(obj.rect), hrect.getEndY(obj.rect))
-                        local radius = 150
+                        local radius = 150 + 10 * game.diff
                         htexture.alertCircle(radius * 2, x, y, 2)
                         htime.setTimeout(2, function(tl)
                             htime.delTimer(tl)
@@ -477,11 +488,17 @@ autoWeather = function(obj)
 end
 
 for _, v in ipairs(islands) do
+    -- 随机装饰
     if (v.env ~= nil) then
         henv.random(v.rect, v.env, false, false)
     end
+    -- 天气
     htime.setTimeout(math.random(20, 30), function(t)
         htime.delTimer(t)
         autoWeather(v)
     end)
+    -- 环境音效
+    if (v.voice ~= nil) then
+        hsound.sound2Rect(v.voice, v.rect)
+    end
 end
