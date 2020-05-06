@@ -43,8 +43,8 @@ islands = {
         color = hColor.red,
         voice = nil,
         allowWeather = {
-            { weather = hweather.mistred, desc = "热火焚身，天火坠落" },
-            { weather = hweather.wind, desc = "刮起了风，火星满天" },
+            { weather = hweather.mistred, desc = "天火坠落，危险万分" },
+            { weather = hweather.wind, desc = "刮起了风，火星满天，小心热火焚身" },
         },
     },
     {
@@ -56,7 +56,8 @@ islands = {
         allowWeather = {
             { weather = "time", desc = "一派大好河山的景象" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
-            { weather = hweather.wind, desc = "吹起了风，遗迹更添哀愁" },
+            { weather = hweather.wind, desc = "起风了，山体和风犹如铁笼枷锁" },
+            { weather = hweather.windstorm, desc = "暴风侵袭，令人生怕" },
         },
     },
     {
@@ -107,13 +108,19 @@ autoWeather = function(obj)
         if (which.weather == "time") then
             if (his.day()) then
                 during = (18 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
+                if (during > 60) then
+                    during = math.random(60, during)
+                end
                 which.weather = hweather.sun
                 which.desc = "阳光灿烂，" .. which.desc
             else
-                if (cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY) <= 6.00) then
+                if (cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY) < 6.00) then
                     during = (6 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
                 else
                     during = (24 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
+                end
+                if (during > 60) then
+                    during = math.random(60, during)
                 end
                 which.weather = hweather.moon
                 which.desc = "月色照耀，" .. which.desc
@@ -296,30 +303,52 @@ autoWeather = function(obj)
                     end
                 end, true)
             elseif (which.weather == hweather.wind) then
-                local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    return his.hero(filterUnit) and his.alive(filterUnit)
-                end)
-                hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 3) == 1) then
+                if (obj.name == "火蛇岛") then
+                    local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                        local playerIndex = hplayer.index(cj.GetOwningPlayer(filterUnit))
+                        return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
+                    end)
+                    hgroup.loop(g, function(enumUnit)
                         httg.style(
-                            httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
+                            httg.create2Unit(enumUnit, "山火焚身", 10, "FF6347", 1, 2, 50),
                             'scale', 0, 0.05
                         )
-                        heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
-                        hskill.crackFly({
-                            whichUnit = enumUnit,
-                            damage = 0,
-                            odds = 100,
-                            distance = 200,
-                            high = 0,
-                            during = 1.0,
-                        })
-                        hattr.set(enumUnit, 2.5, {
-                            move = "-" .. (30 + game.diff),
-                        })
-                        hsound.sound2Player(cg.gg_snd_voice_wind, cj.GetOwningPlayer(enumUnit))
-                    end
-                end, true)
+                        heffect.bindUnit("Environment\\LargeBuildingFire\\LargeBuildingFire0.mdl", enumUnit, "origin", 7)
+                        local burn = 250 * game.diff
+                        local oppose = hattr.get(enumUnit, "natural_fire_oppose") or 0
+                        burn = math.round(burn * (1 - oppose * 0.01))
+                        if (burn > 0) then
+                            hattr.set(enumUnit, 5, {
+                                life_back = "-" .. burn,
+                            })
+                        end
+                    end, true)
+                else
+                    local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                        return his.hero(filterUnit) and his.alive(filterUnit)
+                    end)
+                    hgroup.loop(g, function(enumUnit)
+                        if (math.random(1, 3) == 1) then
+                            httg.style(
+                                httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
+                                'scale', 0, 0.05
+                            )
+                            heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
+                            hskill.crackFly({
+                                whichUnit = enumUnit,
+                                damage = 0,
+                                odds = 100,
+                                distance = 200,
+                                high = 0,
+                                during = 1.0,
+                            })
+                            hattr.set(enumUnit, 2.5, {
+                                move = "-" .. (30 + game.diff),
+                            })
+                            hsound.sound2Player(cg.gg_snd_voice_wind, cj.GetOwningPlayer(enumUnit))
+                        end
+                    end, true)
+                end
             elseif (which.weather == hweather.windstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
@@ -365,25 +394,6 @@ autoWeather = function(obj)
                     end
                 end, true)
             elseif (which.weather == hweather.mistred) then
-                local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    local playerIndex = hplayer.index(cj.GetOwningPlayer(filterUnit))
-                    return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
-                end)
-                hgroup.loop(g, function(enumUnit)
-                    httg.style(
-                        httg.create2Unit(enumUnit, "山火焚身", 10, "FF6347", 1, 2, 50),
-                        'scale', 0, 0.05
-                    )
-                    heffect.bindUnit("Environment\\LargeBuildingFire\\LargeBuildingFire0.mdl", enumUnit, "origin", 7)
-                    local burn = 250 * game.diff
-                    local oppose = hattr.get(enumUnit, "natural_fire_oppose") or 0
-                    burn = math.round(burn * (1 - oppose * 0.01))
-                    if (burn > 0) then
-                        hattr.set(enumUnit, 5, {
-                            life_back = "-" .. burn,
-                        })
-                    end
-                end, true)
                 -- 陨石
                 for i = 1, (3 + game.diff) do
                     htime.setTimeout(i * 0.1, function(ti)

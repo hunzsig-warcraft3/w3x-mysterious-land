@@ -73,8 +73,8 @@ hevent.onPickHero(function(evtData)
         )
         -- 中途心跳声
         local heartBeat = rebornTime
-        htime.setInterval(2, function(heartTimer)
-            heartBeat = heartBeat - 2
+        htime.setInterval(4, function(heartTimer)
+            heartBeat = heartBeat - 4
             if (heartBeat < 0) then
                 htime.delTimer(heartTimer)
                 return
@@ -83,7 +83,7 @@ hevent.onPickHero(function(evtData)
         end)
     end)
     --- 每秒检测音效
-    htime.setInterval(3, function(curTimer)
+    htime.setInterval(1.5, function(curTimer)
         local p = cj.GetOwningPlayer(evtData.triggerUnit)
         if (his.deleted(evtData.triggerUnit)) then
             htime.delTimer(curTimer)
