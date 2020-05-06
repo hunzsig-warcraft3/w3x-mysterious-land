@@ -10,6 +10,15 @@ monster = {
         wave = 3,
         level = 0,
     },
+    {
+        time = 0,
+        desc = "七峡湾被鱼虾入侵了",
+        loc = { 676, -1212 },
+        mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
+        qty = { 4, 6 }, -- min -> max
+        wave = 3,
+        level = 0,
+    },
 }
 -- 自动生成怪物
 autoMonster = function(delay)
@@ -32,15 +41,15 @@ autoMonster = function(delay)
             m.creating = true
             monsterLocTotal = monsterLocTotal + 1
             echo(m.desc)
+            cj.PingMinimapEx(m.loc[1], m.loc[2], 3.00, 255, 0, 0, true)
             htime.setInterval(1, function(curTimer2)
                 if (w >= m.wave) then
                     htime.delTimer(curTimer2)
                     m.creating = false
                     monsterLocTotal = monsterLocTotal - 1
-                    autoMonster(10)
                     return
                 end
-                local g = hgroup.createByXY(m.loc[1], m.loc[2], 300, function(filterUnit)
+                local g = hgroup.createByXY(m.loc[1], m.loc[2], 400, function(filterUnit)
                     return his.enemyPlayer(filterUnit, game.ALLY_PLAYER) and his.alive(filterUnit) and hunit.getUserData(filterUnit) == mi
                 end)
                 if (hgroup.count(g) <= 0) then
@@ -62,6 +71,7 @@ autoMonster = function(delay)
                 end
             end)
         end
+        autoMonster(10)
     end)
 end
 

@@ -65,11 +65,22 @@ hevent.onPickHero(function(evtData)
         if (rebornTime > 90) then
             rebornTime = 90
         end
+        htexture.mark(htexture.DEFAULT_MARKS.DREAM, rebornTime, cj.GetOwningPlayer(evtDeadData.triggerUnit), 255, 0, 0)
         hhero.rebornAtXY(
             evtDeadData.triggerUnit, rebornTime, 3,
             game.unitsReborn[evtDeadData.triggerUnit].x, game.unitsReborn[evtDeadData.triggerUnit].y,
             true
         )
+        -- 中途心跳声
+        local heartBeat = rebornTime
+        htime.setInterval(4, function(heartTimer)
+            heartBeat = heartBeat - 4
+            if (heartBeat < 0) then
+                htime.delTimer(heartTimer)
+                return
+            end
+            hsound.sound2Player(cg.gg_snd_voice_heart_beat, cj.GetOwningPlayer(evtDeadData.triggerUnit))
+        end)
     end)
     --- 每秒检测音效
     htime.setInterval(2, function(curTimer)
@@ -85,7 +96,9 @@ hevent.onPickHero(function(evtData)
         end
         local pi = hplayer.index(p)
         if (his.damaging(evtData.triggerUnit) == true) then
-            hRuntime.sound[pi].prevBgm = hRuntime.sound[pi].currentBgm
+            if (hRuntime.sound[pi].prevBgm == nil) then
+                hRuntime.sound[pi].prevBgm = hRuntime.sound[pi].currentBgm
+            end
             hsound.bgm(cg.gg_snd_bgm_battle, p)
             return
         elseif (hRuntime.sound[pi].prevBgm ~= nil) then
@@ -139,7 +152,7 @@ cj.TriggerAddAction(
             primary = 1,
             str = {
                 life = 16,
-                life_back = 0.05,
+                life_back = 0.03,
                 toughness = 0.02,
                 aim = 0.003
             },

@@ -105,11 +105,16 @@ autoWeather = function(obj)
     if (#obj.allowWeather > 0) then
         local which = obj.allowWeather[math.random(1, #obj.allowWeather)]
         if (which.weather == "time") then
-            during = 45
             if (his.day()) then
+                during = (18 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
                 which.weather = hweather.sun
                 which.desc = "阳光灿烂，" .. which.desc
             else
+                if (cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY) <= 6.00) then
+                    during = (6 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
+                else
+                    during = (24 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
+                end
                 which.weather = hweather.moon
                 which.desc = "月色照耀，" .. which.desc
             end
@@ -377,7 +382,6 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 5, {
                             life_back = "-" .. burn,
                         })
-                        htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, cj.GetOwningPlayer(enumUnit), 255, 0, 0)
                     end
                 end, true)
                 -- 陨石
