@@ -119,9 +119,9 @@ for key, v in pairs(heros) do
     end
     obj.Tip = "选择 " .. v.Name
     obj.Name = v.Name
-    obj.Awakentip = "复活 " .. v.Name .. " · " .. v.Propernames
-    obj.Revivetip = "复活 " .. v.Name .. " · " .. v.Propernames
-    obj.Tip = "呼唤 " .. v.Name .. " · " .. v.Propernames
+    obj.Awakentip = "复活 " .. v.Name .. "：" .. v.Propernames
+    obj.Revivetip = "复活 " .. v.Name .. "：" .. v.Propernames
+    obj.Tip = "呼唤 " .. v.Name .. "：" .. v.Propernames
     obj.Ubertip = Ubertip
     obj.unitSound = v.unitSound -- 声音
     obj.modelScale = v.modelScale --模型缩放
