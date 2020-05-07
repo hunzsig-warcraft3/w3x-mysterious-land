@@ -52,7 +52,7 @@ islands = {
         rect = hrect.create(6970, 0, 4096, 4300, "铁环山"),
         env = "poor",
         color = hColor.yellow,
-        voice = nil,
+        voice = cg.gg_snd_voice_eagle,
         allowWeather = {
             { weather = "time", desc = "一派大好河山的景象" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -91,7 +91,7 @@ islands = {
         rect = hrect.create(7544, 6759, 3800, 4608, "枯死岸"),
         env = "dark",
         color = hColor.purple,
-        voice = nil,
+        voice = cg.gg_snd_voice_ghost_laugh,
         allowWeather = {
             { weather = hweather.shield, desc = "可看到紫色灵魂升天的奇象" },
             { weather = hweather.mistgreen, desc = "毒雾弥漫，注意小心" },
@@ -492,6 +492,7 @@ autoWeather = function(obj)
                                 hattr.set(enumUnit, 7, {
                                     defend = "-" .. (5 + 2 * game.diff),
                                 })
+                                hsound.sound2Player(cg.gg_snd_voice_ghost, cj.GetOwningPlayer(enumUnit))
                             end, true)
                         end)
                     end)

@@ -13,6 +13,8 @@ for _, f in ipairs(game.door) do
     hevent.onEnterUnitRange(portal, 50, function(evtData)
         local enterUnit = evtData.enterUnit
         cj.SetUnitPosition(enterUnit, f.to[2], f.to[3])
-        hcamera.toXY(cj.GetOwningPlayer(enterUnit), 0, f.to[2], f.to[3])
+        local owner = cj.GetOwningPlayer(enterUnit)
+        hcamera.toXY(owner, 0, f.to[2], f.to[3])
+        hsound.sound2Player(cg.gg_snd_voice_jump,owner)
     end)
 end
