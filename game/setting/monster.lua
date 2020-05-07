@@ -1,14 +1,16 @@
+require "game.setting.monsterAward"
+
 -- 怪物点
 monsterLocTotal = 0
 monster = {
     {
-        time = 0, -- 经过多少时间才有可能生成
+        time = 0, -- 多少时间才有可能生成
         desc = "瀑布渊底被鱼虾入侵了",
         loc = { -768, -1648 },
         mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
         qty = { 3, 5 }, -- min -> max
         wave = 3,
-        level = 0,
+        level = 1,
     },
     {
         time = 0,
@@ -17,7 +19,7 @@ monster = {
         mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
         qty = { 4, 6 }, -- min -> max
         wave = 3,
-        level = 0,
+        level = 1,
     },
 }
 -- 自动生成怪物
@@ -62,10 +64,19 @@ autoMonster = function(delay)
                             y = m.loc[2], --创建坐标Y，可选
                         })
                         hunit.setUserData(u, mi, 0)
+                        local life = (20 + game.diff) * (htime.min + m.level)
+                        local attack_white = (5 + game.diff) * (htime.min + m.level)
+                        if (life > m.level * 300) then
+                            life = m.level * 300
+                        end
+                        if (attack_white > m.level * 100) then
+                            attack_white = m.level * 100
+                        end
                         hattr.set(u, 0, {
-                            life = "=" .. (20 + game.diff) * (htime.min + m.level + 1),
+                            life = "=" .. life,
                             attack_white = "=" .. (5 + game.diff) * (htime.min + m.level + 1),
                         })
+                        hevent.onDead(u, onEnemyAward)
                     end
                     w = w + 1
                 end

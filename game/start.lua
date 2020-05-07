@@ -216,16 +216,17 @@ cj.TriggerAddAction(
                         local data = {}
                         table.insert(data, {
                             { value = "山海人", icon = nil },
-                            { value = "状态", icon = nil },
                             { value = "英雄", icon = nil },
-                            { value = "攻击", icon = nil },
+                            { value = "回血", icon = nil },
+                            { value = "回魔", icon = nil },
                             { value = "攻速", icon = nil },
                             { value = "命中", icon = nil },
                             { value = "增幅", icon = nil },
-                            { value = "护甲", icon = nil },
                             { value = "减伤", icon = nil },
                             { value = "魔抗", icon = nil },
-                            { value = "回避", icon = nil }
+                            { value = "回避", icon = nil },
+                            { value = "背包", icon = nil },
+                            { value = "攻效", icon = nil },
                         })
                         --然后是form
                         for pi = 1, hplayer.qty_max, 1 do
@@ -234,39 +235,52 @@ cj.TriggerAddAction(
                                 local hero = "-"
                                 local avatar = nil
                                 local name = "-"
-                                local attack = "-"
+                                local life_back = "-"
+                                local mana_back = "-"
                                 local attack_speed = "-"
                                 local damage_extent = "-"
                                 local aim = "-"
-                                local defend = "-"
                                 local toughness = "-"
                                 local resistance = "-"
                                 local avoid = "-"
+                                local weight = "-"
+                                local attack_damage_type = "-"
                                 hero = hhero.player_heroes[p][1]
                                 if (hero ~= nil) then
                                     avatar = hunit.getAvatar(hero)
                                     name = hunit.getName(hero)
-                                    attack = math.floor(hattr.get(hero, "attack_white") + hattr.get(hero, "attack_green"))
-                                    attack_speed = math.round(hattr.get(hero, "attack_speed")) .. "%"
+                                    life_back = math.round(hattr.get(hero, "life_back")) .. "/秒"
+                                    mana_back = math.round(hattr.get(hero, "mana_back")) .. "/秒"
+                                    attack_speed = math.round(100 + hattr.get(hero, "attack_speed")) .. "%"
                                     damage_extent = math.round(hattr.get(hero, "damage_extent")) .. "%"
                                     aim = math.round(hattr.get(hero, "aim")) .. "%"
-                                    defend = math.floor(hattr.get(hero, "defend"))
                                     toughness = math.round(hattr.get(hero, "toughness"))
                                     resistance = math.round(hattr.get(hero, "resistance")) .. "%"
                                     avoid = math.round(hattr.get(hero, "avoid")) .. "%"
+                                    weight = math.round(hattr.get(hero, "weight_current")) .. "/"
+                                        .. math.round(hattr.get(hero, "weight")) .. "Kg"
+                                    local adt = {}
+                                    for _, v in ipairs(hattr.get(hero, "attack_damage_type")) do
+                                        local label = CONST_ATTR[v]
+                                        if (table.includes(label, adt) == false) then
+                                            table.insert(adt, label)
+                                        end
+                                    end
+                                    attack_damage_type = string.implode('、', adt)
                                 end
                                 table.insert(data, {
-                                    { value = cj.GetPlayerName(p), icon = nil },
-                                    { value = hplayer.getStatus(p), icon = nil },
+                                    { value = "[" .. hplayer.getStatus(p) .. "]" .. cj.GetPlayerName(p), icon = nil },
                                     { value = name, icon = avatar },
-                                    { value = attack, icon = nil },
+                                    { value = life_back, icon = nil },
+                                    { value = mana_back, icon = nil },
                                     { value = attack_speed, icon = nil },
                                     { value = aim, icon = nil },
                                     { value = damage_extent, icon = nil },
-                                    { value = defend, icon = nil },
                                     { value = toughness, icon = nil },
                                     { value = resistance, icon = nil },
-                                    { value = avoid, icon = nil }
+                                    { value = avoid, icon = nil },
+                                    { value = weight, icon = nil },
+                                    { value = attack_damage_type, icon = nil },
                                 })
                             end
                         end
