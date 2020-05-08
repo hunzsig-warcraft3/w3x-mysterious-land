@@ -28,7 +28,9 @@ require "game.setting.f9"
 require "game.setting.rebornStone"
 require "game.setting.portal"
 require "game.setting.env"
-require "game.setting.monster"
+require "game.setting.monsterAward"
+require "game.setting.monsterEnemy"
+require "game.setting.monsterBoss"
 
 -- 商店
 --THIS_SHOPS = {}
