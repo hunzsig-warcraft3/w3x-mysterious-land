@@ -38,7 +38,7 @@ for _, f in ipairs(game.rebornStone) do
             game.unitsReborn[enterUnit] = game.unitsReborn[centerUnit]
             httg.create2Unit(enterUnit, "重生记录", 11, nil, 1, 1, 100)
             heffect.bindUnit("Abilities\\Spells\\Demon\\ReviveDemon\\ReviveDemon.mdl", enterUnit, "origin", 1)
-            hsound.sound2Player(cg.gg_snd_voice_reborn_do, cj.GetOwningPlayer(enterUnit))
+            hsound.sound2Player(cg.gg_snd_voice_reborn_do, hunit.getOwner(enterUnit))
         end
     end)
 end

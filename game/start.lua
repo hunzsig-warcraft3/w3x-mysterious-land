@@ -65,7 +65,7 @@ hevent.onPickHero(function(evtData)
         if (rebornTime > 90) then
             rebornTime = 90
         end
-        htexture.mark(htexture.DEFAULT_MARKS.DREAM, rebornTime, cj.GetOwningPlayer(evtDeadData.triggerUnit), 255, 0, 0)
+        htexture.mark(htexture.DEFAULT_MARKS.DREAM, rebornTime, hunit.getOwner(evtDeadData.triggerUnit), 255, 0, 0)
         hhero.rebornAtXY(
             evtDeadData.triggerUnit, rebornTime, 3,
             game.unitsReborn[evtDeadData.triggerUnit].x, game.unitsReborn[evtDeadData.triggerUnit].y,
@@ -79,12 +79,12 @@ hevent.onPickHero(function(evtData)
                 htime.delTimer(heartTimer)
                 return
             end
-            hsound.sound2Player(cg.gg_snd_voice_heart_beat, cj.GetOwningPlayer(evtDeadData.triggerUnit))
+            hsound.sound2Player(cg.gg_snd_voice_heart_beat, hunit.getOwner(evtDeadData.triggerUnit))
         end)
     end)
     --- 每秒检测音效
     htime.setInterval(1.5, function(curTimer)
-        local p = cj.GetOwningPlayer(evtData.triggerUnit)
+        local p = hunit.getOwner(evtData.triggerUnit)
         if (his.deleted(evtData.triggerUnit)) then
             htime.delTimer(curTimer)
             hsound.bgmStop(p)

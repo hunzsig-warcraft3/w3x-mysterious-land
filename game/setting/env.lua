@@ -143,7 +143,7 @@ autoWeather = function(obj)
             end
             if (which.weather == hweather.sun) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    return his.hero(filterUnit) and his.alive(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
                 hgroup.loop(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
@@ -162,7 +162,7 @@ autoWeather = function(obj)
                 end, true)
             elseif (which.weather == hweather.moon) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    return his.hero(filterUnit) and his.alive(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
                 hgroup.loop(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
@@ -253,8 +253,8 @@ autoWeather = function(obj)
                                     attack_speed = "-" .. (20 + game.diff),
                                     move = "-" .. (100 + game.diff),
                                 })
-                                htexture.mark(htexture.DEFAULT_MARKS.DIAGONAL_SLASH, duri, cj.GetOwningPlayer(enumUnit), 0, 0, 255)
-                                hsound.sound2Player(cg.gg_snd_voice_thunder, cj.GetOwningPlayer(enumUnit))
+                                htexture.mark(htexture.DEFAULT_MARKS.DIAGONAL_SLASH, duri, hunit.getOwner(enumUnit), 0, 0, 255)
+                                hsound.sound2Player(cg.gg_snd_voice_thunder, hunit.getOwner(enumUnit))
                             end, true)
                         end)
                     end)
@@ -305,7 +305,7 @@ autoWeather = function(obj)
             elseif (which.weather == hweather.wind) then
                 if (obj.name == "火蛇岛") then
                     local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                        local playerIndex = hplayer.index(cj.GetOwningPlayer(filterUnit))
+                        local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
                         return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                     end)
                     hgroup.loop(g, function(enumUnit)
@@ -345,7 +345,7 @@ autoWeather = function(obj)
                             hattr.set(enumUnit, 2.5, {
                                 move = "-" .. (30 + game.diff),
                             })
-                            hsound.sound2Player(cg.gg_snd_voice_wind, cj.GetOwningPlayer(enumUnit))
+                            hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
                         end
                     end, true)
                 end
@@ -371,12 +371,12 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 2.5, {
                             move = "-" .. (50 + game.diff),
                         })
-                        hsound.sound2Player(cg.gg_snd_voice_wind, cj.GetOwningPlayer(enumUnit))
+                        hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
                     end
                 end, true)
             elseif (which.weather == hweather.mistwhite) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    local playerIndex = hplayer.index(cj.GetOwningPlayer(filterUnit))
+                    local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
                     return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                 end)
                 hgroup.loop(g, function(enumUnit)
@@ -390,7 +390,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, duri, {
                             sight = "-" .. (300 + 75 * game.diff),
                         })
-                        htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, cj.GetOwningPlayer(enumUnit), 255, 255, 255)
+                        htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, hunit.getOwner(enumUnit), 255, 255, 255)
                     end
                 end, true)
             elseif (which.weather == hweather.mistred) then
@@ -492,7 +492,7 @@ autoWeather = function(obj)
                                 hattr.set(enumUnit, 7, {
                                     defend = "-" .. (5 + 2 * game.diff),
                                 })
-                                hsound.sound2Player(cg.gg_snd_voice_ghost, cj.GetOwningPlayer(enumUnit))
+                                hsound.sound2Player(cg.gg_snd_voice_ghost, hunit.getOwner(enumUnit))
                             end, true)
                         end)
                     end)

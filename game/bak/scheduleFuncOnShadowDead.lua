@@ -5,7 +5,7 @@ towerShadowDead = function(evtData)
     local shadowName = hunit.getName(shadow)
     local shadowPName = cj.GetPlayerName(hplayer.players[hunit.getUserData(shadow)])
     if (killer ~= nil) then
-        local killerPlayer = cj.GetOwningPlayer(killer)
+        local killerPlayer = hunit.getOwner(killer)
         local killerName = cj.GetPlayerName(killerPlayer)
         if (shadowPName ~= nil and shadowName ~= nil and killerName ~= nil) then
             echo(
@@ -31,7 +31,7 @@ towerShadowDead = function(evtData)
             local val = v.Val or {}
             if (Name ~= nil) then
                 if (Name == "复仇" and killer ~= nil) then
-                    local p = cj.GetOwningPlayer(killer)
+                    local p = hunit.getOwner(killer)
                     local pindex = hplayer.index(p)
                     local killerName = cj.GetPlayerName(p)
                     local blood = level * val[1]

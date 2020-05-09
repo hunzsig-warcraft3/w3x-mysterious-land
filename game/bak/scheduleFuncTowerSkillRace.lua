@@ -758,8 +758,8 @@ addTowerSkillsRaceTeam = function(playerIndex)
         if (hRuntime.unit[v] == nil) then
             hRuntime.unit[v] = {}
         end
-        if (hRuntime.unit[v]["raceTeamInit"] == nil) then
-            hRuntime.unit[v]["raceTeamInit"] = 1
+        if (hRuntime.unit[v].raceTeamInit == nil) then
+            hRuntime.unit[v].raceTeamInit = 1
             if (mixAttrs.new ~= nil) then
                 if (his.alive(v)) then
                     hattr.set(v, 0, mixAttrs.new)

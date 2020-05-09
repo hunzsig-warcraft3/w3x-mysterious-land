@@ -3,7 +3,7 @@ bossDead = function(evtData)
     game.currentMon = game.currentMon - 1
     local u = evtData.killer
     if (u ~= nil) then
-        local p = cj.GetOwningPlayer(u)
+        local p = hunit.getOwner(u)
         local playerIndex = hplayer.index(p)
         local curWave = 0
         if (game.rule.cur == "yb") then

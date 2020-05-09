@@ -23,7 +23,7 @@ enemyDeadAward = function(triggerUnit, killer)
     end
     local playerIndex = 0
     if (killer ~= nil) then
-        playerIndex = hplayer.index(cj.GetOwningPlayer(killer))
+        playerIndex = hplayer.index(hunit.getOwner(killer))
     end
     --curWave
     local curWave = 1
@@ -194,7 +194,7 @@ enemyDeadDK = function(evtData)
     game.currentMon = game.currentMon - 1
     local u = evtData.killer
     if (u ~= nil) then
-        local pi = hplayer.index(cj.GetOwningPlayer(u))
+        local pi = hplayer.index(hunit.getOwner(u))
         local exp = 25 * game.rule.dk.wave[pi]
         local gold = 3 * game.rule.dk.wave[pi]
         haward.forUnitGold(u, gold)

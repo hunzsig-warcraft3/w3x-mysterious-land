@@ -5,7 +5,7 @@ onTowerLinkSkillUesd = function(evtData)
     if (abilitiesSLK == nil) then
         return
     end
-    local p = cj.GetOwningPlayer(u)
+    local p = hunit.getOwner(u)
     local playerIndex = hplayer.index(p)
     if (abilitiesSLK.Name == "上场") then
         local linkIndex = hunit.getUserData(u)

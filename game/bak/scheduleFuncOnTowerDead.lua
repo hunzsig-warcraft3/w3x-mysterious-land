@@ -1,7 +1,7 @@
 -- 兵塔挂了
 onTowerDead = function(evtData)
     local u = evtData.triggerUnit
-    local index = hplayer.index(cj.GetOwningPlayer(u))
+    local index = hplayer.index(hunit.getOwner(u))
     hmark.create("war3mapImported\\mark_defeat.blp", 4.00, hplayer.players[index])
     hsound.sound(cg.gg_snd_tluo)
     hplayer.setStatus(hplayer.players[index], "战败")
@@ -10,7 +10,7 @@ onTowerDead = function(evtData)
         hunit.create(
         {
             register = false,
-            whichPlayer = cj.GetOwningPlayer(u),
+            whichPlayer = hunit.getOwner(u),
             unitId = game.couriersDefeat,
             x = game.towerPoint[index][1],
             y = game.towerPoint[index][2]

@@ -9,7 +9,7 @@ onCourierSkillUesd = function(evtData)
     end
     local skillid = evtData.triggerSkill
     local abilitiesSLK = hslk_global.abilitiesKV[skillid]
-    local p = cj.GetOwningPlayer(u)
+    local p = hunit.getOwner(u)
     local playerIndex = hplayer.index(p)
     if (abilitiesSLK == nil or abilitiesSLK.Name == nil) then
         return
@@ -21,7 +21,7 @@ onCourierSkillUesd = function(evtData)
     elseif (game.rule.cur == "hz") then
         curWave = game.rule.hz.wave
     elseif (game.rule.cur == "dk") then
-        curWave = game.rule.dk.wave[hplayer.index(cj.GetOwningPlayer(u))]
+        curWave = game.rule.dk.wave[hplayer.index(hunit.getOwner(u))]
     end
     --
     if (abilitiesSLK.Name == "拾取") then

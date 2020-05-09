@@ -1171,7 +1171,7 @@ onTowerAttack = function(evtData)
                         end
                         local su = hunit.create(
                             {
-                                whichPlayer = cj.GetOwningPlayer(u),
+                                whichPlayer = hunit.getOwner(u),
                                 unitId = summon.UNIT_ID,
                                 qty = 1,
                                 life = val[3],
@@ -1194,7 +1194,7 @@ onTowerAttack = function(evtData)
                     if (math.random(1, 100) <= val[1]) then
                         onTowerAttackTtg(u, name)
                         heffect.toUnit(val[4], u, 0)
-                        local playerIndex = hplayer.index(cj.GetOwningPlayer(u))
+                        local playerIndex = hplayer.index(hunit.getOwner(u))
                         hattr.set(
                             game.playerTower[playerIndex],
                             val[3],
@@ -1219,7 +1219,7 @@ onTowerAttack = function(evtData)
                     if (math.random(1, 100) <= val[1]) then
                         onTowerAttackTtg(u, name)
                         heffect.toUnit(val[5], u, 0)
-                        local playerIndex = hplayer.index(cj.GetOwningPlayer(u))
+                        local playerIndex = hplayer.index(hunit.getOwner(u))
                         hattr.set(
                             game.playerTower[playerIndex],
                             val[4],

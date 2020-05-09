@@ -433,7 +433,7 @@ addTowerSkillByBook = function(u, site, abliOps)
         return
     end
     hskill.add(u, abliOps.ABILITY_ID)
-    local playerIndex = hplayer.index(cj.GetOwningPlayer(u))
+    local playerIndex = hplayer.index(hunit.getOwner(u))
     game.towersAbilities[playerIndex][site] = abliOps
     if (abliOps.Name == nil) then
         return
@@ -446,7 +446,7 @@ delTowerSkillByBook = function(u, site, abliOps)
         return
     end
     hskill.del(u, abliOps.ABILITY_ID)
-    local playerIndex = hplayer.index(cj.GetOwningPlayer(u))
+    local playerIndex = hplayer.index(hunit.getOwner(u))
     game.towersAbilities[playerIndex][site] = nil
     if (abliOps.Name == nil) then
         return

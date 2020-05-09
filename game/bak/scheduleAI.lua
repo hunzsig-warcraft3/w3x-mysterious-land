@@ -433,7 +433,7 @@ MAYBE_AI = {
     end,
     --锤子兵
     hammer = function(czb)
-        local czbPlayer = cj.GetOwningPlayer(czb)
+        local czbPlayer = hunit.getOwner(czb)
         if (game.rule.dk.ai == true and his.playing(czbPlayer) == false) then
             htime.setInterval(
                 math.random(14, 18),
