@@ -3,7 +3,7 @@ globals
     string SLK_COURIER_SKILL
     string SLK_UNITS
     string SLK_SHOPS
-    string SLK_ENEMY
+    string SLK_ENEMY_WATER
     string SLK_BOSS
     string SLK_HERO_BLADE_MASTER_WIND
     string SLK_HERO_MOUNTAIN_KING_BOL
@@ -36,9 +36,9 @@ library mySlk initializer Init
             ?>
                 set SLK_SHOPS = "<?=string.addslashes(json.stringify(SHOPS))?>"
             <?
-            #include "./slk/enemy.lua"
+            #include "./slk/monster/enemyWater.lua"
             ?>
-                set SLK_ENEMY = "<?=string.addslashes(json.stringify(ENEMY))?>"
+                set SLK_ENEMY_WATER = "<?=string.addslashes(json.stringify(ENEMY_WATER))?>"
             <?
             #include "./slk/boss.lua"
             ?>

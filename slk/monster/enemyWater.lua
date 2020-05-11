@@ -1,7 +1,7 @@
-ENEMY = {}
-ENEMY_CONF = {
+ENEMY_WATER = {}
+local ENEMY_CONF = {
     {
-        Name = "小鱼人",
+        Name = "小鱼妖",
         file = "units\\creeps\\Murloc\\Murloc",
         modelScale = 1.00,
         scale = 1.00,
@@ -9,7 +9,31 @@ ENEMY_CONF = {
 
     },
     {
-        Name = "小虾",
+        Name = "青鱼妖",
+        file = "units\\creeps\\MurlocMutant\\MurlocMutant",
+        modelScale = 1.00,
+        scale = 1.00,
+        unitSound = "murloc",
+
+    },
+    {
+        Name = "夜鱼妖",
+        file = "units\\creeps\\MurlocFlesheater\\MurlocFlesheater",
+        modelScale = 1.00,
+        scale = 1.00,
+        unitSound = "murloc",
+
+    },
+    {
+        Name = "蟹妖",
+        file = "units\\creeps\\SpiderCrabCreep\\SpiderCrabCreep",
+        modelScale = 1.00,
+        scale = 1.00,
+        unitSound = "",
+
+    },
+    {
+        Name = "小虾妖",
         file = "Units\\Creeps\\Lobstrokkred\\Lobstrokkred",
         modelScale = 0.35,
         scale = 1.00,
@@ -17,7 +41,7 @@ ENEMY_CONF = {
         weapTp1 = CONST_WEAPON_TYPE.normal.value,
     },
     {
-        Name = "小蓝虾",
+        Name = "蓝虾妖",
         file = "Units\\Creeps\\Lobstrokkblue\\Lobstrokkblue",
         modelScale = 0.35,
         scale = 1.00,
@@ -25,12 +49,30 @@ ENEMY_CONF = {
         weapTp1 = CONST_WEAPON_TYPE.normal.value,
     },
     {
-        Name = "小绿虾",
+        Name = "绿虾妖",
         file = "Units\\Creeps\\Lobstrokkgreen\\Lobstrokkgreen",
         modelScale = 0.35,
         scale = 1.00,
         unitSound = "Lobstrokk",
         weapTp1 = CONST_WEAPON_TYPE.normal.value,
+    },
+    {
+        Name = "水妖",
+        file = "units\\human\\WaterElemental\\WaterElemental",
+        modelScale = 1.00,
+        scale = 1.00,
+        unitSound = "WaterElemental",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
+    },
+    {
+        Name = "海妖",
+        file = "Units\\Creeps\\SeaElemental\\SeaElemental",
+        modelScale = 1.00,
+        scale = 1.00,
+        unitSound = "WaterElemental",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\SeaElementalMissile\\SeaElementalMissile.mdl",
     },
 }
 
@@ -44,7 +86,7 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.modelScale = v.modelScale or 1.00
     obj.scale = v.scale or 1.00
     obj.HP = 100
-    obj.spd = 230
+    obj.spd = 200
     obj.sight = 300
     obj.nsight = 300
     obj.unitSound = v.unitSound or ""
@@ -72,5 +114,5 @@ for _, v in ipairs(ENEMY_CONF) do
         obj.rangeN1 = 110
         obj.weapType1 = CONST_WEAPON_SOUND.WoodHeavyBash.value
     end
-    table.insert(ENEMY, { UNIT_ID = obj:get_id(), Name = v.Name })
+    table.insert(ENEMY_WATER, { UNIT_ID = obj:get_id(), Name = v.Name })
 end

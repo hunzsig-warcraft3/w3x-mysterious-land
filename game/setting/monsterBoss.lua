@@ -1,25 +1,11 @@
 monsterAutoBossCount = 0
 monsterBoss = {
     {
-        time = 0, -- 多少时间才有可能生成
-        desc = "瀑布渊底被鱼虾入侵了",
-        loc = { -768, -1648 },
-        mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
+        time = 120, -- 多少时间才有可能生成
+        desc = "秘潭央湖出现了一只小boss",
+        loc = { -75, -7655 },
+        mon = { "小鱼妖", "蟹妖", "小虾妖" },
         level = 1,
-    },
-    {
-        time = 0,
-        desc = "七峡湾被鱼虾入侵了",
-        loc = { 676, -1212 },
-        mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
-        level = 1,
-    },
-    {
-        time = 0,
-        desc = "七脚峡被虾群入侵了",
-        loc = { 676, -1212 },
-        mon = { "小虾", "小蓝虾", "小绿虾" },
-        level = 2,
     },
 }
 
@@ -28,7 +14,7 @@ autoBoss = function(delay)
     htime.setTimeout(delay, function(curTimer)
         htime.delTimer(curTimer)
         if (monsterAutoBossCount > 14) then
-            autoEnemy(10)
+            autoBoss(10)
             return
         end
         local oi = {}
@@ -70,5 +56,5 @@ autoBoss = function(delay)
     end)
 end
 
--- 第一次BOSS延时180秒
-autoBoss(180)
+-- 第一次BOSS延时120秒
+autoBoss(120)

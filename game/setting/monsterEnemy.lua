@@ -4,30 +4,48 @@ monsterAutoEnemyCount = 0
 monsterEnemy = {
     {
         time = 0, -- 多少时间才有可能生成
-        desc = "瀑布渊底被鱼虾入侵了",
+        desc = "瀑布渊底被鱼虾妖入侵了",
         loc = { -768, -1648 },
-        mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
+        mon = { "小鱼妖", "蟹妖", "小虾妖" },
         qty = { 3, 5 }, -- min -> max
         wave = 3,
         level = 1,
     },
     {
         time = 0,
-        desc = "七峡湾被鱼虾入侵了",
+        desc = "虎口湾忽然出现了一大片螃蟹",
+        loc = { -1500, 840 },
+        mon = { "蟹妖" },
+        qty = { 10, 15 }, -- min -> max
+        wave = 2,
+        level = 1,
+    },
+    {
+        time = 0,
+        desc = "七峡湾被鱼虾妖入侵了",
         loc = { 676, -1212 },
-        mon = { "小鱼人", "小虾", "小蓝虾", "小绿虾" },
+        mon = { "小鱼妖", "青鱼妖", "蟹妖", "蓝虾妖" },
         qty = { 4, 6 }, -- min -> max
         wave = 3,
         level = 1,
     },
     {
         time = 0,
-        desc = "七脚峡被虾群入侵了",
-        loc = { 676, -1212 },
-        mon = { "小虾", "小蓝虾", "小绿虾" },
-        qty = { 9, 13 }, -- min -> max
+        desc = "七脚峡被虾妖入侵了",
+        loc = { 689, -3000 },
+        mon = { "小虾妖", "蓝虾妖", "绿虾妖" },
+        qty = { 7, 10 }, -- min -> max
         wave = 3,
         level = 2,
+    },
+    {
+        time = 0,
+        desc = "七尖水道被鱼群入侵了",
+        loc = { 822, 1446 },
+        mon = { "小鱼妖", "青鱼妖", "夜鱼妖" },
+        qty = { 7, 10 }, -- min -> max
+        wave = 3,
+        level = 3,
     },
 }
 
@@ -53,7 +71,7 @@ autoEnemy = function(delay)
             monsterAutoEnemyCount = monsterAutoEnemyCount + 1
             echo(m.desc)
             cj.PingMinimapEx(m.loc[1], m.loc[2], 3.00, 255, 0, 0, true)
-            htime.setInterval(1, function(curTimer2)
+            htime.setInterval(1.5, function(curTimer2)
                 if (w >= m.wave) then
                     htime.delTimer(curTimer2)
                     m.creating = false

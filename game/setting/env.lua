@@ -105,32 +105,34 @@ autoWeather = function(obj)
     local during = math.random(120, 300)
     if (#obj.allowWeather > 0) then
         local which = obj.allowWeather[math.random(1, #obj.allowWeather)]
-        if (which.weather == "time") then
+        local weather = which.weather
+        local desc = which.desc
+        if (weather == "time") then
             if (his.day()) then
                 during = (18 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
-                if (during > 60) then
-                    during = math.random(60, during)
+                if (obj.name ~= "七灵岛" and during > 90) then
+                    during = math.random(90, during)
                 end
-                which.weather = hweather.sun
-                which.desc = "阳光灿烂，" .. which.desc
+                weather = hweather.sun
+                desc = "阳光灿烂，" .. desc
             else
                 if (cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY) < 6.00) then
                     during = (6 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
                 else
                     during = (24 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
                 end
-                if (during > 60) then
-                    during = math.random(60, during)
+                if (obj.name ~= "七灵岛" and during > 90) then
+                    during = math.random(90, during)
                 end
-                which.weather = hweather.moon
-                which.desc = "月色照耀，" .. which.desc
+                weather = hweather.moon
+                desc = "月色照耀，" .. desc
             end
         end
-        game.island[obj.name] = which.weather
-        echo(obj.color(obj.name) .. "此时" .. which.desc)
+        game.island[obj.name] = weather
+        echo(obj.color(obj.name) .. "此时" .. desc)
         hweather.create({
             whichRect = obj.rect,
-            type = which.weather,
+            type = weather,
             during = during
         })
         local dur = 0
@@ -141,7 +143,7 @@ autoWeather = function(obj)
                 autoWeather(obj)
                 return
             end
-            if (which.weather == hweather.sun) then
+            if (weather == hweather.sun) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
@@ -160,7 +162,7 @@ autoWeather = function(obj)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.moon) then
+            elseif (weather == hweather.moon) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
@@ -179,7 +181,7 @@ autoWeather = function(obj)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.rain) then
+            elseif (weather == hweather.rain) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -199,7 +201,7 @@ autoWeather = function(obj)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.rainstorm) then
+            elseif (weather == hweather.rainstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -259,7 +261,7 @@ autoWeather = function(obj)
                         end)
                     end)
                 end
-            elseif (which.weather == hweather.snow) then
+            elseif (weather == hweather.snow) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -280,7 +282,7 @@ autoWeather = function(obj)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.snowstorm) then
+            elseif (weather == hweather.snowstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -302,7 +304,7 @@ autoWeather = function(obj)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.wind) then
+            elseif (weather == hweather.wind) then
                 if (obj.name == "火蛇岛") then
                     local g = hgroup.createByRect(obj.rect, function(filterUnit)
                         local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
@@ -349,7 +351,7 @@ autoWeather = function(obj)
                         end
                     end, true)
                 end
-            elseif (which.weather == hweather.windstorm) then
+            elseif (weather == hweather.windstorm) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -374,7 +376,7 @@ autoWeather = function(obj)
                         hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
                     end
                 end, true)
-            elseif (which.weather == hweather.mistwhite) then
+            elseif (weather == hweather.mistwhite) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
                     return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
@@ -393,7 +395,7 @@ autoWeather = function(obj)
                         htexture.mark(htexture.DEFAULT_MARKS.DREAM, duri, hunit.getOwner(enumUnit), 255, 255, 255)
                     end
                 end, true)
-            elseif (which.weather == hweather.mistred) then
+            elseif (weather == hweather.mistred) then
                 -- 陨石
                 for i = 1, (3 + game.diff) do
                     htime.setTimeout(i * 0.1, function(ti)
@@ -422,7 +424,7 @@ autoWeather = function(obj)
                         end)
                     end)
                 end
-            elseif (which.weather == hweather.mistgreen) then
+            elseif (weather == hweather.mistgreen) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -441,7 +443,7 @@ autoWeather = function(obj)
                         })
                     end
                 end, true)
-            elseif (which.weather == hweather.mistblue) then
+            elseif (weather == hweather.mistblue) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -460,7 +462,7 @@ autoWeather = function(obj)
                         damageType = { CONST_DAMAGE_TYPE.dark }
                     })
                 end, true)
-            elseif (which.weather == hweather.shield) then
+            elseif (weather == hweather.shield) then
                 -- 紫光爆炸
                 for i = 1, (8 + game.diff) do
                     htime.setTimeout(i * 0.3, function(ti)

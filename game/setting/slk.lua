@@ -27,8 +27,8 @@ for _, v in ipairs(unit) do
 end
 
 -- 敌人单位
-local enemy = json.parse(cg.SLK_ENEMY)
-for _, v in ipairs(enemy) do
+local enemyWater = json.parse(cg.SLK_ENEMY_WATER)
+for _, v in ipairs(enemyWater) do
     hRuntime.register.unit(v)
     game.name2id.enemy[v.Name] = v.UNIT_ID
 end
