@@ -47,6 +47,78 @@ monsterEnemy = {
         wave = 3,
         level = 3,
     },
+    {
+        time = 0,
+        desc = "斑斓海的妖魔出现了",
+        loc = { -3477, -2710 },
+        mon = { "水妖", "蓝虾妖", "夜鱼妖" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 4,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的妖魔出现了",
+        loc = { -5214, -2290 },
+        mon = { "水妖", "蓝虾妖", "夜鱼妖" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 4,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的妖魔出现了",
+        loc = { -2379, -3864 },
+        mon = { "水妖", "蓝虾妖", "夜鱼妖" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 4,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的妖魔出现了",
+        loc = { -6357, -3944 },
+        mon = { "水妖", "海妖" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 5,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的海妖出现了",
+        loc = { -4092, -6072 },
+        mon = { "夜鱼妖", "水妖", "海妖" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 5,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的妖魔出现了",
+        loc = { -7151, -2836 },
+        mon = { "夜鱼妖", "水妖", "海妖" },
+        qty = { 4, 6 }, -- min -> max
+        wave = 3,
+        level = 5,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的海妖出现了",
+        loc = { -5474, -7639 },
+        mon = { "海妖" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 6,
+    },
+    {
+        time = 0,
+        desc = "斑斓海的海妖出现了",
+        loc = { -7748, -6623 },
+        mon = { "海妖" },
+        qty = { 8, 15 }, -- min -> max
+        wave = 2,
+        level = 7,
+    },
 }
 
 -- 自动生成怪物

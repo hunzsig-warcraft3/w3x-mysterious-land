@@ -64,6 +64,7 @@ local ENEMY_CONF = {
         unitSound = "WaterElemental",
         weapTp1 = CONST_WEAPON_TYPE.missile.value,
         Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
+        movetp = CONST_MOVE_TYPE.amph.value,
     },
     {
         Name = "海妖",
@@ -73,6 +74,7 @@ local ENEMY_CONF = {
         unitSound = "WaterElemental",
         weapTp1 = CONST_WEAPON_TYPE.missile.value,
         Missileart = "Abilities\\Weapons\\SeaElementalMissile\\SeaElementalMissile.mdl",
+        movetp = CONST_MOVE_TYPE.amph.value,
     },
 }
 
