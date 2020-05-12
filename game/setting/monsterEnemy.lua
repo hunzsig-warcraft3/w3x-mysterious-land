@@ -3,7 +3,6 @@ monsterIntegral = 0
 monsterAutoEnemyCount = 0
 monsterEnemy = {
     {
-        time = 0, -- 多少时间才有可能生成
         desc = "瀑布渊底被鱼虾妖入侵了",
         loc = { -768, -1648 },
         mon = { "小鱼妖", "蟹妖", "小虾妖" },
@@ -12,7 +11,6 @@ monsterEnemy = {
         level = 1,
     },
     {
-        time = 0,
         desc = "虎口湾忽然出现了一大片螃蟹",
         loc = { -1500, 840 },
         mon = { "蟹妖" },
@@ -21,7 +19,6 @@ monsterEnemy = {
         level = 1,
     },
     {
-        time = 0,
         desc = "七峡湾被鱼虾妖入侵了",
         loc = { 676, -1212 },
         mon = { "小鱼妖", "青鱼妖", "蟹妖", "蓝虾妖" },
@@ -30,7 +27,6 @@ monsterEnemy = {
         level = 1,
     },
     {
-        time = 0,
         desc = "七脚峡被虾妖入侵了",
         loc = { 689, -3000 },
         mon = { "小虾妖", "蓝虾妖", "绿虾妖" },
@@ -39,7 +35,6 @@ monsterEnemy = {
         level = 2,
     },
     {
-        time = 0,
         desc = "七尖水道被鱼群入侵了",
         loc = { 822, 1446 },
         mon = { "小鱼妖", "青鱼妖", "夜鱼妖" },
@@ -48,7 +43,6 @@ monsterEnemy = {
         level = 3,
     },
     {
-        time = 0,
         desc = "斑斓海的妖魔出现了",
         loc = { -3477, -2710 },
         mon = { "水妖", "蓝虾妖", "夜鱼妖" },
@@ -57,7 +51,6 @@ monsterEnemy = {
         level = 4,
     },
     {
-        time = 0,
         desc = "斑斓海的妖魔出现了",
         loc = { -5214, -2290 },
         mon = { "水妖", "蓝虾妖", "夜鱼妖" },
@@ -66,7 +59,6 @@ monsterEnemy = {
         level = 4,
     },
     {
-        time = 0,
         desc = "斑斓海的妖魔出现了",
         loc = { -2379, -3864 },
         mon = { "水妖", "蓝虾妖", "夜鱼妖" },
@@ -75,7 +67,6 @@ monsterEnemy = {
         level = 4,
     },
     {
-        time = 0,
         desc = "斑斓海的妖魔出现了",
         loc = { -6357, -3944 },
         mon = { "水妖", "海妖" },
@@ -84,7 +75,6 @@ monsterEnemy = {
         level = 5,
     },
     {
-        time = 0,
         desc = "斑斓海的海妖出现了",
         loc = { -4092, -6072 },
         mon = { "夜鱼妖", "水妖", "海妖" },
@@ -93,7 +83,6 @@ monsterEnemy = {
         level = 5,
     },
     {
-        time = 0,
         desc = "斑斓海的妖魔出现了",
         loc = { -7151, -2836 },
         mon = { "夜鱼妖", "水妖", "海妖" },
@@ -102,20 +91,18 @@ monsterEnemy = {
         level = 5,
     },
     {
-        time = 0,
         desc = "斑斓海的海妖出现了",
         loc = { -5474, -7639 },
-        mon = { "海妖" },
+        mon = { "水妖", "海妖" },
         qty = { 5, 7 }, -- min -> max
         wave = 3,
         level = 6,
     },
     {
-        time = 0,
         desc = "斑斓海的海妖出现了",
         loc = { -7748, -6623 },
         mon = { "海妖" },
-        qty = { 8, 15 }, -- min -> max
+        qty = { 10, 15 }, -- min -> max
         wave = 2,
         level = 7,
     },
@@ -131,10 +118,11 @@ autoEnemy = function(delay)
         end
         local oi = {}
         for mi, m in ipairs(monsterEnemy) do
-            if (m.creating ~= true and htime.count > m.time) then
+            if (m.creating ~= true and htime.count > (m.level * 30)) then
                 table.insert(oi, mi)
             end
         end
+        print_r(oi)
         if (#oi > 0) then
             local mi = table.random(oi)
             local m = monsterEnemy[mi]
