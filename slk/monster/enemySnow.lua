@@ -1,17 +1,35 @@
 ENEMY_SHOW = {}
 local ENEMY_CONF = {
     {
-        Name = "小鱼妖",
-        file = "units\\creeps\\Murloc\\Murloc",
-        modelScale = 1.00,
-        scale = 1.00,
-        unitSound = "murloc",
-
+        Name = "北极熊",
+        file = "units\\creeps\\PolarBear\\PolarBear",
+        modelScale = 0.90,
+        scale = 1.70,
+        unitSound = "GrizzlyBear",
+    },
+    {
+        Name = "雪怪",
+        file = "units\\creeps\\Wendigo\\Wendigo",
+        modelScale = 0.90,
+        scale = 1.20,
+        unitSound = "Wendigo",
+    },
+    {
+        Name = "海豹妖精",
+        file = "Units\\Creeps\\tuskar\\tuskar",
+        modelScale = 0.75,
+        scale = 1.25,
+        unitSound = "Tuskarr",
     },
 }
 
 -- enemys
 for _, v in ipairs(ENEMY_CONF) do
+    if (v.movetp == "fly") then
+        v.moveHeight = 200
+    elseif (v.movetp == "hover") then
+        v.moveHeight = 20
+    end
     local obj = slk.unit.ogru:new("this_enemys_" .. v.Name)
     obj.Name = v.Name
     obj.abilList = ""

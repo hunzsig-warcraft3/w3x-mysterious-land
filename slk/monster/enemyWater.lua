@@ -85,6 +85,11 @@ local ENEMY_CONF = {
 
 -- enemys
 for _, v in ipairs(ENEMY_CONF) do
+    if (v.movetp == "fly") then
+        v.moveHeight = 200
+    elseif (v.movetp == "hover") then
+        v.moveHeight = 20
+    end
     local obj = slk.unit.ogru:new("this_enemys_" .. v.Name)
     obj.Name = v.Name
     obj.abilList = ""

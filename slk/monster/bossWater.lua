@@ -49,6 +49,11 @@ BOSS_CONF = {
 for _, v in ipairs(BOSS_CONF) do
     local Name = "BOSS-" .. v.Name
     local obj = slk.unit.ogru:new("this_boss_" .. v.Name)
+    if (v.movetp == "fly") then
+        v.moveHeight = 250
+    elseif (v.movetp == "hover") then
+        v.moveHeight = 30
+    end
     obj.Name = Name
     obj.abilList = ""
     obj.file = v.file

@@ -1,17 +1,45 @@
 ENEMY_MOUNTAIN = {}
 local ENEMY_CONF = {
     {
-        Name = "小鱼妖",
-        file = "units\\creeps\\Murloc\\Murloc",
+        Name = "石头人形",
+        file = "units\\creeps\\RockGolem\\RockGolem",
+        modelScale = 0.50,
+        scale = 1.50,
+        unitSound = "RockGolem",
+    },
+    {
+        Name = "土色奥加",
+        file = "units\\creeps\\Ogre\\Ogre",
+        modelScale = 1.00,
+        scale = 1.10,
+        unitSound = "Ogre",
+    },
+    {
+        Name = "天色奥加",
+        file = "units\\creeps\\OgreMagi\\OgreMagi",
+        modelScale = 1.00,
+        scale = 1.10,
+        unitSound = "Ogre",
+    },
+    {
+        Name = "鹰女妖",
+        file = "units\\creeps\\Harpy\\Harpy",
         modelScale = 1.00,
         scale = 1.00,
-        unitSound = "murloc",
-
+        unitSound = "Harpy",
+        movetp = "fly",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\HarpyMissile\\HarpyMissile.mdl"
     },
 }
 
 -- enemys
 for _, v in ipairs(ENEMY_CONF) do
+    if (v.movetp == "fly") then
+        v.moveHeight = 200
+    elseif (v.movetp == "hover") then
+        v.moveHeight = 20
+    end
     local obj = slk.unit.ogru:new("this_enemys_" .. v.Name)
     obj.Name = v.Name
     obj.abilList = ""

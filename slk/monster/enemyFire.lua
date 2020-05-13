@@ -21,10 +21,25 @@ local ENEMY_CONF = {
         scale = 2.30,
         unitSound = "Infernal",
     },
+    {
+        Name = "小火龙",
+        file = "units\\creeps\\RedDragonWelp\\RedDragonWelp",
+        modelScale = 0.7,
+        scale = 1.70,
+        unitSound = "AzureDragon",
+        movetp = "fly",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl",
+    },
 }
 
 -- enemys
 for _, v in ipairs(ENEMY_CONF) do
+    if (v.movetp == "fly") then
+        v.moveHeight = 200
+    elseif (v.movetp == "hover") then
+        v.moveHeight = 20
+    end
     local obj = slk.unit.ogru:new("this_enemys_" .. v.Name)
     obj.Name = v.Name
     obj.abilList = ""

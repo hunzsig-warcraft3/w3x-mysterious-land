@@ -1,17 +1,42 @@
 ENEMY_RUINS = {}
 local ENEMY_CONF = {
     {
-        Name = "小鱼妖",
-        file = "units\\creeps\\Murloc\\Murloc",
+        Name = "强盗",
+        file = "ReplaceableTextures\\CommandButtons\\BTNBandit.blp",
         modelScale = 1.00,
         scale = 1.00,
-        unitSound = "murloc",
-
+        unitSound = "Bandit",
+    },
+    {
+        Name = "遗迹傀儡",
+        file = "units\\creeps\\GolemStatue\\GolemStatue",
+        modelScale = 1.80,
+        scale = 1.50,
+        unitSound = "RockGolem",
+    },
+    {
+        Name = "灰蝎妖",
+        file = "Units\\Creeps\\Archnathid\\Archnathid",
+        modelScale = 0.65,
+        scale = 1.40,
+        unitSound = "Archnathid",
+    },
+    {
+        Name = "毒蝎妖",
+        file = "Units\\Creeps\\ArchnathidGreen\\ArchnathidGreen",
+        modelScale = 0.65,
+        scale = 1.40,
+        unitSound = "Archnathid",
     },
 }
 
 -- enemys
 for _, v in ipairs(ENEMY_CONF) do
+    if (v.movetp == "fly") then
+        v.moveHeight = 200
+    elseif (v.movetp == "hover") then
+        v.moveHeight = 20
+    end
     local obj = slk.unit.ogru:new("this_enemys_" .. v.Name)
     obj.Name = v.Name
     obj.abilList = ""
