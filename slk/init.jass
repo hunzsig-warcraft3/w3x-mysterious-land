@@ -40,9 +40,9 @@ library mySlk initializer Init
             ?>
                 set SLK_ENEMY_WATER = "<?=string.addslashes(json.stringify(ENEMY_WATER))?>"
             <?
-            #include "./slk/boss.lua"
+            #include "./slk/bossWater.lua"
             ?>
-                set SLK_BOSS = "<?=string.addslashes(json.stringify(BOSS))?>"
+                set SLK_BOSS_WATER = "<?=string.addslashes(json.stringify(BOSS_WATER))?>"
             <?
             #include "./slk/hero/BladeMasterWind.lua"
             #include "./slk/hero/MountainKingBol.lua"

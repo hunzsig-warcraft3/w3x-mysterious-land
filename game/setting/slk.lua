@@ -34,8 +34,8 @@ for _, v in ipairs(enemyWater) do
 end
 
 -- 敌人BOSS
-local boss = json.parse(cg.SLK_BOSS)
-for _, v in ipairs(boss) do
+local bossWater = json.parse(cg.BOSS_WATER)
+for _, v in ipairs(bossWater) do
     hRuntime.register.unit(v)
     game.name2id.boss[v.Name] = v.UNIT_ID
 end
