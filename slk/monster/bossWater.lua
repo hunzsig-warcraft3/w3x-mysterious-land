@@ -26,11 +26,30 @@ BOSS_CONF = {
         weapTp1 = CONST_WEAPON_TYPE.missile.value,
         Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
     },
+    {
+        Name = "水之领主",
+        file = "war3mapImported\\unit_WaterElemental.mdl",
+        modelScale = 2.00,
+        scale = 2.50,
+        unitSound = "WaterElemental",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
+    },
+    {
+        Name = "水魔神",
+        file = "war3mapImported\\unit_Waterlord.mdl",
+        modelScale = 1.60,
+        scale = 2.50,
+        unitSound = "WaterElemental",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
+    },
 }
 
 for _, v in ipairs(BOSS_CONF) do
+    local Name = "BOSS-" .. v.Name
     local obj = slk.unit.ogru:new("this_boss_" .. v.Name)
-    obj.Name = v.Name
+    obj.Name = Name
     obj.abilList = ""
     obj.file = v.file
     obj.Art = "ReplaceableTextures\\CommandButtons\\BTNCarrionScarabs.blp"
@@ -51,5 +70,5 @@ for _, v in ipairs(BOSS_CONF) do
     obj.upgrades = ""
     obj.Builds = ""
     obj.fused = 0
-    table.insert(BOSS_WATER, { UNIT_ID = obj:get_id(), Name = v.Name })
+    table.insert(BOSS_WATER, { UNIT_ID = obj:get_id(), Name = Name })
 end

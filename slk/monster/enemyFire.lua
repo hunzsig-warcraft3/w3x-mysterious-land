@@ -1,12 +1,25 @@
 ENEMY_FIRE = {}
 local ENEMY_CONF = {
     {
-        Name = "小鱼妖",
-        file = "units\\creeps\\Murloc\\Murloc",
-        modelScale = 1.00,
-        scale = 1.00,
-        unitSound = "murloc",
-
+        Name = "火蜥蜴",
+        file = "units\\creeps\\ThunderLizardSalamander\\ThunderLizardSalamander",
+        modelScale = 0.60,
+        scale = 2.50,
+        unitSound = "KotoBeastNoRider",
+    },
+    {
+        Name = "小火妖",
+        file = "Units\\Creeps\\LavaSpawn\\LavaSpawn",
+        modelScale = 0.80,
+        scale = 1.60,
+        unitSound = "LavaSpawn",
+    },
+    {
+        Name = "地狱火",
+        file = "units\\demon\\Infernal\\Infernal",
+        modelScale = 1.30,
+        scale = 2.30,
+        unitSound = "Infernal",
     },
 }
 

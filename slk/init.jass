@@ -4,7 +4,10 @@ globals
     string SLK_UNITS
     string SLK_SHOPS
     string SLK_ENEMY_WATER
+    string SLK_ENEMY_FIRE
+    string SLK_ENEMY_DARK
     string SLK_BOSS_WATER
+    string SLK_BOSS_DARK
     string SLK_HERO_BLADE_MASTER_WIND
     string SLK_HERO_MOUNTAIN_KING_BOL
 endglobals
@@ -37,12 +40,18 @@ library mySlk initializer Init
                 set SLK_SHOPS = "<?=string.addslashes(json.stringify(SHOPS))?>"
             <?
             #include "./slk/monster/enemyWater.lua"
+            #include "./slk/monster/enemyFire.lua"
+            #include "./slk/monster/enemyDark.lua"
             ?>
                 set SLK_ENEMY_WATER = "<?=string.addslashes(json.stringify(ENEMY_WATER))?>"
+                set SLK_ENEMY_FIRE = "<?=string.addslashes(json.stringify(ENEMY_FIRE))?>"
+                set SLK_ENEMY_DARK = "<?=string.addslashes(json.stringify(ENEMY_DARK))?>"
             <?
             #include "./slk/monster/bossWater.lua"
+            #include "./slk/monster/bossDark.lua"
             ?>
                 set SLK_BOSS_WATER = "<?=string.addslashes(json.stringify(BOSS_WATER))?>"
+                set SLK_BOSS_DARK = "<?=string.addslashes(json.stringify(BOSS_DARK))?>"
             <?
             #include "./slk/hero/BladeMasterWind.lua"
             #include "./slk/hero/MountainKingBol.lua"
