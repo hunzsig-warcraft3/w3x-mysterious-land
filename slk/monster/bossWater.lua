@@ -1,63 +1,35 @@
-BOSS = {}
+BOSS_WATER = {}
 BOSS_CONF = {
     {
-        Name = "陨石火",
-        file = "war3mapImported\\unit_abyssal_illidan.mdl",
+        Name = "狂暴海妖",
+        file = "Units\\Creeps\\SeaElemental\\SeaElemental",
         modelScale = 2.00,
-        scale = 2.50,
+        scale = 2.00,
+        unitSound = "WaterElemental",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\SeaElementalMissile\\SeaElementalMissile.mdl",
+        movetp = CONST_MOVE_TYPE.amph.value,
     },
     {
-        Name = "异动机车",
-        file = "war3mapImported\\unit_Aestus.mdl",
+        Name = "深海猎人",
+        file = "Units\\Creeps\\SeaGiantGreen\\SeaGiantGreen",
         modelScale = 2.00,
-        scale = 2.50,
+        scale = 2.00,
+        unitSound = "SeaGiant",
     },
     {
-        Name = "大气之灵",
-        file = "war3mapImported\\unit_air.mdl",
-        modelScale = 1.90,
-        scale = 2.50,
-    },
-    {
-        Name = "风暴之灵",
-        file = "war3mapImported\\unit_AirElemental.mdl",
-        modelScale = 2.60,
-        scale = 2.50,
-    },
-    {
-        Name = "钻石巨人",
-        file = "war3mapImported\\unit_AncientOfStone(heavy).mdl",
-        modelScale = 1.80,
-        scale = 2.50,
-    },
-    {
-        Name = "金属火",
-        file = "war3mapImported\\unit_BrassInfernal.mdl",
-        modelScale = 1.70,
-        scale = 2.50,
-    },
-    {
-        Name = "两级行刑人",
-        file = "war3mapImported\\unit_Celsius.mdl",
-        modelScale = 2.30,
-        scale = 2.50,
-    },
-    {
-        Name = "剧毒蜘蛛",
-        file = "war3mapImported\\unit_Dark_Spider.mdl",
-        modelScale = 2.20,
-        scale = 2.50,
-    },
-    {
-        Name = "幽火之灵",
-        file = "war3mapImported\\unit_Dark1.mdl",
-        modelScale = 2.70,
-        scale = 2.50,
+        Name = "大龙龟",
+        file = "Units\\Creeps\\DragonSeaTurtle\\DragonSeaTurtle",
+        modelScale = 1.50,
+        scale = 5.00,
+        unitSound = "GiantSeaTurtle",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
     },
 }
 
 for _, v in ipairs(BOSS_CONF) do
-    local obj = slk.unit.ogru:new("this_enemys_boss_" .. v.Name)
+    local obj = slk.unit.ogru:new("this_boss_" .. v.Name)
     obj.Name = v.Name
     obj.abilList = ""
     obj.file = v.file
@@ -79,5 +51,5 @@ for _, v in ipairs(BOSS_CONF) do
     obj.upgrades = ""
     obj.Builds = ""
     obj.fused = 0
-    table.insert(BOSS, { UNIT_ID = obj:get_id(), Name = v.Name })
+    table.insert(BOSS_WATER, { UNIT_ID = obj:get_id(), Name = v.Name })
 end

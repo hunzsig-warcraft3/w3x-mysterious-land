@@ -6,7 +6,6 @@ local ENEMY_CONF = {
         modelScale = 1.00,
         scale = 1.00,
         unitSound = "murloc",
-
     },
     {
         Name = "青鱼妖",
@@ -14,7 +13,6 @@ local ENEMY_CONF = {
         modelScale = 1.00,
         scale = 1.00,
         unitSound = "murloc",
-
     },
     {
         Name = "夜鱼妖",
@@ -22,7 +20,6 @@ local ENEMY_CONF = {
         modelScale = 1.00,
         scale = 1.00,
         unitSound = "murloc",
-
     },
     {
         Name = "蟹妖",
@@ -30,7 +27,6 @@ local ENEMY_CONF = {
         modelScale = 1.00,
         scale = 1.00,
         unitSound = "",
-
     },
     {
         Name = "小虾妖",
@@ -55,6 +51,15 @@ local ENEMY_CONF = {
         scale = 1.00,
         unitSound = "Lobstrokk",
         weapTp1 = CONST_WEAPON_TYPE.normal.value,
+    },
+    {
+        Name = "小龟",
+        file = "Units\\Creeps\\SeaTurtleRange\\SeaTurtleRange",
+        modelScale = 0.4,
+        scale = 1.40,
+        unitSound = "GiantSeaTurtle",
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
     },
     {
         Name = "水妖",
@@ -109,7 +114,7 @@ for _, v in ipairs(ENEMY_CONF) do
     if (obj.weapTp1 == CONST_WEAPON_TYPE.missile.value) then
         obj.acquire = 300
         obj.rangeN1 = 300
-        obj.Missileart = v.Missileart or "Abilities\\Weapons\\SpiritOfVengeanceMissile\\SpiritOfVengeanceMissile.mdl"
+        obj.Missileart = v.Missileart or "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl"
         obj.Missilearc = 0.1
     else
         obj.acquire = 200
