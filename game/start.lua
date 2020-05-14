@@ -265,8 +265,7 @@ cj.TriggerAddAction(
                 --- 修改复活石生命
                 for _, s in ipairs(game.rebornStonePoint) do
                     hattr.set(s.stone, 0, {
-                        --life = "=" .. rebornLife
-                        life = "=1"
+                        life = "=" .. rebornLife
                     })
                 end
                 --- 英雄选择
