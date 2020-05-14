@@ -122,7 +122,6 @@ autoEnemy = function(delay)
                 table.insert(oi, mi)
             end
         end
-        print_r(oi)
         if (#oi > 0) then
             local mi = table.random(oi)
             local m = monsterEnemy[mi]
@@ -174,5 +173,5 @@ autoEnemy = function(delay)
     end)
 end
 
--- 第一次延时65秒
-autoEnemy(65)
+-- 第一次延时30秒
+autoEnemy(30)

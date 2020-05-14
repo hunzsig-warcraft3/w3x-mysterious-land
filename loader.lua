@@ -1,7 +1,5 @@
 -- 加载h-lua
 require "h-lua"
---F9任务
-hf9({ 'hlua', 'apm', 'sight', 'eff', 'hero' })
 
 -- 镜头模式
 hcamera.setModel("normal")
@@ -25,6 +23,8 @@ require "game.setting.slk"
 -- 设定友军
 game.ALLY_PLAYER = hplayer.players[12]
 require "game.setting.f9"
+--H-LUA F9提示
+hLuaF9({ 'all' })
 require "game.setting.rebornStone"
 require "game.setting.portal"
 require "game.setting.env"

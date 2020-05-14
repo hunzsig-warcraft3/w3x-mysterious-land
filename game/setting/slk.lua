@@ -28,14 +28,28 @@ end
 
 -- 敌人单位
 local enemyWater = json.parse(cg.SLK_ENEMY_WATER)
-for _, v in ipairs(enemyWater) do
+local enemyFire = json.parse(cg.SLK_ENEMY_FIRE)
+local enemySnow = json.parse(cg.SLK_ENEMY_SNOW)
+local enemyJungle = json.parse(cg.SLK_ENEMY_JUNGLE)
+local enemyMountain = json.parse(cg.SLK_ENEMY_MOUNTAIN)
+local enemyRuins = json.parse(cg.SLK_ENEMY_RUINS)
+local enemyDark = json.parse(cg.SLK_ENEMY_DARK)
+local enemy = table.merge(enemyWater, enemyFire, enemySnow, enemyJungle, enemyMountain, enemyRuins, enemyDark)
+for _, v in ipairs(enemy) do
     hRuntime.register.unit(v)
     game.name2id.enemy[v.Name] = v.UNIT_ID
 end
 
 -- 敌人BOSS
-local bossWater = json.parse(cg.BOSS_WATER)
-for _, v in ipairs(bossWater) do
+local bossWater = json.parse(cg.SLK_BOSS_WATER)
+local bossFire = json.parse(cg.SLK_BOSS_FIRE)
+local bossSnow = json.parse(cg.SLK_BOSS_SNOW)
+local bossJungle = json.parse(cg.SLK_BOSS_JUNGLE)
+local bossMountain = json.parse(cg.SLK_BOSS_MOUNTAIN)
+local bossRuins = json.parse(cg.SLK_BOSS_RUINS)
+local bossDark = json.parse(cg.SLK_BOSS_DARK)
+local boss = table.merge(bossWater, bossFire, bossSnow, bossJungle, bossMountain, bossRuins, bossDark)
+for _, v in ipairs(boss) do
     hRuntime.register.unit(v)
     game.name2id.boss[v.Name] = v.UNIT_ID
 end

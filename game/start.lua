@@ -58,13 +58,83 @@ end
 --- 英雄被选择
 hevent.onPickHero(function(evtData)
     --- 默认给个复活石
-    game.unitsReborn[evtData.triggerUnit] = FirstRebornPoint
+    game.unitsReborn[evtData.triggerUnit] = game.rebornStonePoint[1]
     --- 复活动作
     hevent.onDead(evtData.triggerUnit, function(evtDeadData)
-        local rebornTime = hhero.getCurLevel(evtDeadData.triggerUnit) * 3 + game.diff
-        if (rebornTime > 90) then
-            rebornTime = 90
+        if (game.unitsReborn[evtDeadData.triggerUnit] == nil) then
+            echo(hColor.red("所有复活石已经崩坏！山海力量已无法帮助英雄复活"), hunit.getOwner(evtDeadData.triggerUnit))
+            -- 检查是否全员失败
+            local defeatQty = 0
+            for playerIndex = 1, hplayer.qty_max, 1 do
+                if (his.playing(hplayer.players[playerIndex]) == false) then
+                    defeatQty = defeatQty + 1
+                elseif (hhero.player_heroes[hplayer.players[playerIndex]][1] == nil) then
+                    defeatQty = defeatQty + 1
+                elseif (his.alive(hhero.player_heroes[hplayer.players[playerIndex]][1]) == false) then
+                    defeatQty = defeatQty + 1
+                end
+            end
+            if (defeatQty == hplayer.qty_max) then
+                echo(hColor.red("复活石已不复存在，你们的英雄灵魂也永远迷失在混沌之中"))
+                htime.setTimeout(10, function(curTimer)
+                    htime.delTimer(curTimer)
+                    for playerIndex = 1, hplayer.qty_max, 1 do
+                        hplayer.defeat(hplayer.players[playerIndex], "冒险失败")
+                    end
+                end)
+            end
+            return
         end
+        local stone = game.unitsReborn[evtDeadData.triggerUnit].stone
+        if (hunit.getCurLife(stone) < 2) then
+            hunit.del(stone, 0)
+            hunit.del(game.unitsReborn[evtDeadData.triggerUnit].point, 0)
+            for _, p in ipairs(game.rebornStonePoint) do
+                if (p.status == 1 and p.stone == stone) then
+                    p.status = 0
+                    break
+                end
+            end
+            local rePointIdx = 0
+            for pi, p in ipairs(game.rebornStonePoint) do
+                if (p.status == 1) then
+                    rePointIdx = pi
+                    break
+                end
+            end
+            if (rePointIdx > 0) then
+                game.unitsReborn[evtDeadData.triggerUnit] = game.rebornStonePoint[rePointIdx]
+                echo(hColor.yellow("一个复活石复生多次已经消亡，余下的复活石肩负起了复活英雄的责任"), hunit.getOwner(evtDeadData.triggerUnit))
+            else
+                game.unitsReborn[evtDeadData.triggerUnit] = nil
+                echo(hColor.red("所有复活石已经崩坏！山海力量已无法帮助英雄复活"))
+                -- 检查是否全员失败
+                local defeatQty = 0
+                for playerIndex = 1, hplayer.qty_max, 1 do
+                    if (his.playing(hplayer.players[playerIndex]) == false) then
+                        defeatQty = defeatQty + 1
+                    elseif (hhero.player_heroes[hplayer.players[playerIndex]][1] == nil) then
+                        defeatQty = defeatQty + 1
+                    elseif (his.alive(hhero.player_heroes[hplayer.players[playerIndex]][1]) == false) then
+                        defeatQty = defeatQty + 1
+                    end
+                end
+                if (defeatQty == hplayer.qty_max) then
+                    echo(hColor.red("复活石已不复存在，你们的英雄灵魂也永远迷失在混沌之中"))
+                    htime.setTimeout(10, function(curTimer)
+                        htime.delTimer(curTimer)
+                        for playerIndex = 1, hplayer.qty_max, 1 do
+                            hplayer.defeat(hplayer.players[playerIndex], "冒险失败")
+                        end
+                    end)
+                end
+                return
+            end
+        else
+            hunit.subCurLife(stone, 1.0000)
+        end
+        local rebornTime = 10
+        -- 血幕
         htexture.mark(htexture.DEFAULT_MARKS.DREAM, rebornTime, hunit.getOwner(evtDeadData.triggerUnit), 255, 0, 0)
         hhero.rebornAtXY(
             evtDeadData.triggerUnit, rebornTime, 3,
@@ -72,13 +142,8 @@ hevent.onPickHero(function(evtData)
             true
         )
         -- 中途心跳声
-        local heartBeat = rebornTime
-        htime.setInterval(4, function(heartTimer)
-            heartBeat = heartBeat - 4
-            if (heartBeat < 0) then
-                htime.delTimer(heartTimer)
-                return
-            end
+        htime.setTimeout(4, function(heartTimer)
+            htime.delTimer(heartTimer)
             hsound.sound2Player(cg.gg_snd_voice_heart_beat, hunit.getOwner(evtDeadData.triggerUnit))
         end)
     end)
@@ -181,18 +246,29 @@ cj.TriggerAddAction(
             function(btnIdx)
                 local diff = 1
                 local diffColor = hColor.sky
+                local rebornLife = 100
                 if (btnIdx == "历险的山人") then
-                    diff = 2
+                    diff = 3
                     diffColor = hColor.green
+                    rebornLife = 30
                 elseif (btnIdx == "无畏的达人") then
-                    diff = 6
+                    diff = 7
                     diffColor = hColor.yellow
+                    rebornLife = 10
                 elseif (btnIdx == "绝境的勇士") then
-                    diff = 13
+                    diff = 15
                     diffColor = hColor.red
+                    rebornLife = 4
                 end
                 echo("选择了难度：" .. diffColor(btnIdx))
                 game.diff = diff
+                --- 修改复活石生命
+                for _, s in ipairs(game.rebornStonePoint) do
+                    hattr.set(s.stone, 0, {
+                        --life = "=" .. rebornLife
+                        life = "=1"
+                    })
+                end
                 --- 英雄选择
                 hhero.setBornXY(0, 0)
                 hhero.setHeroIds(game.heroIds)
