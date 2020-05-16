@@ -57,6 +57,21 @@ UNITS_CONF = {
         unitSound = "",
         weapsOn = 0,
     },
+    {
+        Name = "被封印的堕落恶魔",
+        abilList = "Avul",
+        file = "SharedModels\\IllidanImprisoned.mdl",
+        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
+        modelScale = 2.00,
+        scale = 0.10,
+        HP = 10000,
+        spd = 0,
+        sight = 0,
+        nsight = 0,
+        unitSound = "",
+        movetp = "fly",
+        weapsOn = 0,
+    },
 }
 
 -- units
@@ -79,5 +94,9 @@ for _, v in ipairs(UNITS_CONF) do
     obj.regenHP = 0
     obj.regenType = ""
     obj.fused = 0
+    obj.movetp = v.movetp or "foot"
+    if (v.movetp == "fly") then
+        obj.moveHeight = 100
+    end
     table.insert(UNITS, { UNIT_ID = obj:get_id(), Name = v.Name })
 end

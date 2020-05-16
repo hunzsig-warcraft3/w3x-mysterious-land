@@ -31,6 +31,7 @@ require "game.setting.env"
 require "game.setting.monsterAward"
 require "game.setting.monsterEnemy"
 require "game.setting.monsterBoss"
+require "game.setting.quest"
 
 -- 商店
 --THIS_SHOPS = {}

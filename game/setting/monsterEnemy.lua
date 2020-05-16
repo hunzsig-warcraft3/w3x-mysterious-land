@@ -2,6 +2,7 @@
 monsterIntegral = 0
 monsterAutoEnemyCount = 0
 monsterEnemy = {
+    -- 七灵 1-3
     {
         desc = "瀑布渊底被鱼虾妖入侵了",
         loc = { -768, -1648 },
@@ -42,6 +43,7 @@ monsterEnemy = {
         wave = 3,
         level = 3,
     },
+    -- 斑斓海 4-7
     {
         desc = "斑斓海的妖魔出现了",
         loc = { -3477, -2710 },
@@ -106,19 +108,337 @@ monsterEnemy = {
         wave = 2,
         level = 7,
     },
+    -- 秘潭幽林 8-13
+    {
+        desc = "幽林中衍生了树精",
+        loc = { 1500, -5858 },
+        mon = { "树精" },
+        qty = { 3, 5 }, -- min -> max
+        wave = 2,
+        level = 8,
+    },
+    {
+        desc = "幽林中衍生了树精",
+        loc = { 1641, -7605 },
+        mon = { "树精" },
+        qty = { 3, 5 }, -- min -> max
+        wave = 2,
+        level = 8,
+    },
+    {
+        desc = "幽谷中灰狼在觅食",
+        loc = { -436, -6066 },
+        mon = { "灰狼" },
+        qty = { 3, 5 }, -- min -> max
+        wave = 2,
+        level = 9,
+    },
+    {
+        desc = "一群灰狼在山上警戒",
+        loc = { 2220, -6686 },
+        mon = { "灰狼" },
+        qty = { 10, 12 }, -- min -> max
+        wave = 1,
+        level = 10,
+    },
+    {
+        desc = "蜘蛛萌萌的~",
+        loc = { 1237, -9175 },
+        mon = { "小蜘蛛", "森林蜘蛛" },
+        qty = { 6, 8 }, -- min -> max
+        wave = 2,
+        level = 10,
+    },
+    {
+        desc = "蜘蛛萌萌的~",
+        loc = { -1896, -8935 },
+        mon = { "小蜘蛛", "森林蜘蛛" },
+        qty = { 7, 9 }, -- min -> max
+        wave = 2,
+        level = 11,
+    },
+    {
+        desc = "树魔与豺狼在密谋着奇怪的事情",
+        loc = { -1124, -4972 },
+        mon = { "树魔狂战士", "树魔猎手", "树魔牧师", "豺狼", "豺狼射手" },
+        qty = { 16, 20 }, -- min -> max
+        wave = 2,
+        level = 13,
+    },
+    {
+        desc = "秘潭出现了怪人",
+        loc = { 1641, -7605 },
+        mon = { "丛林怪人" },
+        qty = { 2, 3 }, -- min -> max
+        wave = 2,
+        level = 13,
+    },
+    -- 铁环山 14-20
+    {
+        desc = "铁环山的石头人在投石头",
+        loc = { 6637, 2100 },
+        mon = { "投石头石头人" },
+        qty = { 2, 3 }, -- min -> max
+        wave = 2,
+        level = 14,
+    },
+    {
+        desc = "铁环山的石头人在投石头",
+        loc = { 7221, 2139 },
+        mon = { "投石头石头人" },
+        qty = { 2, 3 }, -- min -> max
+        wave = 2,
+        level = 14,
+    },
+    {
+        desc = "铁环山的石头人在投石头",
+        loc = { 7821, 2197 },
+        mon = { "投石头石头人" },
+        qty = { 2, 3 }, -- min -> max
+        wave = 2,
+        level = 14,
+    },
+    {
+        desc = "铁环山满山石头人",
+        loc = { 8854, 1127 },
+        mon = { "石头人", "投石头石头人" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 2,
+        level = 15,
+    },
+    {
+        desc = "铁环山满山石头人",
+        loc = { 5968, 1715 },
+        mon = { "石头人" },
+        qty = { 4, 6 }, -- min -> max
+        wave = 3,
+        level = 15,
+    },
+    {
+        desc = "铁环山路出现了拦路的石头人",
+        loc = { 7221, 1362 },
+        mon = { "石头人" },
+        qty = { 4, 6 }, -- min -> max
+        wave = 3,
+        level = 16,
+    },
+    {
+        desc = "铁环山路出现了拦路的奥加",
+        loc = { 8500, -1495 },
+        mon = { "土色奥加", "天色奥加" },
+        qty = { 7, 10 }, -- min -> max
+        wave = 3,
+        level = 17,
+    },
+    {
+        desc = "铁环平原出现了拦路的奥加",
+        loc = { 6814, -1911 },
+        mon = { "土色奥加", "天色奥加" },
+        qty = { 7, 10 }, -- min -> max
+        wave = 3,
+        level = 17,
+    },
+    {
+        desc = "铁环山柱地出现了妖魔",
+        loc = { 5379, -660 },
+        mon = { "石头人", "土色奥加", "天色奥加" },
+        qty = { 7, 10 }, -- min -> max
+        wave = 3,
+        level = 18,
+    },
+    {
+        desc = "鹰女妖在铁环山盘旋",
+        loc = { 8150, -384 },
+        mon = { "鹰女妖" },
+        qty = { 3, 4 }, -- min -> max
+        wave = 3,
+        level = 19,
+    },
+    {
+        desc = "鹰女妖在铁环山盘旋",
+        loc = { 7500, -2100 },
+        mon = { "鹰女妖" },
+        qty = { 3, 4 }, -- min -> max
+        wave = 3,
+        level = 19,
+    },
+    {
+        desc = "大片鹰女妖在铁环山盘旋",
+        loc = { 6648, -337 },
+        mon = { "鹰女妖" },
+        qty = { 8, 12 }, -- min -> max
+        wave = 3,
+        level = 20,
+    },
+    -- 遗迹草原 21-29
+    {
+        desc = "大片鹰女妖在铁环山盘旋",
+        loc = { 6648, -337 },
+        mon = { "强盗" },
+        qty = { 8, 12 }, -- min -> max
+        wave = 3,
+        level = 21,
+    },
+    -- 冰极雪原 30-50
+    {
+        desc = "一大波的友善海豹在隐秘的河道栖息",
+        loc = { -5530, 8535 },
+        mon = { "海豹妖精" },
+        qty = { 8, 10 }, -- min -> max
+        wave = 2,
+        level = 30,
+    },
+    {
+        desc = "冰海的海豹上岸了",
+        loc = { -5524, 6436 },
+        mon = { "海豹妖精" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 32,
+    },
+    {
+        desc = "雪原传来了猛熊的咆哮",
+        loc = { -5328, 965 },
+        mon = { "北极熊" },
+        qty = { 2, 4 }, -- min -> max
+        wave = 5,
+        level = 33,
+    },
+    {
+        desc = "雪原传来了群熊的咆哮",
+        loc = { -6300, 1500 },
+        mon = { "北极熊" },
+        qty = { 6, 8 }, -- min -> max
+        wave = 2,
+        level = 34,
+    },
+    {
+        desc = "大雪中隐匿着怪物",
+        loc = { -5048, 3684 },
+        mon = { "雪怪" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 2,
+        level = 35,
+    },
+    {
+        desc = "大雪中隐匿着怪物",
+        loc = { -7228, 2685 },
+        mon = { "雪怪" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 2,
+        level = 35,
+    },
+    {
+        desc = "大雪中隐匿着怪物",
+        loc = { -8638, 3836 },
+        mon = { "雪怪" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 2,
+        level = 40,
+    },
+    {
+        desc = "大雪中隐匿着怪物",
+        loc = { -6959, 5259 },
+        mon = { "雪怪" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 2,
+        level = 45,
+    },
+    {
+        desc = "暴雪堆积的山上，怪物暴走",
+        loc = { -7592, 7578 },
+        mon = { "雪怪", "北极熊" },
+        qty = { 15, 20 }, -- min -> max
+        wave = 3,
+        level = 50,
+    },
+    -- 火蛇岛 51-70
+    -- 枯死岸 75-100
+    {
+        desc = "骷髅在枯死岛横行",
+        loc = { 6300, 8095 },
+        mon = { "骷髅兵", "骷髅弓手" },
+        qty = { 7, 11 }, -- min -> max
+        wave = 3,
+        level = 75,
+    },
+    {
+        desc = "骷髅在枯死岛横行",
+        loc = { 7935, 5592 },
+        mon = { "骷髅兵", "骷髅弓手" },
+        qty = { 7, 11 }, -- min -> max
+        wave = 3,
+        level = 77,
+    },
+    {
+        desc = "骷髅在枯死岛横行",
+        loc = { 6807, 6741 },
+        mon = { "骷髅兵", "骷髅弓手" },
+        qty = { 7, 11 }, -- min -> max
+        wave = 3,
+        level = 79,
+    },
+    {
+        desc = "骷髅军团在枯死岛出现了！",
+        loc = { 7847, 7890 },
+        mon = { "骷髅兵", "骷髅弓手", "骷髅巨兵" },
+        qty = { 25, 30 }, -- min -> max
+        wave = 3,
+        level = 82,
+    },
+    {
+        desc = "恶灵上了树的身！",
+        loc = { 5237, 8227 },
+        mon = { "堕落树精" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 84,
+    },
+    {
+        desc = "恶灵上了树的身！",
+        loc = { 8484, 6250 },
+        mon = { "堕落树精" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 86,
+    },
+    {
+        desc = "恶灵上了树的身！",
+        loc = { 7905, 5236 },
+        mon = { "堕落树精" },
+        qty = { 5, 7 }, -- min -> max
+        wave = 3,
+        level = 88,
+    },
+    {
+        desc = "丧尸在枯死岛出现了！",
+        loc = { 6961, 8430 },
+        mon = { "僵尸仔" },
+        qty = { 15, 20 }, -- min -> max
+        wave = 3,
+        level = 90,
+    },
+    {
+        desc = "极坏丧尸在枯死岛出现了！",
+        loc = { 8500, 8500 },
+        mon = { "僵尸仔" },
+        qty = { 10, 30 }, -- min -> max
+        wave = 3,
+        level = 100,
+    },
 }
 
 -- 自动生成怪物
 autoEnemy = function(delay)
     htime.setTimeout(delay, function(curTimer)
         htime.delTimer(curTimer)
-        if (monsterAutoEnemyCount > 14) then
+        if (monsterAutoEnemyCount > 45) then
             autoEnemy(10)
             return
         end
         local oi = {}
         for mi, m in ipairs(monsterEnemy) do
-            if (m.creating ~= true and htime.count > (m.level * 30)) then
+            if (m.creating ~= true and htime.count > (m.level * 25)) then
                 table.insert(oi, mi)
             end
         end

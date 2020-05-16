@@ -1,11 +1,22 @@
 ENEMY_MOUNTAIN = {}
 local ENEMY_CONF = {
     {
-        Name = "石头人形",
+        Name = "石头人",
         file = "units\\creeps\\RockGolem\\RockGolem",
-        modelScale = 0.50,
+        modelScale = 0.80,
         scale = 1.50,
         unitSound = "RockGolem",
+    },
+    {
+        Name = "投石头石头人",
+        file = "units\\creeps\\Harpy\\Harpy",
+        modelScale = 0.80,
+        scale = 1.50,
+        unitSound = "RockGolem",
+        movetp = "fly",
+        rangeN1 = 800,
+        weapTp1 = CONST_WEAPON_TYPE.missile.value,
+        Missileart = "Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl"
     },
     {
         Name = "土色奥加",
@@ -48,9 +59,9 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.modelScale = v.modelScale or 1.00
     obj.scale = v.scale or 1.00
     obj.HP = 100
-    obj.spd = 200
-    obj.sight = 300
-    obj.nsight = 300
+    obj.spd = 180
+    obj.sight = v.rangeN1 or 300
+    obj.nsight = v.rangeN1 or 300
     obj.unitSound = v.unitSound or ""
     obj.weapsOn = 1
     obj.movetp = v.movetp or "foot"--移动类型
@@ -67,8 +78,8 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.dmgpt1 = 0.5
     obj.backSw1 = 0.5
     if (obj.weapTp1 == CONST_WEAPON_TYPE.missile.value) then
-        obj.acquire = 300
-        obj.rangeN1 = 300
+        obj.acquire = v.rangeN1 or 300
+        obj.rangeN1 = v.rangeN1 or 300
         obj.Missileart = v.Missileart or "Abilities\\Weapons\\SpiritOfVengeanceMissile\\SpiritOfVengeanceMissile.mdl"
         obj.Missilearc = 0.1
     else

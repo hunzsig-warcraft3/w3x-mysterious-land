@@ -10,7 +10,7 @@ local ENEMY_CONF = {
     {
         Name = "遗迹傀儡",
         file = "units\\creeps\\GolemStatue\\GolemStatue",
-        modelScale = 1.80,
+        modelScale = 1.60,
         scale = 1.50,
         unitSound = "RockGolem",
     },
@@ -45,7 +45,7 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.modelScale = v.modelScale or 1.00
     obj.scale = v.scale or 1.00
     obj.HP = 100
-    obj.spd = 200
+    obj.spd = 230
     obj.sight = 300
     obj.nsight = 300
     obj.unitSound = v.unitSound or ""

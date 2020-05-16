@@ -280,6 +280,20 @@ cj.TriggerAddAction(
                     buildRowQty = 2,
                     buildTavernQty = 10, -- 酒馆模式下，一个酒馆最多拥有几种单位
                 })
+                gameQuestEvent.pickHero()
+                htime.setTimeout(61, function(curTimer)
+                    htime.delTimer(curTimer)
+                    gameQuestComplete(gameQuests.pickHero)
+                    game.demon = henemy.create({
+                        unitId = game.name2id.unit["被封印的堕落恶魔"],
+                        facing = 270,
+                        opacity = 50,
+                        x = -150,
+                        y = 0,
+                    })
+                    hunit.setCurLife(game.demon, 666)
+                    gameQuestEvent.demon()
+                end)
                 --- 创建多面板
                 hmultiBoard.create(
                     "player",

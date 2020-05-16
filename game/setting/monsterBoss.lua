@@ -51,6 +51,8 @@ autoBoss = function(delay)
                 attack_white = "=" .. attack_white,
             })
             hevent.onDead(u, onBossAward)
+            -- 设置boss多少秒后攻击灵心
+
         end
         autoEnemy(10)
     end)

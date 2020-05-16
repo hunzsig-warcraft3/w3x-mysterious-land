@@ -4,7 +4,7 @@ hquest.create(
         title = "群979487941",
         content = "有爱的才来，无爱的就可以不用来哈 ^ ^",
         icon = "ReplaceableTextures\\CommandButtons\\BTNPenguin.blp",
-        site = "right",
+        side = "right",
     }
 )
 hquest.create(
@@ -17,7 +17,7 @@ hquest.create(
             " - 地图更新不会很快，喜欢就加个群，反正又不是快餐，爱玩不玩~",
         },
         icon = "ReplaceableTextures\\CommandButtons\\BTNHeroBlademaster.blp",
-        site = "right",
+        side = "right",
     }
 )
 hquest.create(
@@ -30,6 +30,6 @@ hquest.create(
             " - 这图没有极速入门，就是很悠哉悠哉的~",
         },
         icon = "ReplaceableTextures\\CommandButtons\\BTNTomeRed.blp",
-        site = "right",
+        side = "right",
     }
 )

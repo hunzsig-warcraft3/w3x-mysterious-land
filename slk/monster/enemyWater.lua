@@ -98,7 +98,7 @@ for _, v in ipairs(ENEMY_CONF) do
     obj.modelScale = v.modelScale or 1.00
     obj.scale = v.scale or 1.00
     obj.HP = 100
-    obj.spd = 200
+    obj.spd = 210
     obj.sight = 300
     obj.nsight = 300
     obj.unitSound = v.unitSound or ""
