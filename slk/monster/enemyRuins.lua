@@ -10,7 +10,7 @@ local ENEMY_CONF = {
     {
         Name = "遗迹傀儡",
         file = "units\\creeps\\GolemStatue\\GolemStatue",
-        modelScale = 1.60,
+        modelScale = 1.50,
         scale = 1.50,
         unitSound = "RockGolem",
     },
