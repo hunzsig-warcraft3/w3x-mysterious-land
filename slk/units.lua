@@ -3,7 +3,7 @@ UNITS = {} --to vjass
 UNITS_CONF = {
     {
         Name = "复活石(面向东南的)",
-        abilList = "Avul",
+        abilList = "Avul,Apit",
         file = "Doodads\\Cinematic\\RessurectionStoneSE\\RessurectionStoneSE",
         Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
@@ -17,7 +17,7 @@ UNITS_CONF = {
     },
     {
         Name = "复活石(面向西南的)",
-        abilList = "Avul",
+        abilList = "Avul,Apit",
         file = "Doodads\\Cinematic\\RessurectionStoneSW\\RessurectionStoneSW",
         Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,

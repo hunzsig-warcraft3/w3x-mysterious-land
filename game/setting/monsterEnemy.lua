@@ -597,9 +597,12 @@ autoEnemy = function(delay)
             htime.setInterval(1.5, function(curTimer2)
                 if (w >= m.wave) then
                     htime.delTimer(curTimer2)
-                    m.creating = false
                     monsterAutoEnemyCount = monsterAutoEnemyCount - 1
                     monsterIntegral = monsterIntegral + 1
+                    htime.setTimeout(60, function(curTimer3)
+                        htime.delTimer(curTimer3)
+                        m.creating = false
+                    end)
                     return
                 end
                 local g = hgroup.createByXY(m.loc[1], m.loc[2], 400, function(filterUnit)

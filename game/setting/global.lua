@@ -5,7 +5,14 @@ game = {
     demon = {},
     island = {},
     unitsReborn = {},
-    playerKnockdown = {},
+    playerDZData = {
+        -- 击杀数，战力，
+        info = {},
+        -- 1个英雄种类，6个物品栏物品（次数）
+        hero = {},
+        -- 8个技能（4个本体，4个天赋）
+        ability = {},
+    },
     playerCourier = {},
     heroIds = {},
     name2id = {

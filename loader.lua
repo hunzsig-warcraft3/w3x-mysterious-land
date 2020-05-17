@@ -20,6 +20,7 @@ henemy.setPlayer(hplayer.players[11])
 -- 加载本地图的设置
 require "game.setting.global"
 require "game.setting.slk"
+require "game.setting.dzapi"
 -- 设定友军
 game.ALLY_PLAYER = hplayer.players[12]
 require "game.setting.f9"

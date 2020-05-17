@@ -31,14 +31,15 @@ end
 onBossAward = function(evtData)
     local triggerUnit = evtData.triggerUnit
     local killer = evtData.killer
-    local mi = hunit.getUserData(triggerUnit)
+    local mi = math.floor(hunit.getUserData(triggerUnit) / 1000)
     local level = monsterBoss[mi].level
-    local gold = level * 20
+    local gold = level * 25
     local exp = (level + monsterIntegral) * 40
+    monsterBoss[mi].creating = false
     if (killer ~= nil) then
         haward.forGroupExp(killer, exp)
     end
-    for _ = 1, 10 do
+    for _ = 1, (9 + level) do
         hitem.fleeting(
             hitem.FLEETING_IDS.GOLD,
             cj.GetUnitX(triggerUnit) + math.random(0, 200),
