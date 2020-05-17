@@ -38,6 +38,10 @@ onBossAward = function(evtData)
     monsterBoss[mi].creating = false
     if (killer ~= nil) then
         haward.forGroupExp(killer, exp)
+        local p = hunit.getOwner(killer)
+        if (his.playing(p)) then
+            game.playerDZData.info[p].k = game.playerDZData.info[p].k + 1
+        end
     end
     for _ = 1, (9 + level) do
         hitem.fleeting(

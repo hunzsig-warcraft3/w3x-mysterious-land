@@ -158,9 +158,10 @@ cj.TriggerAddAction(
         hsound.bgmStop()
         -- 检查服务器状态，不行直接退出
         dzCurrent.checkReady()
+        -- hello world
         echo("^_^ 您来到了山海灵界，请在七灵岛，选择" .. hColor.yellow("你的英雄"))
+        -- 玩家配置
         for i = 1, hplayer.qty_max, 1 do
-            dzSetKnockdown(hplayer.players[i])
             hplayer.setAllowCameraDistance(hplayer.players[i], true)
         end
         --设置三围基础
@@ -256,6 +257,8 @@ cj.TriggerAddAction(
                         local data = {}
                         table.insert(data, {
                             { value = "山海人", icon = nil },
+                            { value = "称号", icon = nil },
+                            { value = "战力", icon = nil },
                             { value = "英雄", icon = nil },
                             { value = "回血", icon = nil },
                             { value = "回魔", icon = nil },
@@ -273,6 +276,8 @@ cj.TriggerAddAction(
                             local p = hplayer.players[pi]
                             if (his.playing(p)) then
                                 local hero = "-"
+                                local prestige = "-"
+                                local power = "-"
                                 local avatar = nil
                                 local name = "-"
                                 local life_back = "-"
@@ -289,6 +294,8 @@ cj.TriggerAddAction(
                                 if (hero ~= nil) then
                                     avatar = hunit.getAvatar(hero)
                                     name = hunit.getName(hero)
+                                    prestige = game.playerDZData.info.r
+                                    power = game.playerDZData.info.p
                                     life_back = math.round(hattr.get(hero, "life_back")) .. "/秒"
                                     mana_back = math.round(hattr.get(hero, "mana_back")) .. "/秒"
                                     attack_speed = math.round(100 + hattr.get(hero, "attack_speed")) .. "%"
@@ -310,6 +317,8 @@ cj.TriggerAddAction(
                                 end
                                 table.insert(data, {
                                     { value = "[" .. hplayer.getStatus(p) .. "]" .. cj.GetPlayerName(p), icon = nil },
+                                    { value = prestige, icon = nil },
+                                    { value = power, icon = nil },
                                     { value = name, icon = avatar },
                                     { value = life_back, icon = nil },
                                     { value = mana_back, icon = nil },

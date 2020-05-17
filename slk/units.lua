@@ -1,9 +1,29 @@
 UNITS = {} --to vjass
-
+local rebornItems = {
+    {
+        Name = "医疗剂",
+        Desc = "轻松制得的医疗药水，效果不佳当免费",
+        Art = "ReplaceableTextures\\CommandButtons\\BTNHealingSalve.blp",
+        goldcost = 0,
+        lumbercost = 0,
+        powerup = 0,
+        sellable = 1,
+        pawnable = 1,
+        droppable = 1,
+        cooldown = 45,
+        ACTIVE = "使用后在10秒内持续恢复共500点生命",
+        OVERLIE = 99,
+    },
+}
+local ids = ""
+for _, v in ipairs(rebornItems) do
+    local id = slkHelper.item(v)
+    ids = ids .. "," .. id
+end
 UNITS_CONF = {
     {
         Name = "复活石(面向东南的)",
-        abilList = "Avul,Apit",
+        abilList = "Avul,Apit" .. ids,
         file = "Doodads\\Cinematic\\RessurectionStoneSE\\RessurectionStoneSE",
         Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
@@ -17,7 +37,7 @@ UNITS_CONF = {
     },
     {
         Name = "复活石(面向西南的)",
-        abilList = "Avul,Apit",
+        abilList = "Avul,Apit" .. ids,
         file = "Doodads\\Cinematic\\RessurectionStoneSW\\RessurectionStoneSW",
         Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
