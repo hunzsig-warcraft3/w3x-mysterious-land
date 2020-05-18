@@ -1,9 +1,9 @@
 monsterAutoBossCount = 0
 monsterBossAttackPoint = {
     { x = -1465, y = -7471, facing = 10 },
-    { x = 0, y = 0, facing = 0 },
-    { x = 0, y = 0, facing = 0 },
-    { x = 0, y = 0, facing = 0 },
+    { x = 3471, y = -4623, facing = 95 },
+    { x = -2509, y = 1996, facing = 0 },
+    { x = 3424, y = 1645, facing = 190 },
 }
 monsterBoss = {
     -- 七灵 1
@@ -104,6 +104,7 @@ autoBoss = function(delay)
                         local point = table.random(monsterBossAttackPoint)
                         hunit.portal(u, point.x, point.y, point.facing)
                         cj.IssuePointOrder(u, "move", cj.GetUnitX(game.demon), cj.GetUnitY(game.demon))
+                        hattr.set(u, 30, { move = "-50" })
                         echo("BOSS：" .. name .. "发现了恶魔的存在！")
                     end
                 end,

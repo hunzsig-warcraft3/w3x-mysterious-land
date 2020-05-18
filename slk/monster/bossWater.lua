@@ -61,7 +61,7 @@ for _, v in ipairs(BOSS_CONF) do
     obj.modelScale = v.modelScale or 1.00
     obj.scale = v.scale or 1.00
     obj.HP = 100
-    obj.spd = 125
+    obj.spd = 145
     obj.sight = 500
     obj.nsight = 500
     obj.unitSound = v.unitSound or ""

@@ -70,7 +70,15 @@ dzCurrent.doRecord = function(whichPlayer)
     hdzapi.setRoomStat(whichPlayer, "prestige", prestige) --房间称号
     hdzapi.setRoomStat(whichPlayer, "power", power) --房间战力
     -- 写入服务器
-
+    local jsonInfo = string.addslashes(json.stringify(game.playerDZData.info))
+    local jsonHero = string.addslashes(json.stringify(game.playerDZData.hero))
+    local jsonAbility = string.addslashes(json.stringify(game.playerDZData.ability))
+    print(string.len(jsonInfo), jsonInfo)
+    print(string.len(jsonHero), jsonHero)
+    print(string.len(jsonAbility), jsonAbility)
+    hdzapi.server.set.str(whichPlayer, "info", jsonInfo)
+    hdzapi.server.set.str(whichPlayer, "hero", jsonHero)
+    hdzapi.server.set.str(whichPlayer, "ability", jsonAbility)
 end
 
 dzCurrent.enableRecord = function(whichPlayer)
