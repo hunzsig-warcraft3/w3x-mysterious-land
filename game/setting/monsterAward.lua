@@ -40,7 +40,8 @@ onBossAward = function(evtData)
         haward.forGroupExp(killer, exp)
         local p = hunit.getOwner(killer)
         if (his.playing(p)) then
-            game.playerDZData.info[p].k = game.playerDZData.info[p].k + 1
+            local pIndex = hplayer.index(p)
+            game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 1
         end
     end
     for _ = 1, (9 + level) do

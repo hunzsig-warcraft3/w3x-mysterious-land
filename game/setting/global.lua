@@ -6,12 +6,16 @@ game = {
     island = {},
     unitsReborn = {},
     playerDZData = {
-        -- 击杀数，战力，
+        -- 称号、击杀数、战力、黄金、木头
         info = {},
-        -- 1个英雄种类，6个物品栏物品（次数）
+        -- 英雄种类、英雄等级
         hero = {},
-        -- 8个技能（4个本体，4个天赋）
+        -- 6个物品栏物品（次数）
+        item = {},
+        -- 4个本体技能
         ability = {},
+        -- 4个天赋技能
+        gift = {},
     },
     playerCourier = {},
     heroIds = {},

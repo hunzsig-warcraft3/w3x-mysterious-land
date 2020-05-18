@@ -18,12 +18,16 @@ local rebornItems = {
 local ids = ""
 for _, v in ipairs(rebornItems) do
     local id = slkHelper.item(v)
-    ids = ids .. "," .. id
+    if (ids == "") then
+        ids = id
+    else
+        ids = ids .. "," .. id
+    end
 end
 UNITS_CONF = {
     {
         Name = "复活石(面向东南的)",
-        abilList = "Avul,Apit" .. ids,
+        abilList = "Avul,Apit,Aneu",
         file = "Doodads\\Cinematic\\RessurectionStoneSE\\RessurectionStoneSE",
         Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
@@ -34,10 +38,11 @@ UNITS_CONF = {
         nsight = 1000,
         unitSound = "",
         weapsOn = 0,
+        Sellitems = ids,
     },
     {
         Name = "复活石(面向西南的)",
-        abilList = "Avul,Apit" .. ids,
+        abilList = "Avul,Apit,Aneu",
         file = "Doodads\\Cinematic\\RessurectionStoneSW\\RessurectionStoneSW",
         Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
@@ -48,6 +53,7 @@ UNITS_CONF = {
         nsight = 1000,
         unitSound = "",
         weapsOn = 0,
+        Sellitems = ids,
     },
     {
         Name = "复活阵",
@@ -115,6 +121,7 @@ for _, v in ipairs(UNITS_CONF) do
     obj.regenType = ""
     obj.fused = 0
     obj.movetp = v.movetp or "foot"
+    obj.Sellitems = v.Sellitems or ""
     if (v.movetp == "fly") then
         obj.moveHeight = 100
     end

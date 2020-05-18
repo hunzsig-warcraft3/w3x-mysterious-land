@@ -1,122 +1,139 @@
---- boss击杀计算
+local prestigeMap = {
+    { qty = 0, label = "初出茅庐" },
+    { qty = 5, label = "略有小成" },
+    { qty = 10, label = "初露锋芒" },
+    { qty = 20, label = "游刃有余" },
+    { qty = 30, label = "一剑成名" },
+    { qty = 40, label = "名扬山海" },
+    { qty = 50, label = "当世英豪" },
+    { qty = 70, label = "登峰造极" },
+    { qty = 90, label = "天选之人" },
+    { qty = 100, label = "修真始体" },
+    { qty = 130, label = "身越七魄" },
+    { qty = 180, label = "灵通三魂" },
+    { qty = 200, label = "神游山海" },
+    { qty = 250, label = "灭劫星窍" },
+    { qty = 300, label = "得道金仙" },
+    { qty = 400, label = "六御天帝" },
+    { qty = 500, label = "三清天尊" },
+    { qty = 999, label = "九天至尊" },
+}
 dzCurrent = {}
 dzCurrent.doRecord = function(whichPlayer)
-    if (hhero.player_heroes[whichPlayer][1] == nil) then
+    local playerIndex = hplayer.index(whichPlayer)
+    if (hhero.player_heroes[playerIndex][1] == nil) then
         return
     end
-    local heroLv = hhero.getCurLevel(hhero.player_heroes[whichPlayer][1])
-    game.playerDZData.hero[whichPlayer].d = hunit.getId(hhero.player_heroes[whichPlayer][1])
-    game.playerDZData.hero[whichPlayer].l = heroLv
+    local heroLv = hhero.getCurLevel(hhero.player_heroes[playerIndex][1])
+    game.playerDZData.hero[playerIndex][1] = hunit.getId(hhero.player_heroes[playerIndex][1])
+    game.playerDZData.hero[playerIndex][2] = heroLv
+    -- 计算称号
+    local kd = game.playerDZData.info[playerIndex][2] or 0
+    local prestige = 1
+    for pi, pm in ipairs(prestigeMap) do
+        if (kd >= pm.qty) then
+            prestige = pi
+        else
+            break
+        end
+    end
+    game.playerDZData.info[playerIndex][1] = prestige
     local its = {}
     local itLv = 0
-    hitem.slotLoop(hhero.player_heroes[whichPlayer][1], function(slotItem, slotIndex)
+    hitem.slotLoop(hhero.player_heroes[playerIndex][1], function(slotItem, slotIndex)
         local charges = hitem.getCharges(slotItem)
         itLv = hitem.getLevel(slotItem) * (charges + 1)
         table.insert(its, {
-            d = hitem.getId(slotItem),
-            c = charges,
-            i = slotIndex,
+            hitem.getId(slotItem),
+            charges,
+            slotIndex,
         })
     end)
-    game.playerDZData.hero[whichPlayer].t = its
+    game.playerDZData.item[playerIndex] = its
     --
-    game.playerDZData.ability[whichPlayer] = {
-        g = {},
-        s = {},
-    }
-    -- 计算称号
-    local kd = game.playerDZData.info[whichPlayer].k
-    local prestige = game.playerDZData.info[whichPlayer].r
-    if (kd >= 999) then
-        prestige = "九天至尊"
-    elseif (kd >= 500) then
-        prestige = "三清天尊"
-    elseif (kd >= 400) then
-        prestige = "六御天帝"
-    elseif (kd >= 300) then
-        prestige = "得道金仙"
-    elseif (kd >= 250) then
-        prestige = "灭劫星窍"
-    elseif (kd >= 200) then
-        prestige = "神游山海"
-    elseif (kd >= 180) then
-        prestige = "灵通三魂"
-    elseif (kd >= 130) then
-        prestige = "身越七魄"
-    elseif (kd >= 100) then
-        prestige = "修真始体"
-    elseif (kd >= 90) then
-        prestige = "天选之人"
-    elseif (kd >= 70) then
-        prestige = "登峰造极"
-    elseif (kd >= 50) then
-        prestige = "当世英豪"
-    elseif (kd >= 40) then
-        prestige = "名扬山海"
-    elseif (kd >= 30) then
-        prestige = "一战成名"
-    elseif (kd >= 20) then
-        prestige = "游刃有余"
-    elseif (kd >= 10) then
-        prestige = "初露锋芒"
-    elseif (kd >= 5) then
-        prestige = "略有小成"
-    end
-    hplayer.setPrestige(whichPlayer, prestige)
-    game.playerDZData.info[whichPlayer].r = prestige
+    game.playerDZData.ability[playerIndex] = {}
+    game.playerDZData.gift[playerIndex] = {}
     -- 计算战力
-    local power = kd * 3 + heroLv * 1 + #game.playerDZData.ability.g * 20 + itLv
-    game.playerDZData.info[whichPlayer].p = math.numberFormat(power)
-    hdzapi.setRoomStat(whichPlayer, "prestige", prestige) --房间称号
-    hdzapi.setRoomStat(whichPlayer, "power", power) --房间战力
+    local power = math.floor(kd * 3
+        + heroLv * 1
+        + #game.playerDZData.ability[playerIndex] * 20
+        + #game.playerDZData.gift[playerIndex] * 30
+        + itLv)
+    game.playerDZData.info[playerIndex][3] = math.integerFormat(power)
+    game.playerDZData.info[playerIndex][4] = hplayer.getGold(whichPlayer)
+    game.playerDZData.info[playerIndex][5] = hplayer.getLumber(whichPlayer)
     -- 写入服务器
-    local jsonInfo = string.addslashes(json.stringify(game.playerDZData.info))
-    local jsonHero = string.addslashes(json.stringify(game.playerDZData.hero))
-    local jsonAbility = string.addslashes(json.stringify(game.playerDZData.ability))
+    local jsonInfo = string.addslashes(json.stringify(game.playerDZData.info[playerIndex]))
+    local jsonHero = string.addslashes(json.stringify(game.playerDZData.hero[playerIndex]))
+    local jsonItem = string.addslashes(json.stringify(game.playerDZData.item[playerIndex]))
+    local jsonAbility = string.addslashes(json.stringify(game.playerDZData.ability[playerIndex]))
+    local jsonGift = string.addslashes(json.stringify(game.playerDZData.gift[playerIndex]))
     print(string.len(jsonInfo), jsonInfo)
     print(string.len(jsonHero), jsonHero)
+    print(string.len(jsonItem), jsonItem)
     print(string.len(jsonAbility), jsonAbility)
+    print(string.len(jsonGift), jsonGift)
+    hplayer.setPrestige(whichPlayer, prestigeMap[prestige].label)
+    hdzapi.setRoomStat(whichPlayer, "prestige", prestigeMap[prestige].label) --房间称号
+    hdzapi.setRoomStat(whichPlayer, "power", power) --房间战力
     hdzapi.server.set.str(whichPlayer, "info", jsonInfo)
     hdzapi.server.set.str(whichPlayer, "hero", jsonHero)
+    hdzapi.server.set.str(whichPlayer, "item", jsonItem)
     hdzapi.server.set.str(whichPlayer, "ability", jsonAbility)
+    hdzapi.server.set.str(whichPlayer, "gift", jsonGift)
 end
 
 dzCurrent.enableRecord = function(whichPlayer)
-    if (whichPlayer == nil or his.playing(whichPlayer)) then
+    --hdzapi.server.clear.str(whichPlayer, "info")
+    --hdzapi.server.clear.str(whichPlayer, "hero")
+    --hdzapi.server.clear.str(whichPlayer, "item")
+    --hdzapi.server.clear.str(whichPlayer, "ability")
+    --hdzapi.server.clear.str(whichPlayer, "gift")
+    if (whichPlayer == nil or his.playing(whichPlayer) == false) then
         return
     end
-    game.playerDZData.info[whichPlayer] = hdzapi.server.get.str(p, "info")
-    game.playerDZData.hero[whichPlayer] = hdzapi.server.get.str(p, "hero")
-    game.playerDZData.ability[whichPlayer] = hdzapi.server.get.str(p, "ability")
-    if (game.playerDZData.info[whichPlayer] == "") then
-        game.playerDZData.info[whichPlayer] = {
-            l = hdzapi.mapLv(whichPlayer), --地图等级
-            p = 0, --战力
-            k = 0, --击杀boss数
-            r = "初出茅庐" --称号
+    local playerIndex = hplayer.index(whichPlayer)
+    game.playerDZData.info[playerIndex] = hdzapi.server.get.str(whichPlayer, "info")
+    game.playerDZData.hero[playerIndex] = hdzapi.server.get.str(whichPlayer, "hero")
+    game.playerDZData.item[playerIndex] = hdzapi.server.get.str(whichPlayer, "item")
+    game.playerDZData.ability[playerIndex] = hdzapi.server.get.str(whichPlayer, "ability")
+    game.playerDZData.gift[playerIndex] = hdzapi.server.get.str(whichPlayer, "gift")
+    if (game.playerDZData.info[playerIndex] == "") then
+        game.playerDZData.info[playerIndex] = {
+            1, --称号
+            0, --击杀boss数
+            0, --战力
+            0, --黄金
+            0, --木头
         }
     else
-        game.playerDZData.info[whichPlayer] = json.parse(game.playerDZData.info[whichPlayer])
+        game.playerDZData.info[playerIndex] = json.parse(string.stripslashes(game.playerDZData.info[playerIndex]))
     end
-    if (game.playerDZData.hero[whichPlayer] == "") then
-        game.playerDZData.hero[whichPlayer] = {
-            d = "", --英雄种类
-            i = 0, --英雄等级
-            t = {}, --物品栏
+    if (game.playerDZData.hero[playerIndex] == "") then
+        game.playerDZData.hero[playerIndex] = {
+            "", --英雄种类
+            0, --英雄等级
         }
     else
-        game.playerDZData.hero[whichPlayer] = json.parse(game.playerDZData.hero[whichPlayer])
+        game.playerDZData.hero[playerIndex] = json.parse(string.stripslashes(game.playerDZData.hero[playerIndex]))
     end
-    if (game.playerDZData.ability[whichPlayer] == "") then
-        game.playerDZData.ability[whichPlayer] = {
-            g = {}, --天赋4个
-            s = {}, --本体技能4个
-        }
+    if (game.playerDZData.item[playerIndex] == "") then
+        game.playerDZData.item[playerIndex] = {}
     else
-        game.playerDZData.ability[whichPlayer] = json.parse(game.playerDZData.ability[whichPlayer])
+        game.playerDZData.item[playerIndex] = json.parse(string.stripslashes(game.playerDZData.item[playerIndex]))
     end
-    -- 10秒一次，自动检测玩家数据并保存,以2秒隔开每个玩家，不同时请求服务器
-    htime.setInterval(15, function()
+    if (game.playerDZData.ability[playerIndex] == "") then
+        game.playerDZData.ability[playerIndex] = {}
+    else
+        game.playerDZData.ability[playerIndex] = json.parse(string.stripslashes(game.playerDZData.ability[playerIndex]))
+    end
+    if (game.playerDZData.gift[playerIndex] == "") then
+        game.playerDZData.gift[playerIndex] = {}
+    else
+        game.playerDZData.gift[playerIndex] = json.parse(string.stripslashes(game.playerDZData.gift[playerIndex]))
+    end
+    -- 20秒一次，自动检测玩家数据并保存,以2秒隔开每个玩家，不同时请求服务器
+    htime.setInterval(20, function()
         local clk = 0
         for i = 1, hplayer.qty_max, 1 do
             if (his.playing(hplayer.players[i])) then
@@ -128,12 +145,6 @@ dzCurrent.enableRecord = function(whichPlayer)
             end
         end
     end)
-    -- 主动保存
-    for i = 1, hplayer.qty_max, 1 do
-        hevent.onChat(hplayer.players[i], "-save", true, function(evtData)
-            dzCurrent.doRecord(evtData.triggerPlayer)
-        end)
-    end
 end
 dzCurrent.checkReady = function()
     for i = 1, hplayer.qty_max, 1 do
@@ -143,53 +154,4 @@ dzCurrent.checkReady = function()
             dzCurrent.enableRecord(hplayer.players[i])
         end
     end
-end
-dzCurrentSetKnockdown = function(p)
-    if (game.playerKnockdown[p] == nil) then
-        game.playerKnockdown[p] = hdzapi.server.get.int(p, "knockdown") or 0
-    else
-        game.playerKnockdown[p] = game.playerKnockdown[p] + 1
-    end
-    local kd = game.playerKnockdown[p]
-    hdzapi.server.set.int(p, "knockdown", kd)
-    local prestige
-    if (kd >= 999) then
-        prestige = "九天至尊"
-    elseif (kd >= 500) then
-        prestige = "三清天尊"
-    elseif (kd >= 400) then
-        prestige = "六御天帝"
-    elseif (kd >= 300) then
-        prestige = "得道金仙"
-    elseif (kd >= 250) then
-        prestige = "灭劫星窍"
-    elseif (kd >= 200) then
-        prestige = "神游山海"
-    elseif (kd >= 180) then
-        prestige = "灵通三魂"
-    elseif (kd >= 130) then
-        prestige = "身越七魄"
-    elseif (kd >= 100) then
-        prestige = "修真始体"
-    elseif (kd >= 90) then
-        prestige = "天选之人"
-    elseif (kd >= 70) then
-        prestige = "登峰造极"
-    elseif (kd >= 50) then
-        prestige = "当世英豪"
-    elseif (kd >= 40) then
-        prestige = "名扬山海"
-    elseif (kd >= 30) then
-        prestige = "一战成名"
-    elseif (kd >= 20) then
-        prestige = "游刃有余"
-    elseif (kd >= 10) then
-        prestige = "初露锋芒"
-    elseif (kd >= 5) then
-        prestige = "略有小成"
-    else
-        prestige = "初出茅庐"
-    end
-    hplayer.setPrestige(p, prestige)
-    hdzapi.setRoomStat(p, "prestige", prestige)
 end

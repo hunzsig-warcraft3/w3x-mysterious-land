@@ -17,9 +17,9 @@ hevent.onPickHero(function(evtData)
             for playerIndex = 1, hplayer.qty_max, 1 do
                 if (his.playing(hplayer.players[playerIndex]) == false) then
                     defeatQty = defeatQty + 1
-                elseif (hhero.player_heroes[hplayer.players[playerIndex]][1] == nil) then
+                elseif (hhero.player_heroes[playerIndex][1] == nil) then
                     defeatQty = defeatQty + 1
-                elseif (his.alive(hhero.player_heroes[hplayer.players[playerIndex]][1]) == false) then
+                elseif (his.alive(hhero.player_heroes[playerIndex][1]) == false) then
                     defeatQty = defeatQty + 1
                 end
             end
@@ -157,12 +157,17 @@ cj.TriggerAddAction(
         ]]
         hsound.bgmStop()
         -- 检查服务器状态，不行直接退出
+        -- 成功时会返回服务器数据（其实服务器数据在进图时已经保存在本地了，并不是实时的）
         dzCurrent.checkReady()
         -- hello world
         echo("^_^ 您来到了山海灵界，请在七灵岛，选择" .. hColor.yellow("你的英雄"))
         -- 玩家配置
         for i = 1, hplayer.qty_max, 1 do
-            hplayer.setAllowCameraDistance(hplayer.players[i], true)
+            if (his.playing(hplayer.players[i])) then
+                hplayer.setAllowCameraDistance(hplayer.players[i], true)
+                hplayer.setGold(hplayer.players[i], game.playerDZData.info[i][4])
+                hplayer.setLumber(hplayer.players[i], game.playerDZData.info[i][5])
+            end
         end
         --设置三围基础
         hattr.setThreeBuff({
@@ -221,6 +226,9 @@ cj.TriggerAddAction(
                     })
                 end
                 --- 英雄选择
+                --- 检查玩家是否已经选择过英雄（服务器数据）没有则对话框选择职业
+                --- 已经有英雄则直接创建旧英雄和配置物品
+
                 hhero.setBornXY(0, 0)
                 hhero.setHeroIds(game.heroIds)
                 hhero.buildSelector({
@@ -239,7 +247,7 @@ cj.TriggerAddAction(
                     game.demon = henemy.create({
                         unitId = game.name2id.unit["被封印的堕落恶魔"],
                         facing = 270,
-                        opacity = 50,
+                        opacity = 150,
                         x = -150,
                         y = 0,
                     })
@@ -290,12 +298,12 @@ cj.TriggerAddAction(
                                 local avoid = "-"
                                 local weight = "-"
                                 local attack_damage_type = "-"
-                                hero = hhero.player_heroes[p][1]
+                                hero = hhero.player_heroes[pi][1]
                                 if (hero ~= nil) then
                                     avatar = hunit.getAvatar(hero)
                                     name = hunit.getName(hero)
-                                    prestige = game.playerDZData.info.r
-                                    power = game.playerDZData.info.p
+                                    prestige = hplayer.getPrestige(p)
+                                    power = game.playerDZData.info[pi][3]
                                     life_back = math.round(hattr.get(hero, "life_back")) .. "/秒"
                                     mana_back = math.round(hattr.get(hero, "mana_back")) .. "/秒"
                                     attack_speed = math.round(100 + hattr.get(hero, "attack_speed")) .. "%"
