@@ -13,6 +13,7 @@ local rebornItems = {
         cooldown = 45,
         ACTIVE = "使用后在10秒内持续恢复共500点生命",
         OVERLIE = 99,
+        Hotkey = "Q"
     },
 }
 local ids = ""
@@ -88,7 +89,7 @@ UNITS_CONF = {
         abilList = "Avul",
         file = "SharedModels\\IllidanImprisoned.mdl",
         Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
-        modelScale = 2.00,
+        modelScale = 1.50,
         scale = 0.10,
         HP = 10000,
         spd = 0,

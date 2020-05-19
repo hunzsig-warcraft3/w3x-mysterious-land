@@ -11,8 +11,8 @@ onEnemyAward = function(evtData)
     end
     hitem.fleeting(
         hitem.FLEETING_IDS.GOLD,
-        cj.GetUnitX(triggerUnit),
-        cj.GetUnitY(triggerUnit),
+        hunit.x(triggerUnit),
+        hunit.y(triggerUnit),
         30,
         function(fleetingData)
             if (his.deleted(fleetingData.centerUnit) == true) then
@@ -47,8 +47,8 @@ onBossAward = function(evtData)
     for _ = 1, (9 + level) do
         hitem.fleeting(
             hitem.FLEETING_IDS.GOLD,
-            cj.GetUnitX(triggerUnit) + math.random(0, 200),
-            cj.GetUnitY(triggerUnit) + math.random(0, 200),
+            hunit.x(triggerUnit) + math.random(0, 200),
+            hunit.y(triggerUnit) + math.random(0, 200),
             30,
             function(fleetingData)
                 if (his.deleted(fleetingData.centerUnit) == true) then

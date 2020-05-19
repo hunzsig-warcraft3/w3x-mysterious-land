@@ -121,7 +121,7 @@ hevent.onPickHero(function(evtData)
             return
         end
         for _, obj in ipairs(islands) do
-            if (his.inRect(obj.rect, cj.GetUnitX(evtData.triggerUnit), cj.GetUnitY(evtData.triggerUnit)) == true) then
+            if (his.inRect(obj.rect, hunit.x(evtData.triggerUnit), hunit.y(evtData.triggerUnit)) == true) then
                 if (obj.name == "七灵岛") then
                     hsound.bgm(cg.gg_snd_bgm_seven, p)
                 else
@@ -192,11 +192,11 @@ cj.TriggerAddAction(
         hdialog.create(
             nil,
             {
-                title = "选择难度",
+                title = "选择历练深度|n越深层次难度越大，收获也越多",
                 buttons = {
-                    "探索的新人",
+                    "探索的新手",
                     "历险的山人",
-                    "无畏的达人",
+                    "无惧的武者",
                     "绝境的勇士",
                 }
             },
@@ -208,7 +208,7 @@ cj.TriggerAddAction(
                     diff = 3
                     diffColor = hColor.green
                     rebornLife = 30
-                elseif (btnIdx == "无畏的达人") then
+                elseif (btnIdx == "无惧的武者") then
                     diff = 7
                     diffColor = hColor.yellow
                     rebornLife = 10
@@ -217,7 +217,7 @@ cj.TriggerAddAction(
                     diffColor = hColor.red
                     rebornLife = 4
                 end
-                echo("选择了难度：" .. diffColor(btnIdx))
+                echo("选择了历练：" .. diffColor(btnIdx))
                 game.diff = diff
                 --- 修改复活石生命
                 for _, s in ipairs(game.rebornStonePoint) do
@@ -228,26 +228,121 @@ cj.TriggerAddAction(
                 --- 英雄选择
                 --- 检查玩家是否已经选择过英雄（服务器数据）没有则对话框选择职业
                 --- 已经有英雄则直接创建旧英雄和配置物品
-
-                hhero.setBornXY(0, 0)
-                hhero.setHeroIds(game.heroIds)
+                hhero.setBornXY(-256, 128)
+                --- 酒馆商店
                 hhero.buildSelector({
-                    during = 60,
+                    during = -1,
                     type = "tavern",
-                    buildX = -517, -- 构建点X
-                    buildY = 314, -- 构建点Y
+                    buildX = 512, -- 构建点X
+                    buildY = 640, -- 构建点Y
                     buildDistance = 256,
-                    buildRowQty = 2,
-                    buildTavernQty = 10, -- 酒馆模式下，一个酒馆最多拥有几种单位
+                    direct = { 1, -1 },
+                    buildRowQty = 5,
+                    buildTavernQty = 12, -- 酒馆模式下，一个酒馆最多拥有几种单位
+                    onUnitSell = function(evtData)
+                        local p = hunit.getOwner(evtData.buyingUnit)
+                        local playerIndex = hplayer.index(p)
+                        local soldUnit = evtData.soldUnit
+                        local soldUid = hunit.getId(soldUnit)
+                        hunit.del(soldUnit, 0)
+                        if (game.playerDZData.hero[playerIndex][1] == "") then
+                            return
+                        end
+                        local unitValue = hslk_global.id2Value.unit[soldUid]
+                        local prevHero = hhero.player_heroes[playerIndex][1]
+                        print_r(unitValue)
+                        if (soldUid == hunit.getId(prevHero)) then
+                            if (unitValue.goldcost > 0) then
+                                hplayer.addGold(p, unitValue.goldcost)
+                            end
+                            if (unitValue.lumbercost > 0) then
+                                hplayer.addLumber(p, unitValue.lumbercost)
+                            end
+                            return
+                        end
+                        hunit.hide(prevHero)
+                        local newHero = hunit.create({
+                            whichPlayer = p,
+                            unitId = soldUid,
+                            facing = hunit.getFacing(prevHero),
+                            x = hunit.x(prevHero),
+                            y = hunit.y(prevHero),
+                        })
+                        hhero.setCurLevel(newHero, hhero.getCurLevel(prevHero), false)
+                        hitem.copy(prevHero, newHero)
+                        hhero.player_heroes[playerIndex][1] = newHero
+                        hunit.del(prevHero, 0)
+                        echo(hColor.green(hplayer.getName(p))
+                            .. "英雄的灵魂共鸣成了"
+                            .. hColor.yellow("<" .. unitValue.Name .. ">"))
+                        -- 触发英雄被选择事件(全局)
+                        hevent.triggerEvent(
+                            "global",
+                            CONST_EVENT.pickHero,
+                            {
+                                triggerPlayer = p,
+                                triggerUnit = newHero
+                            }
+                        )
+                    end
                 })
                 gameQuestEvent.pickHero()
+                for i = 1, hplayer.qty_max, 1 do
+                    if (his.playing(hplayer.players[i])) then
+                        hplayer.setAllowCommandPick(hplayer.players[i], false)
+                        --- 新玩家
+                        if (game.playerDZData.hero[i][1] == "") then
+                            hdialog.create(hplayer.players[i], {
+                                title = "你的初始人物是？|n后面可在中央酒馆购买换英雄",
+                                buttons = { "剑士", "骑士", "弓箭手", "魔法师" }
+                            }, function(clickName)
+                                local value = hslk_global.name2Value.unit[clickName]
+                                local firstHero = hunit.create({
+                                    whichPlayer = hplayer.players[i],
+                                    unitId = value.UNIT_ID,
+                                    x = hhero.bornX,
+                                    y = hhero.bornY,
+                                })
+                                table.insert(hhero.player_heroes[i], firstHero)
+                                -- 触发英雄被选择事件(全局)
+                                hevent.triggerEvent(
+                                    "global",
+                                    CONST_EVENT.pickHero,
+                                    {
+                                        triggerPlayer = hplayer.players[i],
+                                        triggerUnit = firstHero
+                                    }
+                                )
+                            end)
+                        else
+                            local lastHeroName = game.playerDZData.hero[i][1]
+                            local lastHero = hunit.create({
+                                whichPlayer = hplayer.players[i],
+                                unitId = hslk_global.name2Value.unit[lastHeroName].UNIT_ID,
+                                x = hhero.bornX,
+                                y = hhero.bornY,
+                            })
+                            table.insert(hhero.player_heroes[i], lastHero)
+                            hhero.setCurLevel(lastHero, game.playerDZData.hero[i][2], false)
+                            -- 触发英雄被选择事件(全局)
+                            hevent.triggerEvent(
+                                "global",
+                                CONST_EVENT.pickHero,
+                                {
+                                    triggerPlayer = hplayer.players[i],
+                                    triggerUnit = lastHero
+                                }
+                            )
+                        end
+                    end
+                end
                 htime.setTimeout(61, function(curTimer)
                     htime.delTimer(curTimer)
                     gameQuestComplete(gameQuests.pickHero)
                     game.demon = henemy.create({
                         unitId = game.name2id.unit["被封印的堕落恶魔"],
                         facing = 270,
-                        opacity = 150,
+                        opacity = 200,
                         x = -150,
                         y = 0,
                     })

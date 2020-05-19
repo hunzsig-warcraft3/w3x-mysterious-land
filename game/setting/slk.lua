@@ -53,16 +53,3 @@ for _, v in ipairs(boss) do
     hRuntime.register.unit(v)
     game.name2id.boss[v.Name] = v.UNIT_ID
 end
-
--- 英雄
-local SLK_HERO_BLADE_MASTER_WIND = json.parse(cg.SLK_HERO_BLADE_MASTER_WIND)
-local SLK_HERO_MOUNTAIN_KING_BOL = json.parse(cg.SLK_HERO_MOUNTAIN_KING_BOL)
-local heroes = {
-    SLK_HERO_BLADE_MASTER_WIND, --疾风剑圣
-    SLK_HERO_MOUNTAIN_KING_BOL, --山丘之王
-}
-for _, v in ipairs(heroes) do
-    hRuntime.register.unit(v)
-    game.name2id.hero[v.Name] = v.UNIT_ID
-    table.insert(game.heroIds, v.UNIT_ID)
-end

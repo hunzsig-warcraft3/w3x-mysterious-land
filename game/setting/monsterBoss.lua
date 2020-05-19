@@ -17,7 +17,7 @@ monsterBoss = {
     {
         time = 120, -- 多少时间才有可能生成
         desc = "七灵北湾",
-        loc = { 1280, -1654 },
+        loc = { 1600, 1600 },
         mon = { "大龙龟" },
         level = 1,
     },
@@ -103,7 +103,7 @@ autoBoss = function(delay)
                     if (his.alive(u) and hunit.getCurLifePercent(u) > 99.99) then
                         local point = table.random(monsterBossAttackPoint)
                         hunit.portal(u, point.x, point.y, point.facing)
-                        cj.IssuePointOrder(u, "move", cj.GetUnitX(game.demon), cj.GetUnitY(game.demon))
+                        cj.IssuePointOrder(u, "move", hunit.x(game.demon), hunit.y(game.demon))
                         hattr.set(u, 30, { move = "-50" })
                         echo("BOSS：" .. name .. "发现了恶魔的存在！")
                     end

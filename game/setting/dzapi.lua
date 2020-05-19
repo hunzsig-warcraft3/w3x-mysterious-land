@@ -25,7 +25,7 @@ dzCurrent.doRecord = function(whichPlayer)
         return
     end
     local heroLv = hhero.getCurLevel(hhero.player_heroes[playerIndex][1])
-    game.playerDZData.hero[playerIndex][1] = hunit.getId(hhero.player_heroes[playerIndex][1])
+    game.playerDZData.hero[playerIndex][1] = hunit.getName(hhero.player_heroes[playerIndex][1])
     game.playerDZData.hero[playerIndex][2] = heroLv
     -- 计算称号
     local kd = game.playerDZData.info[playerIndex][2] or 0
@@ -44,7 +44,7 @@ dzCurrent.doRecord = function(whichPlayer)
         local charges = hitem.getCharges(slotItem)
         itLv = hitem.getLevel(slotItem) * (charges + 1)
         table.insert(its, {
-            hitem.getId(slotItem),
+            hitem.getName(slotItem),
             charges,
             slotIndex,
         })
@@ -68,11 +68,16 @@ dzCurrent.doRecord = function(whichPlayer)
     local jsonItem = string.addslashes(json.stringify(game.playerDZData.item[playerIndex]))
     local jsonAbility = string.addslashes(json.stringify(game.playerDZData.ability[playerIndex]))
     local jsonGift = string.addslashes(json.stringify(game.playerDZData.gift[playerIndex]))
-    print(string.len(jsonInfo), jsonInfo)
-    print(string.len(jsonHero), jsonHero)
-    print(string.len(jsonItem), jsonItem)
-    print(string.len(jsonAbility), jsonAbility)
-    print(string.len(jsonGift), jsonGift)
+    print(string.len(jsonInfo))
+    print_mb(jsonInfo)
+    print(string.len(jsonHero))
+    print_mb(jsonHero)
+    print(string.len(jsonItem))
+    print_mb(jsonItem)
+    print(string.len(jsonAbility))
+    print_mb(jsonAbility)
+    print(string.len(jsonGift))
+    print_mb(jsonGift)
     hplayer.setPrestige(whichPlayer, prestigeMap[prestige].label)
     hdzapi.setRoomStat(whichPlayer, "prestige", prestigeMap[prestige].label) --房间称号
     hdzapi.setRoomStat(whichPlayer, "power", power) --房间战力
