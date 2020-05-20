@@ -227,12 +227,13 @@ cj.TriggerAddAction(
                 end
                 -- 七灵石
                 gameQuestEvent.stone()
-                game.sevenStone = henemy.create({
+                game.sevenStone = hunit.create({
+                    whichPlayer = game.ALLY_PLAYER,
                     unitId = hslk_global.name2Value.unit["七灵神石"].UNIT_ID,
-                    facing = 270,
+                    facing = 45,
                     opacity = 200,
-                    x = -150,
-                    y = 0,
+                    x = -235,
+                    y = 25,
                 })
                 hevent.onDead(game.sevenStone, function()
                     echo("七灵石破碎了！")
