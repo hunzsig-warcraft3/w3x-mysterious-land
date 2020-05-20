@@ -2,9 +2,9 @@
 for _, f in ipairs(game.rebornStone) do
     local id
     if (f.type == 1) then
-        id = game.name2id.unit["复活石(面向东南的)"]
+        id = hslk_global.name2Value.unit["复活石(面向东南的)"].UNIT_ID
     elseif (f.type == 2) then
-        id = game.name2id.unit["复活石(面向西南的)"]
+        id = hslk_global.name2Value.unit["复活石(面向西南的)"].UNIT_ID
     end
     local stone = hunit.create(
         {
@@ -20,7 +20,7 @@ for _, f in ipairs(game.rebornStone) do
         {
             register = false,
             whichPlayer = game.ALLY_PLAYER,
-            unitId = game.name2id.unit["复活阵"],
+            unitId = hslk_global.name2Value.unit["复活阵"].UNIT_ID,
             qty = 1,
             x = f.reborn[1],
             y = f.reborn[2]

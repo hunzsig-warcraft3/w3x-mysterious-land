@@ -336,18 +336,17 @@ cj.TriggerAddAction(
                         end
                     end
                 end
-                htime.setTimeout(61, function(curTimer)
+                htime.setTimeout(30, function(curTimer)
                     htime.delTimer(curTimer)
                     gameQuestComplete(gameQuests.pickHero)
                     game.demon = henemy.create({
-                        unitId = game.name2id.unit["被封印的堕落恶魔"],
+                        unitId = hslk_global.name2Value.unit["七灵神石"],
                         facing = 270,
                         opacity = 200,
                         x = -150,
                         y = 0,
                     })
-                    hunit.setCurLife(game.demon, 666)
-                    gameQuestEvent.demon()
+                    gameQuestEvent.stone()
                 end)
                 --- 创建多面板
                 hmultiBoard.create(

@@ -1,4 +1,3 @@
-UNITS = {} --to vjass
 local rebornItems = {
     {
         Name = "医疗剂",
@@ -25,12 +24,12 @@ for _, v in ipairs(rebornItems) do
         ids = ids .. "," .. id
     end
 end
-UNITS_CONF = {
+
+local units = {
     {
         Name = "复活石(面向东南的)",
         abilList = "Avul,Apit,Aneu",
         file = "Doodads\\Cinematic\\RessurectionStoneSE\\RessurectionStoneSE",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
         scale = 3.60,
         HP = 100,
@@ -45,7 +44,6 @@ UNITS_CONF = {
         Name = "复活石(面向西南的)",
         abilList = "Avul,Apit,Aneu",
         file = "Doodads\\Cinematic\\RessurectionStoneSW\\RessurectionStoneSW",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 1.20,
         scale = 3.60,
         HP = 100,
@@ -60,7 +58,6 @@ UNITS_CONF = {
         Name = "复活阵",
         abilList = "Avul,Aloc",
         file = "Abilities\\Spells\\NightElf\\FaerieFire\\FaerieFireTarget.mdl",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
         modelScale = 2,
         scale = 1.00,
         HP = 99999,
@@ -74,7 +71,6 @@ UNITS_CONF = {
         Name = "传送门",
         abilList = "Avul,Aloc",
         file = "Abilities\\Spells\\Other\\GeneralAuraTarget\\GeneralAuraTarget.mdl",
-        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
         modelScale = 4.00,
         scale = 1.00,
         HP = 99999,
@@ -85,46 +81,37 @@ UNITS_CONF = {
         weapsOn = 0,
     },
     {
-        Name = "被封印的堕落恶魔",
-        abilList = "Avul",
-        file = "SharedModels\\IllidanImprisoned.mdl",
-        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
-        modelScale = 1.50,
-        scale = 0.10,
+        Name = "七灵神石",
+        abilList = "",
+        file = "buildings\\other\\BridgeObelisk\\BridgeObelisk",
+        modelScale = 2,
+        scale = 2,
         HP = 10000,
         spd = 0,
         sight = 0,
         nsight = 0,
         unitSound = "",
         movetp = "fly",
+        weapsOn = 1,
+    },
+    {
+        Name = "遗迹废墟",
+        abilList = "Avul",
+        file = "Doodads\\Ashenvale\\Structures\\PillarsRuined\\PillarsRuined.mdl",
+        modelScale = 1.10,
+        scale = 4.00,
+        HP = 100000,
+        spd = 0,
+        sight = 0,
+        nsight = 0,
+        unitSound = "",
         weapsOn = 0,
     },
 }
 
--- units
-for _, v in ipairs(UNITS_CONF) do
-    local obj = slk.unit.ogru:new("this_units_" .. v.Name)
-    obj.Name = v.Name
-    obj.abilList = v.abilList or ""
-    obj.upgrades = ""
-    obj.file = v.file
-    obj.Art = v.Art
-    obj.modelScale = v.modelScale or 1.00
-    obj.scale = v.scale or 1.00
-    obj.HP = v.HP
-    obj.spd = v.spd or 0
-    obj.sight = v.sight
-    obj.nsight = v.nsight
-    obj.unitSound = v.unitSound or ""
-    obj.weapsOn = v.weapsOn or 0
-    obj.unitShadow = ""
-    obj.regenHP = 0
-    obj.regenType = ""
-    obj.fused = 0
-    obj.movetp = v.movetp or "foot"
-    obj.Sellitems = v.Sellitems or ""
-    if (v.movetp == "fly") then
-        obj.moveHeight = 100
-    end
-    table.insert(UNITS, { UNIT_ID = obj:get_id(), Name = v.Name })
+for _, v in pairs(units) do
+    v.race = v.race or "human"
+    v.Art = v.Art or "ReplaceableTextures\\CommandButtons\\BTNResStone.blp"
+    slkHelper.unit(v)
 end
+

@@ -195,5 +195,6 @@ local heros = {
 }
 
 for _, v in pairs(heros) do
+    v.race = "human"
     slkHelper.hero(v)
 end
