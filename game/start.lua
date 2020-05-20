@@ -225,10 +225,31 @@ cj.TriggerAddAction(
                         life = "=" .. rebornLife
                     })
                 end
+                -- 七灵石
+                gameQuestEvent.stone()
+                game.sevenStone = henemy.create({
+                    unitId = hslk_global.name2Value.unit["七灵神石"].UNIT_ID,
+                    facing = 270,
+                    opacity = 200,
+                    x = -150,
+                    y = 0,
+                })
+                hevent.onDead(game.sevenStone, function()
+                    echo("七灵石破碎了！")
+                    for i = 1, hplayer.qty_max, 1 do
+                        hplayer.defeat(hplayer.players[i], "七灵石破碎了")
+                    end
+                end)
+                htime.setTimeout(1800, function(curTimer)
+                    htime.delTimer(curTimer)
+                    echo(hColor.green("七灵石贡献了它所有的力量，最可怕的妖魔复活了！"))
+                    hunit.del(game.sevenStone)
+                    gameQuestEvent.demon()
+                end, "灵石转化")
                 --- 英雄选择
                 --- 检查玩家是否已经选择过英雄（服务器数据）没有则对话框选择职业
                 --- 已经有英雄则直接创建旧英雄和配置物品
-                hhero.setBornXY(-256, 128)
+                hhero.setBornXY(900, 384)
                 --- 酒馆商店
                 hhero.buildSelector({
                     during = -1,
@@ -286,7 +307,6 @@ cj.TriggerAddAction(
                         )
                     end
                 })
-                gameQuestEvent.pickHero()
                 for i = 1, hplayer.qty_max, 1 do
                     if (his.playing(hplayer.players[i])) then
                         hplayer.setAllowCommandPick(hplayer.players[i], false)
@@ -336,18 +356,6 @@ cj.TriggerAddAction(
                         end
                     end
                 end
-                htime.setTimeout(30, function(curTimer)
-                    htime.delTimer(curTimer)
-                    gameQuestComplete(gameQuests.pickHero)
-                    game.demon = henemy.create({
-                        unitId = hslk_global.name2Value.unit["七灵神石"],
-                        facing = 270,
-                        opacity = 200,
-                        x = -150,
-                        y = 0,
-                    })
-                    gameQuestEvent.stone()
-                end)
                 --- 创建多面板
                 hmultiBoard.create(
                     "player",

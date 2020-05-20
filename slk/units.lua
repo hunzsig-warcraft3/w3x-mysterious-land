@@ -91,8 +91,14 @@ local units = {
         sight = 0,
         nsight = 0,
         unitSound = "",
-        movetp = "fly",
         weapsOn = 1,
+        rangeN1 = 500, -- 攻击范围
+        dmgplus1 = 99, -- 基础攻击
+        weapTp1 = CONST_WEAPON_TYPE.missile.value, -- 攻击类型
+        Missileart = "Abilities\\Weapons\\SorceressMissile\\SorceressMissile.mdl", -- 箭矢
+        cool1 = 2.0, -- 攻击周期
+        backSw1 = 0, -- 攻击后摇
+        dmgpt1 = 0, -- 攻击前摇
     },
     {
         Name = "遗迹废墟",
