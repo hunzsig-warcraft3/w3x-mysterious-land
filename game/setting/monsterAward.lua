@@ -5,10 +5,54 @@ onEnemyAwardFleeting = function(fleetingData)
     end
     local p = hunit.getOwner(fleetingData.enterUnit)
     if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p)) then
+        local buffId = cj.GetUnitTypeId(fleetingData.centerUnit)
         hunit.del(fleetingData.centerUnit)
-
-        haward.forUnitGold(fleetingData.enterUnit, gold)
-        hsound.sound2Player(cg.gg_snd_ReceiveGold, p)
+        if (buffId == hitem.FLEETING_IDS.GOLD) then
+            haward.forUnitGold(fleetingData.enterUnit, math.random(10, 20))
+            hsound.sound2Player(cg.gg_snd_ReceiveGold, p)
+        elseif (buffId == hitem.FLEETING_IDS.LUMBER) then
+            haward.forUnitLumber(fleetingData.enterUnit, 1)
+            hsound.sound2Player(cg.gg_snd_BundleOfLumber, p)
+        elseif (buffId == hitem.FLEETING_IDS.BOOK_RED) then
+            hattr.set(fleetingData.enterUnit, 0, { str_green = "+1" })
+            echo("获得了一本力量之书,力量临时+1", p)
+        elseif (buffId == hitem.FLEETING_IDS.BOOK_GREEN) then
+            hattr.set(fleetingData.enterUnit, 0, { agi_green = "+1" })
+            echo("获得了一本敏捷之书,敏捷临时+1", p)
+        elseif (buffId == hitem.FLEETING_IDS.BOOK_BLUE) then
+            hattr.set(fleetingData.enterUnit, 0, { agi_green = "+1" })
+            echo("获得了一本智力之书,智力临时+1", p)
+        elseif (buffId == hitem.FLEETING_IDS.DOTA2_CURE) then
+            hattr.set(fleetingData.enterUnit, 3, {
+                life_back = "+100",
+                life_mana = "+50",
+            })
+            heffect.bindUnit(
+                "Abilities\\Spells\\Items\\ScrollOfRejuvenation\\ScrollManaHealth.mdl",
+                fleetingData.enterUnit, "origin", 3
+            )
+        elseif (buffId == hitem.FLEETING_IDS.DOTA2_DAMAGE) then
+            hattr.set(fleetingData.enterUnit, 15, {
+                damage_extent = "+10",
+            })
+            heffect.bindUnit(
+                "Abilities\\Spells\\Orc\\Bloodlust\\BloodlustTarget.mdl",
+                fleetingData.enterUnit, "origin", 15
+            )
+        elseif (buffId == hitem.FLEETING_IDS.DOTA2_GOLD) then
+            hplayer.addGoldRatio(p, 10, 40)
+        elseif (buffId == hitem.FLEETING_IDS.DOTA2_SPEED) then
+            hattr.set(fleetingData.enterUnit, 7, {
+                attack_speed = "+25",
+                move = "+120",
+            })
+            heffect.bindUnit(
+                "Abilities\\Weapons\\PhoenixMissile\\Phoenix_Missile_mini.mdl",
+                fleetingData.enterUnit, "origin", 7
+            )
+        elseif (buffId == hitem.FLEETING_IDS.DOTA2_INVISIBLE) then
+            hskill.visible(fleetingData.enterUnit, 10, 0.3, nil)
+        end
     end
 end
 onEnemyAward = function(evtData)
