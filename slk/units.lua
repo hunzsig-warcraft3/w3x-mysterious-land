@@ -12,12 +12,12 @@ local rebornItems = {
         cooldown = 45,
         ACTIVE = "使用后在10秒内持续恢复共500点生命",
         OVERLIE = 99,
-        Hotkey = "Q"
+        Hotkey = "Q",
     },
 }
 local ids = ""
 for _, v in ipairs(rebornItems) do
-    local id = slkHelper.item(v)
+    local id = slkHelper.item.normal(v)
     if (ids == "") then
         ids = id
     else
@@ -118,6 +118,6 @@ local units = {
 for _, v in pairs(units) do
     v.race = v.race or "human"
     v.Art = v.Art or "ReplaceableTextures\\CommandButtons\\BTNResStone.blp"
-    slkHelper.unit(v)
+    slkHelper.unit.normal(v)
 end
 

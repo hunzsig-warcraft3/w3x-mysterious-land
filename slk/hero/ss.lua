@@ -13,7 +13,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_freezingsplinter.mdl",
         cool1 = 3.20,
         Primary = "INT",
-        abilList = {towerSpxKV["冰雪之殇"], towerSpxKV["冰矢"]}
+        abilList = { towerSpxKV["冰雪之殇"], towerSpxKV["冰矢"] }
     },
     {
         Name = "人类·烈焰之爱·莉莉丝",
@@ -29,7 +29,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_FireArrow.mdl",
         cool1 = 2.00,
         Primary = "INT",
-        abilList = {towerSpxKV["爱的火种"], towerSpxKV["神灭斩"]}
+        abilList = { towerSpxKV["爱的火种"], towerSpxKV["神灭斩"] }
     },
     {
         Name = "人类·钢铁女·埃希",
@@ -45,7 +45,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_speed_slash4.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["铁石心肠"], towerSpxKV["金属元素"]}
+        abilList = { towerSpxKV["铁石心肠"], towerSpxKV["金属元素"] }
     },
     {
         Name = "人杰·海军船长·普洛特",
@@ -61,7 +61,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
         cool1 = 2.20,
         Primary = "STR",
-        abilList = {towerSpxKV["水刀"], towerSpxKV["乘风破浪"]}
+        abilList = { towerSpxKV["水刀"], towerSpxKV["乘风破浪"] }
     },
     {
         Name = "人杰·军团指挥官·查理",
@@ -77,7 +77,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\Axe\\AxeMissile.mdl",
         cool1 = 2.10,
         Primary = "STR",
-        abilList = {towerSpxKV["落难领袖"], towerSpxKV["沉痛打击"]}
+        abilList = { towerSpxKV["落难领袖"], towerSpxKV["沉痛打击"] }
     },
     {
         Name = "人杰·屠龙女手·琳达恩",
@@ -93,7 +93,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_spur_arrow.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["屠龙勇士"], towerSpxKV["屠龙刀"]}
+        abilList = { towerSpxKV["屠龙勇士"], towerSpxKV["屠龙刀"] }
     },
     {
         Name = "血精灵·追风者·西瓦娜斯",
@@ -109,7 +109,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\MoonPriestessMissile\\MoonPriestessMissile.mdl",
         cool1 = 1.80,
         Primary = "INT",
-        abilList = {towerSpxKV["追风"], towerSpxKV["激灵一箭"]}
+        abilList = { towerSpxKV["追风"], towerSpxKV["激灵一箭"] }
     },
     {
         Name = "矮人·山羊骑士·穆拉吉",
@@ -125,7 +125,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\Axe\\AxeMissile.mdl",
         cool1 = 2.00,
         Primary = "INT",
-        abilList = {towerSpxKV["无欲无求"], towerSpxKV["羊蹄子"]}
+        abilList = { towerSpxKV["无欲无求"], towerSpxKV["羊蹄子"] }
     },
     {
         Name = "兽人·地狱咆哮·格罗姆",
@@ -141,7 +141,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_Coup_de_Grace_Green.mdl",
         cool1 = 2.00,
         Primary = "AGI",
-        abilList = {towerSpxKV["战鬼"], towerSpxKV["地狱战吼"]}
+        abilList = { towerSpxKV["战鬼"], towerSpxKV["地狱战吼"] }
     },
     {
         Name = "兽人·邪鬼咆哮·格烈姆",
@@ -159,7 +159,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_Coup_de_Grace.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["战鬼"], towerSpxKV["邪鬼战吼"]}
+        abilList = { towerSpxKV["战鬼"], towerSpxKV["邪鬼战吼"] }
     },
     {
         Name = "兽人·斧王·玛格",
@@ -175,7 +175,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\RexxarMissile\\RexxarMissile.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["灰熊"], towerSpxKV["交叉战斧"]}
+        abilList = { towerSpxKV["灰熊"], towerSpxKV["交叉战斧"] }
     },
     {
         Name = "兽人·剑圣·赤血",
@@ -191,7 +191,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_bloodthirsty.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["剑圣"], towerSpxKV["致命剑术"]}
+        abilList = { towerSpxKV["剑圣"], towerSpxKV["致命剑术"] }
     },
     {
         Name = "兽人·雷神·萨尔",
@@ -207,7 +207,7 @@ towers_ss = {
         Missileart = "Abilities\\Spells\\Human\\StormBolt\\StormBoltMissile.mdl",
         cool1 = 2.00,
         Primary = "AGI",
-        abilList = {towerSpxKV["晴天霹雳"], towerSpxKV["闪电连链"]}
+        abilList = { towerSpxKV["晴天霹雳"], towerSpxKV["闪电连链"] }
     },
     {
         Name = "巨魔·狂魂猎手·阿拉烈",
@@ -223,7 +223,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_WarchiefMissile.mdl",
         cool1 = 2.10,
         Primary = "AGI",
-        abilList = {towerSpxKV["捕猎者"], towerSpxKV["狂魂狩猎"]}
+        abilList = { towerSpxKV["捕猎者"], towerSpxKV["狂魂狩猎"] }
     },
     {
         Name = "巨魔·邪眼·塔斯丁狗",
@@ -239,7 +239,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\WitchDoctorMissile\\WitchDoctorMissile.mdl",
         cool1 = 2.10,
         Primary = "INT",
-        abilList = {towerSpxKV["巫术"], towerSpxKV["蛙毒"]}
+        abilList = { towerSpxKV["巫术"], towerSpxKV["蛙毒"] }
     },
     {
         Name = "暗夜精灵·月之女神·泰兰德",
@@ -255,7 +255,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\MoonPriestessMissile\\MoonPriestessMissile.mdl",
         cool1 = 1.90,
         Primary = "AGI",
-        abilList = {towerSpxKV["猫头鹰怒视"], towerSpxKV["月神强击"]}
+        abilList = { towerSpxKV["猫头鹰怒视"], towerSpxKV["月神强击"] }
     },
     {
         Name = "暗夜精灵·守望者·玛维",
@@ -271,7 +271,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl",
         cool1 = 2.00,
         Primary = "AGI",
-        abilList = {towerSpxKV["恩赐解脱"], towerSpxKV["九道镖"]}
+        abilList = { towerSpxKV["恩赐解脱"], towerSpxKV["九道镖"] }
     },
     {
         Name = "德鲁伊·旅人·法里奥",
@@ -287,7 +287,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl",
         cool1 = 2.00,
         Primary = "INT",
-        abilList = {towerSpxKV["大地种子"], towerSpxKV["随风"]}
+        abilList = { towerSpxKV["大地种子"], towerSpxKV["随风"] }
     },
     {
         Name = "亡灵·巫妖·奥丁",
@@ -303,7 +303,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\LichMissile\\LichMissile.mdl",
         cool1 = 2.10,
         Primary = "INT",
-        abilList = {towerSpxKV["透彻寒骨"], towerSpxKV["霜冻新星"]}
+        abilList = { towerSpxKV["透彻寒骨"], towerSpxKV["霜冻新星"] }
     },
     {
         Name = "亡灵·超渡师·克尔苏加德",
@@ -319,7 +319,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\NecromancerMissile\\NecromancerMissile.mdl",
         cool1 = 2.30,
         Primary = "INT",
-        abilList = {towerSpxKV["超度"], towerSpxKV["同葬"]}
+        abilList = { towerSpxKV["超度"], towerSpxKV["同葬"] }
     },
     {
         Name = "亡灵·黑夜游侠·鬼歌",
@@ -335,7 +335,7 @@ towers_ss = {
         Missileart = "Abilities\\Spells\\Other\\BlackArrow\\BlackArrowMissile.mdl",
         cool1 = 1.95,
         Primary = "AGI",
-        abilList = {towerSpxKV["鬼歌"], towerSpxKV["黑夜之箭"]}
+        abilList = { towerSpxKV["鬼歌"], towerSpxKV["黑夜之箭"] }
     },
     {
         Name = "亡灵·鬼枪·但丁",
@@ -351,7 +351,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\GyroCopter\\GyroCopterImpact.mdl",
         cool1 = 2.00,
         Primary = "AGI",
-        abilList = {towerSpxKV["爆头"], towerSpxKV["鬼枪术"]}
+        abilList = { towerSpxKV["爆头"], towerSpxKV["鬼枪术"] }
     },
     {
         Name = "亡灵·火焰剑鬼·K",
@@ -367,7 +367,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_Fireball_Minor.mdl",
         cool1 = 2.20,
         Primary = "AGI",
-        abilList = {towerSpxKV["火焰之剑"], towerSpxKV["炎杀鬼球"]}
+        abilList = { towerSpxKV["火焰之剑"], towerSpxKV["炎杀鬼球"] }
     },
     {
         Name = "娜迦·海龙骑士·艾萨拉",
@@ -383,7 +383,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_Azul_Arrow.mdl",
         cool1 = 2.00,
         Primary = "AGI",
-        abilList = {towerSpxKV["龙骑士"], towerSpxKV["大海浪涛"]}
+        abilList = { towerSpxKV["龙骑士"], towerSpxKV["大海浪涛"] }
     },
     {
         Name = "恶魔·三昧真火·嘞扎",
@@ -399,7 +399,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_Fireball.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["恶魔之躯"], towerSpxKV["三昧真火"]}
+        abilList = { towerSpxKV["恶魔之躯"], towerSpxKV["三昧真火"] }
     },
     {
         Name = "恶魔·觉醒猎手·尤迪安",
@@ -415,7 +415,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_animeslashfinal.mdl",
         cool1 = 1.70,
         Primary = "AGI",
-        abilList = {towerSpxKV["猎影"], towerSpxKV["觉醒幻刀"]}
+        abilList = { towerSpxKV["猎影"], towerSpxKV["觉醒幻刀"] }
     },
     {
         Name = "幽魂·安东尼",
@@ -430,7 +430,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",
         cool1 = 2.00,
         Primary = "INT",
-        abilList = {towerSpxKV["魂鬼"], towerSpxKV["固化时空"]}
+        abilList = { towerSpxKV["魂鬼"], towerSpxKV["固化时空"] }
     },
     {
         Name = "幽魂·克尔苏加德",
@@ -446,7 +446,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\NecromancerMissile\\NecromancerMissile.mdl",
         cool1 = 2.30,
         Primary = "INT",
-        abilList = {towerSpxKV["魂鬼"], towerSpxKV["虚幻"]}
+        abilList = { towerSpxKV["魂鬼"], towerSpxKV["虚幻"] }
     },
     {
         Name = "幽魂·赛纳留斯",
@@ -462,7 +462,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\SorceressMissile\\SorceressMissile.mdl",
         cool1 = 2.20,
         Primary = "INT",
-        abilList = {towerSpxKV["魂鬼"], towerSpxKV["折磨耐性"]}
+        abilList = { towerSpxKV["魂鬼"], towerSpxKV["折磨耐性"] }
     },
     {
         Name = "昆虫·猩红刀盔·科鲁斯",
@@ -478,7 +478,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_Coup_de_Grace.mdl",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["血性"], towerSpxKV["金属元素"]}
+        abilList = { towerSpxKV["血性"], towerSpxKV["金属元素"] }
     },
     {
         Name = "元素·海冰凛魂",
@@ -494,7 +494,7 @@ towers_ss = {
         Missileart = "war3mapImported\\eff_forst_arrow.mdl",
         cool1 = 2.00,
         Primary = "AGI",
-        abilList = {towerSpxKV["冰魂"], towerSpxKV["破冰碎片"]}
+        abilList = { towerSpxKV["冰魂"], towerSpxKV["破冰碎片"] }
     },
     {
         Name = "元素·霹雳电魔",
@@ -510,7 +510,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\FarseerMissile\\FarseerMissile.mdl",
         cool1 = 1.65,
         Primary = "AGI",
-        abilList = {"Alit", towerSpxKV["电离之子"], towerSpxKV["誓神劈愿"]}
+        abilList = { "Alit", towerSpxKV["电离之子"], towerSpxKV["誓神劈愿"] }
     },
     {
         Name = "元素·暗无天日",
@@ -526,7 +526,7 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\AvengerMissile\\AvengerMissile.mdl",
         cool1 = 1.80,
         Primary = "INT",
-        abilList = {towerSpxKV["噬日"], towerSpxKV["吞光"]}
+        abilList = { towerSpxKV["噬日"], towerSpxKV["吞光"] }
     },
     {
         Name = "异兽·朱雀",
@@ -543,7 +543,7 @@ towers_ss = {
         weapTp1 = "msplash",
         cool1 = 2.00,
         Primary = "STR",
-        abilList = {towerSpxKV["溅射攻击"], towerSpxKV["涅槃"]}
+        abilList = { towerSpxKV["溅射攻击"], towerSpxKV["涅槃"] }
     },
     {
         Name = "地精·炼金术士·卡奈",
@@ -559,7 +559,7 @@ towers_ss = {
         Missileart = "Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl",
         cool1 = 2.10,
         Primary = "STR",
-        abilList = {towerSpxKV["炼金"], towerSpxKV["炫力炸弹"]}
+        abilList = { towerSpxKV["炼金"], towerSpxKV["炫力炸弹"] }
     },
     {
         Name = "食人魔·守墓人·阿尔玛",
@@ -575,6 +575,6 @@ towers_ss = {
         Missileart = "Abilities\\Weapons\\HarpyMissile\\HarpyMissile.mdl",
         cool1 = 2.10,
         Primary = "INT",
-        abilList = {towerSpxKV["盗墓"], towerSpxKV["着草"]}
+        abilList = { towerSpxKV["盗墓"], towerSpxKV["着草"] }
     }
 }

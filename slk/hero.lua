@@ -173,7 +173,7 @@ local heros = {
         rangeN1 = 125, -- 攻击范围
         dmgplus1 = 40, -- 基础攻击
         weapTp1 = CONST_WEAPON_TYPE.normal.value, -- 攻击类型
-        weapType1 = CONST_WEAPON_SOUND.MetalHeavyBash.value, -- 攻击类型
+        weapType1 = CONST_WEAPON_SOUND.MetalHeavyBash.value, -- 攻击声音
         Missileart = "", -- 箭矢
         cool1 = 1.8, -- 攻击周期
         backSw1 = 0.65, -- 攻击后摇
@@ -196,5 +196,5 @@ local heros = {
 
 for _, v in pairs(heros) do
     v.race = "human"
-    slkHelper.hero(v)
+    slkHelper.unit.hero(v)
 end

@@ -66,5 +66,5 @@ local shops = {
 
 -- shops
 for _, v in ipairs(shops) do
-    slkHelper.shop(v)
+    slkHelper.unit.shop(v)
 end

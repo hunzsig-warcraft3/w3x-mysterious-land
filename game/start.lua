@@ -144,6 +144,11 @@ hevent.onPickHero(function(evtData)
     end)
 end)
 
+local courierDead = function(evtData)
+    local courier = evtData.triggerUnit
+
+end
+
 local startTrigger = cj.CreateTrigger()
 cj.TriggerRegisterTimerEvent(startTrigger, 1.0, false)
 cj.TriggerAddAction(
@@ -272,7 +277,6 @@ cj.TriggerAddAction(
                         end
                         local unitValue = hslk_global.id2Value.unit[soldUid]
                         local prevHero = hhero.player_heroes[playerIndex][1]
-                        print_r(unitValue)
                         if (soldUid == hunit.getId(prevHero)) then
                             if (unitValue.goldcost > 0) then
                                 hplayer.addGold(p, unitValue.goldcost)
@@ -334,6 +338,14 @@ cj.TriggerAddAction(
                                         triggerUnit = firstHero
                                     }
                                 )
+                                -- 小青蛙信使
+                                local firstCourier = hunit.create({
+                                    whichPlayer = hplayer.players[i],
+                                    unitId = hslk_global.name2Value.unit["呆萌的青蛙"].UNIT_ID,
+                                    x = hhero.bornX,
+                                    y = hhero.bornY,
+                                })
+                                hevent.onDead(firstCourier, courierDead)
                             end)
                         else
                             local lastHeroName = game.playerDZData.hero[i][1]
@@ -354,6 +366,14 @@ cj.TriggerAddAction(
                                     triggerUnit = lastHero
                                 }
                             )
+                            -- 最后的信使
+                            local lastCourier = hunit.create({
+                                whichPlayer = hplayer.players[i],
+                                unitId = game.playerDZData.courier[i][2].UNIT_ID,
+                                x = hhero.bornX,
+                                y = hhero.bornY,
+                            })
+                            hevent.onDead(firstCourier, courierDead)
                         end
                     end
                 end

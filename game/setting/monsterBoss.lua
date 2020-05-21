@@ -97,21 +97,19 @@ autoBoss = function(delay)
             hevent.onDead(u, onBossAward)
             -- 设置boss没受伤时多少秒后找寻恶魔
             htime.setTimeout(
-                m.level * 180,
+                m.level * 150 + math.random(20, 70),
                 function(bossTimer)
                     htime.delTimer(bossTimer)
                     if (his.alive(u) and hunit.getCurLifePercent(u) > 99.99) then
-                        local point = table.random(monsterBossAttackPoint)
-                        hunit.portal(u, point.x, point.y, point.facing)
-                        cj.IssuePointOrder(u, "move", hunit.x(game.demon), hunit.y(game.demon))
+                        cj.IssuePointOrder(u, "attack", hunit.x(game.sevenStone), hunit.y(game.sevenStone))
                         hattr.set(u, 30, { move = "-50" })
-                        echo("BOSS：" .. name .. "发现了恶魔的存在！")
+                        echo("BOSS：" .. name .. "嗅到了了七灵石的存在，开始进攻七灵石")
                     end
                 end,
                 hunit.getName(u)
             )
         end
-        autoEnemy(40)
+        autoEnemy(60)
     end)
 end
 

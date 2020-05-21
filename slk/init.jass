@@ -1,7 +1,5 @@
 ?>
 globals
-    string SLK_COURIER
-    string SLK_COURIER_SKILL
     string SLK_ENEMY_WATER
     string SLK_ENEMY_FIRE
     string SLK_ENEMY_SNOW
@@ -34,12 +32,9 @@ library mySlk initializer Init
             #include "../h-lua/foundation/color.lua"
 
             #include "./slk/courier.lua"
-            ?>
-                set SLK_COURIER = "<?=string.addslashes(json.stringify(COURIERS))?>"
-                set SLK_COURIER_SKILL = "<?=string.addslashes(json.stringify(COURIERS_SKILL))?>"
-            <?
             #include "./slk/units.lua"
             #include "./slk/shops.lua"
+            
             #include "./slk/monster/enemyWater.lua"
             #include "./slk/monster/enemyFire.lua"
             #include "./slk/monster/enemySnow.lua"
