@@ -1,81 +1,87 @@
 local prestigeMap = {
-    { qty = 0, label = "初出茅庐" },
-    { qty = 5, label = "略有小成" },
-    { qty = 10, label = "初露锋芒" },
-    { qty = 20, label = "游刃有余" },
-    { qty = 30, label = "一剑成名" },
-    { qty = 40, label = "名扬山海" },
-    { qty = 50, label = "当世英豪" },
-    { qty = 70, label = "登峰造极" },
-    { qty = 90, label = "天选之人" },
-    { qty = 100, label = "修真始体" },
-    { qty = 130, label = "身越七魄" },
-    { qty = 180, label = "灵通三魂" },
-    { qty = 200, label = "神游山海" },
-    { qty = 250, label = "灭劫星窍" },
-    { qty = 300, label = "得道金仙" },
-    { qty = 400, label = "六御天帝" },
-    { qty = 500, label = "三清天尊" },
-    { qty = 999, label = "九天至尊" },
+    { mark = 0, label = "冒险者" },
+    { mark = 100, label = "历险者" },
+    { mark = 500, label = "先驱者" },
+    { mark = 1000, label = "千军勇士" },
+    { mark = 2500, label = "神武飞将" },
+    { mark = 5000, label = "天绝斗者" },
+    { mark = 10000, label = "灭劫霸王" },
+    { mark = 60000, label = "六御武帝" },
+    { mark = 99999, label = "九天武神" },
 }
 dzCurrent = {}
 dzCurrent.doRecord = function(whichPlayer)
     local playerIndex = hplayer.index(whichPlayer)
-    if (hhero.player_heroes[playerIndex][1] == nil) then
+    if (hhero.player_heroes[playerIndex][1] == nil or game.playerCourier[playerIndex] == nil) then
         return
     end
+    -- hero
     local heroLv = hhero.getCurLevel(hhero.player_heroes[playerIndex][1])
     game.playerDZData.hero[playerIndex][1] = hunit.getName(hhero.player_heroes[playerIndex][1])
     game.playerDZData.hero[playerIndex][2] = heroLv
+    -- courier
+    local courierLv = hhero.getCurLevel(game.playerCourier[playerIndex])
+    game.playerDZData.courier[playerIndex][1] = hunit.getName(game.playerCourier[playerIndex])
+    game.playerDZData.courier[playerIndex][2] = courierLv
+
+    local itLv = 0
+    hitem.slotLoop(hhero.player_heroes[playerIndex][1], function(slotItem, slotIndex)
+        if (slotItem ~= nil) then
+            local charges = hitem.getCharges(slotItem)
+            itLv = itLv + hitem.getLevel(slotItem) * (charges + 1)
+            game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {
+                hitem.getName(slotItem),
+                charges,
+                slotIndex,
+            }
+        else
+            game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {}
+        end
+    end)
+    hitem.slotLoop(game.playerCourier[playerIndex], function(slotItem, slotIndex)
+        if (slotItem ~= nil) then
+            local charges = hitem.getCharges(slotItem)
+            game.playerDZData.item.courier[playerIndex][slotIndex + 1] = {
+                hitem.getName(slotItem),
+                charges,
+                slotIndex,
+            }
+        else
+            game.playerDZData.item.courier[playerIndex][slotIndex + 1] = {}
+        end
+    end)
+    print_mbr(game.playerDZData.item)
+    --
+    game.playerDZData.gift[playerIndex] = {}
+    -- 计算战力
+    local power = math.floor((game.playerDZData.info[playerIndex][2] or 0) * 2
+            + heroLv + courierLv
+            + #game.playerDZData.gift[playerIndex] * 25
+            + itLv)
+    game.playerDZData.info[playerIndex][3] = math.integerFormat(power)
+    game.playerDZData.info[playerIndex][4] = hplayer.getGold(whichPlayer)
+    game.playerDZData.info[playerIndex][5] = hplayer.getLumber(whichPlayer)
     -- 计算称号
-    local kd = game.playerDZData.info[playerIndex][2] or 0
     local prestige = 1
     for pi, pm in ipairs(prestigeMap) do
-        if (kd >= pm.qty) then
+        if (power >= pm.mark) then
             prestige = pi
         else
             break
         end
     end
     game.playerDZData.info[playerIndex][1] = prestige
-    local its = {}
-    local itLv = 0
-    hitem.slotLoop(hhero.player_heroes[playerIndex][1], function(slotItem, slotIndex)
-        local charges = hitem.getCharges(slotItem)
-        itLv = hitem.getLevel(slotItem) * (charges + 1)
-        table.insert(its, {
-            hitem.getName(slotItem),
-            charges,
-            slotIndex,
-        })
-    end)
-    game.playerDZData.item[playerIndex] = its
-    --
-    game.playerDZData.ability[playerIndex] = {}
-    game.playerDZData.gift[playerIndex] = {}
-    -- 计算战力
-    local power = math.floor(kd * 3
-        + heroLv * 1
-        + #game.playerDZData.ability[playerIndex] * 20
-        + #game.playerDZData.gift[playerIndex] * 30
-        + itLv)
-    game.playerDZData.info[playerIndex][3] = math.integerFormat(power)
-    game.playerDZData.info[playerIndex][4] = hplayer.getGold(whichPlayer)
-    game.playerDZData.info[playerIndex][5] = hplayer.getLumber(whichPlayer)
     -- 写入服务器
     local jsonInfo = string.addslashes(json.stringify(game.playerDZData.info[playerIndex]))
     local jsonHero = string.addslashes(json.stringify(game.playerDZData.hero[playerIndex]))
-    local jsonItem = string.addslashes(json.stringify(game.playerDZData.item[playerIndex]))
-    local jsonAbility = string.addslashes(json.stringify(game.playerDZData.ability[playerIndex]))
+    local jsonCourier = string.addslashes(json.stringify(game.playerDZData.courier[playerIndex]))
     local jsonGift = string.addslashes(json.stringify(game.playerDZData.gift[playerIndex]))
     print(string.len(jsonInfo))
     print_mb(jsonInfo)
     print(string.len(jsonHero))
     print_mb(jsonHero)
-    print(string.len(jsonItem))
-    print_mb(jsonItem)
-    print(string.len(jsonAbility))
-    print_mb(jsonAbility)
+    print(string.len(jsonCourier))
+    print_mb(jsonCourier)
     print(string.len(jsonGift))
     print_mb(jsonGift)
     hplayer.setPrestige(whichPlayer, prestigeMap[prestige].label)
@@ -83,60 +89,84 @@ dzCurrent.doRecord = function(whichPlayer)
     hdzapi.setRoomStat(whichPlayer, "power", power) --房间战力
     hdzapi.server.set.str(whichPlayer, "info", jsonInfo)
     hdzapi.server.set.str(whichPlayer, "hero", jsonHero)
-    hdzapi.server.set.str(whichPlayer, "item", jsonItem)
-    hdzapi.server.set.str(whichPlayer, "ability", jsonAbility)
+    hdzapi.server.set.str(whichPlayer, "courier", jsonCourier)
     hdzapi.server.set.str(whichPlayer, "gift", jsonGift)
+    for i = 1, 6 do
+        local jsonItem = string.addslashes(json.stringify(game.playerDZData.item.hero[playerIndex][i]))
+        hdzapi.server.set.str(whichPlayer, "itemh" .. i, jsonItem)
+        local jsonItem = string.addslashes(json.stringify(game.playerDZData.item.courier[playerIndex][i]))
+        hdzapi.server.set.str(whichPlayer, "itemc" .. i, jsonItem)
+    end
 end
 
 dzCurrent.enableRecord = function(whichPlayer)
-    --hdzapi.server.clear.str(whichPlayer, "info")
-    --hdzapi.server.clear.str(whichPlayer, "hero")
-    --hdzapi.server.clear.str(whichPlayer, "item")
-    --hdzapi.server.clear.str(whichPlayer, "ability")
-    --hdzapi.server.clear.str(whichPlayer, "gift")
+    hdzapi.server.clear.str(whichPlayer, "info")
+    hdzapi.server.clear.str(whichPlayer, "hero")
+    hdzapi.server.clear.str(whichPlayer, "courier")
+    hdzapi.server.clear.str(whichPlayer, "gift")
+    hdzapi.server.clear.str(whichPlayer, "itemh1")
+    hdzapi.server.clear.str(whichPlayer, "itemh2")
+    hdzapi.server.clear.str(whichPlayer, "itemh3")
+    hdzapi.server.clear.str(whichPlayer, "itemh4")
+    hdzapi.server.clear.str(whichPlayer, "itemh5")
+    hdzapi.server.clear.str(whichPlayer, "itemh6")
+    hdzapi.server.clear.str(whichPlayer, "itemc1")
+    hdzapi.server.clear.str(whichPlayer, "itemc2")
+    hdzapi.server.clear.str(whichPlayer, "itemc3")
+    hdzapi.server.clear.str(whichPlayer, "itemc4")
+    hdzapi.server.clear.str(whichPlayer, "itemc5")
+    hdzapi.server.clear.str(whichPlayer, "itemc6")
     if (whichPlayer == nil or his.playing(whichPlayer) == false) then
         return
     end
     local playerIndex = hplayer.index(whichPlayer)
-    game.playerDZData.info[playerIndex] = hdzapi.server.get.str(whichPlayer, "info")
-    game.playerDZData.hero[playerIndex] = hdzapi.server.get.str(whichPlayer, "hero")
-    game.playerDZData.item[playerIndex] = hdzapi.server.get.str(whichPlayer, "item")
-    game.playerDZData.ability[playerIndex] = hdzapi.server.get.str(whichPlayer, "ability")
-    game.playerDZData.gift[playerIndex] = hdzapi.server.get.str(whichPlayer, "gift")
-    if (game.playerDZData.info[playerIndex] == "") then
-        game.playerDZData.info[playerIndex] = {
-            1, --称号
-            0, --击杀boss数
-            0, --战力
-            0, --黄金
-            0, --木头
-        }
-    else
-        game.playerDZData.info[playerIndex] = json.parse(string.stripslashes(game.playerDZData.info[playerIndex]))
+    -- init
+    game.playerDZData.info[playerIndex] = {
+        1, --称号
+        0, --击杀boss数
+        0, --战力
+        0, --黄金
+        0, --木头
+    }
+    game.playerDZData.hero[playerIndex] = {
+        "", --英雄种类
+        0, --英雄等级
+    }
+    game.playerDZData.courier[playerIndex] = {
+        "", --信使种类
+        0, --信使等级
+    }
+    game.playerDZData.gift[playerIndex] = {}
+    game.playerDZData.item.hero[playerIndex] = { {}, {}, {}, {}, {}, {} }
+    game.playerDZData.item.courier[playerIndex] = { {}, {}, {}, {}, {}, {} }
+    --
+    local info = hdzapi.server.get.str(whichPlayer, "info")
+    local hero = hdzapi.server.get.str(whichPlayer, "hero")
+    local courier = hdzapi.server.get.str(whichPlayer, "courier")
+    local gift = hdzapi.server.get.str(whichPlayer, "gift")
+    if (info ~= "") then
+        game.playerDZData.info[playerIndex] = json.parse(string.stripslashes(info))
     end
-    if (game.playerDZData.hero[playerIndex] == "") then
-        game.playerDZData.hero[playerIndex] = {
-            "", --英雄种类
-            0, --英雄等级
-        }
-    else
-        game.playerDZData.hero[playerIndex] = json.parse(string.stripslashes(game.playerDZData.hero[playerIndex]))
+    if (hero ~= "") then
+        game.playerDZData.hero[playerIndex] = json.parse(string.stripslashes(hero))
     end
-    if (game.playerDZData.item[playerIndex] == "") then
-        game.playerDZData.item[playerIndex] = {}
-    else
-        game.playerDZData.item[playerIndex] = json.parse(string.stripslashes(game.playerDZData.item[playerIndex]))
+    if (courier ~= "") then
+        game.playerDZData.courier[playerIndex] = json.parse(string.stripslashes(courier))
     end
-    if (game.playerDZData.ability[playerIndex] == "") then
-        game.playerDZData.ability[playerIndex] = {}
-    else
-        game.playerDZData.ability[playerIndex] = json.parse(string.stripslashes(game.playerDZData.ability[playerIndex]))
+    if (gift ~= "") then
+        game.playerDZData.gift[playerIndex] = json.parse(string.stripslashes(gift))
     end
-    if (game.playerDZData.gift[playerIndex] == "") then
-        game.playerDZData.gift[playerIndex] = {}
-    else
-        game.playerDZData.gift[playerIndex] = json.parse(string.stripslashes(game.playerDZData.gift[playerIndex]))
+    for i = 1, 6 do
+        local hit = hdzapi.server.get.str(whichPlayer, "itemh" .. i)
+        if (hit ~= "") then
+            game.playerDZData.item.hero[playerIndex][i] = json.parse(string.stripslashes(hit))
+        end
+        local cit = hdzapi.server.get.str(whichPlayer, "itemc" .. i)
+        if (cit ~= "") then
+            game.playerDZData.item.courier[playerIndex][i] = json.parse(string.stripslashes(cit))
+        end
     end
+    hplayer.setPrestige(hplayer.players[playerIndex], prestigeMap[game.playerDZData.info[playerIndex][1]].label)
     -- 20秒一次，自动检测玩家数据并保存,以2秒隔开每个玩家，不同时请求服务器
     htime.setInterval(20, function()
         local clk = 0

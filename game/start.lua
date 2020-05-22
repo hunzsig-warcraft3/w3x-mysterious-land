@@ -246,12 +246,6 @@ cj.TriggerAddAction(
                         hplayer.defeat(hplayer.players[i], "七灵石破碎了")
                     end
                 end)
-                htime.setTimeout(1800, function(curTimer)
-                    htime.delTimer(curTimer)
-                    echo(hColor.green("七灵石贡献了它所有的力量，最可怕的妖魔复活了！"))
-                    hunit.del(game.sevenStone)
-                    gameQuestEvent.demon()
-                end, "灵石转化")
                 --- 英雄选择
                 --- 检查玩家是否已经选择过英雄（服务器数据）没有则对话框选择职业
                 --- 已经有英雄则直接创建旧英雄和配置物品
@@ -345,7 +339,8 @@ cj.TriggerAddAction(
                                     x = hhero.bornX,
                                     y = hhero.bornY,
                                 })
-                                hevent.onDead(firstCourier, courierDead)
+                                game.playerCourier[i] = firstCourier
+                                hevent.onDead(game.playerCourier[i], courierDead)
                             end)
                         else
                             local lastHeroName = game.playerDZData.hero[i][1]
@@ -367,13 +362,18 @@ cj.TriggerAddAction(
                                 }
                             )
                             -- 最后的信使
+                            local lastCourierName = "呆萌的青蛙"
+                            if (game.playerDZData.courier[i] ~= nil) then
+                                lastCourierName = game.playerDZData.courier[i][1]
+                            end
                             local lastCourier = hunit.create({
                                 whichPlayer = hplayer.players[i],
-                                unitId = game.playerDZData.courier[i][2].UNIT_ID,
+                                unitId = hslk_global.name2Value.unit[lastCourierName].UNIT_ID,
                                 x = hhero.bornX,
                                 y = hhero.bornY,
                             })
-                            hevent.onDead(firstCourier, courierDead)
+                            game.playerCourier[i] = lastCourier
+                            hevent.onDead(game.playerCourier[i], courierDead)
                         end
                     end
                 end

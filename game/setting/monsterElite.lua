@@ -48,7 +48,7 @@ autoMonsterElite = function(delay)
         end
         if (#oi > 0) then
             local mi = table.random(oi)
-            local m = monsterNormal[mi]
+            local m = monsterElite[mi]
             local w = 0
             m.creating = true
             monsterEliteAutoCount = monsterEliteAutoCount + 1
@@ -58,7 +58,7 @@ autoMonsterElite = function(delay)
                 if (w >= 2) then
                     htime.delTimer(curTimer2)
                     monsterEliteAutoCount = monsterEliteAutoCount - 1
-                    htime.setTimeout(60, function(curTimer3)
+                    htime.setTimeout(90, function(curTimer3)
                         htime.delTimer(curTimer3)
                         m.creating = false
                     end)
@@ -71,7 +71,7 @@ autoMonsterElite = function(delay)
                     hgroup.clear(g, true, false)
                     for _ = 1, 3 do
                         local u = henemy.create({
-                            unitId = hslk_global.name2Value.unit[table.random(m.mon)].UNIT_ID,
+                            unitId = hslk_global.name2Value.unit["[精英]"..table.random(m.mon)].UNIT_ID,
                             x = m.loc[1], --创建坐标X，可选
                             y = m.loc[2], --创建坐标Y，可选
                         })
@@ -81,12 +81,12 @@ autoMonsterElite = function(delay)
                             attack_white = "=" .. (29 + game.diff) * m.level,
                             defend = "=" .. math.floor(m.level * 1.5 + game.diff / 2),
                             toughness = "=" .. m.level + game.diff,
-                            avoid = "=" ..m.level + game.diff,
-                            aim = "=" ..m.level + game.diff,
+                            avoid = "=" .. m.level + game.diff,
+                            aim = "=" .. m.level + game.diff,
                         }
                         hattr.set(u, 0, attr)
                         hevent.onDead(u, onEliteAward)
-                        htime.setTimeout(150,function(normalTimer)
+                        htime.setTimeout(150, function(normalTimer)
                             htime.delTimer(normalTimer)
                             if (his.alive(u)) then
                                 cj.IssuePointOrder(u, "attack", hunit.x(game.sevenStone), hunit.y(game.sevenStone))
@@ -98,7 +98,7 @@ autoMonsterElite = function(delay)
                 end
             end)
         end
-        autoEnemy(60)
+        autoMonsterElite(60)
     end)
 end
 

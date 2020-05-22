@@ -541,7 +541,7 @@ autoMonsterNormal = function(delay)
                     local qty = math.random(m.qty[1], m.qty[2])
                     for _ = 1, qty, 1 do
                         local u = henemy.create({
-                            unitId = hslk_global.name2Value.unit[table.random(m.mon)].UNIT_ID,
+                            unitId = hslk_global.name2Value.unit["[小怪]"..table.random(m.mon)].UNIT_ID,
                             x = m.loc[1], --创建坐标X，可选
                             y = m.loc[2], --创建坐标Y，可选
                         })
@@ -550,17 +550,17 @@ autoMonsterNormal = function(delay)
                             life = "=" .. (19 + game.diff) * m.level,
                             attack_white = "=" .. (9 + game.diff) * m.level,
                         }
-                        if(m.level >=5)then
+                        if (m.level >= 5) then
                             attr.defend = math.floor((m.level + game.diff) / 3)
                         end
-                        if(m.level >=50)then
+                        if (m.level >= 50) then
                             attr.toughness = math.floor((m.level + game.diff) / 3)
                             attr.avoid = m.level + game.diff - 50
                             attr.aim = m.level + game.diff - 50
                         end
                         hattr.set(u, 0, attr)
                         hevent.onDead(u, onNormalAward)
-                        htime.setTimeout(75,function(normalTimer)
+                        htime.setTimeout(75, function(normalTimer)
                             htime.delTimer(normalTimer)
                             if (his.alive(u)) then
                                 cj.IssuePointOrder(u, "attack", hunit.x(game.sevenStone), hunit.y(game.sevenStone))
@@ -576,5 +576,4 @@ autoMonsterNormal = function(delay)
     end)
 end
 
--- 第一次延时30秒
-autoMonsterNormal(30)
+autoMonsterNormal(10)

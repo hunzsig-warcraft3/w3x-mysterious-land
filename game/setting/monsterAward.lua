@@ -15,13 +15,13 @@ onNormalAwardFleeting = function(fleetingData)
             haward.forUnitLumber(fleetingData.enterUnit, 1)
             hsound.sound2Player(cg.gg_snd_BundleOfLumber, p)
         elseif (buffId == hitem.FLEETING_IDS.BOOK_YELLOW) then
-            heffect.toUnit("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl",fleetingData.enterUnit,1)
+            heffect.toUnit("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", fleetingData.enterUnit, 1)
             hattr.set(fleetingData.enterUnit, 0, { str_green = "+1" })
         elseif (buffId == hitem.FLEETING_IDS.BOOK_RED) then
-            heffect.toUnit("Abilities\\Spells\\Items\\AIam\\AIamTarget.mdl",fleetingData.enterUnit,1)
+            heffect.toUnit("Abilities\\Spells\\Items\\AIam\\AIamTarget.mdl", fleetingData.enterUnit, 1)
             hattr.set(fleetingData.enterUnit, 0, { agi_green = "+1" })
         elseif (buffId == hitem.FLEETING_IDS.BOOK_PURPLE) then
-            heffect.toUnit("Abilities\\Spells\\Items\\AIim\\AIimTarget.mdl",fleetingData.enterUnit,1)
+            heffect.toUnit("Abilities\\Spells\\Items\\AIim\\AIimTarget.mdl", fleetingData.enterUnit, 1)
             hattr.set(fleetingData.enterUnit, 0, { int_green = "+1" })
         elseif (buffId == hitem.FLEETING_IDS.DOTA2_CURE) then
             hattr.set(fleetingData.enterUnit, 3, {

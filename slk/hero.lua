@@ -122,8 +122,8 @@ local heros = {
         STRplus = 1.6,
         AGIplus = 1.7,
         INTplus = 2.6,
-        goldcost = 1,
-        lumbercost = 1,
+        goldcost = 0,
+        lumbercost = 0,
         CUSTOM_DATA = {
             features = "魔导者"
         },

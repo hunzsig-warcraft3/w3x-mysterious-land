@@ -335,6 +335,7 @@ for _, v in ipairs(monster) do
     v.spd = 200
     v.sight = 300
     v.nsight = 300
+    v.weapsOn = 1
     if (v.movetp == "fly") then
         v.moveHeight = 200
     elseif (v.movetp == "hover") then

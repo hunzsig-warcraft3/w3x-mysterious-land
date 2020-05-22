@@ -30,7 +30,8 @@ for _, f in ipairs(game.rebornStone) do
     hevent.onEnterUnitRange(stone, 400, function(evtData)
         local centerUnit = evtData.centerUnit
         local enterUnit = evtData.enterUnit
-        if (his.hero(enterUnit) and his.alive(centerUnit)) then
+        local UNIT_TYPE = hslk_global.id2Value.unit[hunit.getId(enterUnit)].UNIT_TYPE
+        if (his.hero(enterUnit) and his.alive(centerUnit) and UNIT_TYPE == "hero") then
             local rePointIdx = 0
             for pi, p in ipairs(game.rebornStonePoint) do
                 if (p.status == 1 and p.stone == centerUnit) then
