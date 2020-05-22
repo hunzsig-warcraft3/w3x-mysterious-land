@@ -109,9 +109,6 @@ autoBoss = function(delay)
                 hunit.getName(u)
             )
         end
-        autoEnemy(60)
+        autoBoss(60)
     end)
 end
-
--- 第一次BOSS延时120秒
-autoBoss(120)

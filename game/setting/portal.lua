@@ -1,5 +1,5 @@
 -- 传送门
-for _, f in ipairs(game.door) do
+for _, f in ipairs(game.portal) do
     local portal = hunit.create(
         {
             register = false,
@@ -12,9 +12,8 @@ for _, f in ipairs(game.door) do
     )
     hevent.onEnterUnitRange(portal, 50, function(evtData)
         local enterUnit = evtData.enterUnit
-        hunit.portal(enterUnit, f.to[2], f.to[3])
+        hunit.portal(enterUnit, f.to[1], f.to[2])
         local owner = hunit.getOwner(enterUnit)
-        hcamera.toXY(owner, 0, f.to[2], f.to[3])
-        hsound.sound2Player(cg.gg_snd_voice_jump, owner)
+        hcamera.toXY(owner, 0, f.to[1], f.to[2])
     end)
 end

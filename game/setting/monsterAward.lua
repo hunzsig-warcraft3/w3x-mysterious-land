@@ -1,5 +1,6 @@
 -- 怪物奖励
-onEnemyAwardFleeting = function(fleetingData)
+
+onNormalAwardFleeting = function(fleetingData)
     if (his.deleted(fleetingData.centerUnit) == true) then
         return
     end
@@ -13,19 +14,19 @@ onEnemyAwardFleeting = function(fleetingData)
         elseif (buffId == hitem.FLEETING_IDS.LUMBER) then
             haward.forUnitLumber(fleetingData.enterUnit, 1)
             hsound.sound2Player(cg.gg_snd_BundleOfLumber, p)
-        elseif (buffId == hitem.FLEETING_IDS.BOOK_RED) then
+        elseif (buffId == hitem.FLEETING_IDS.BOOK_YELLOW) then
+            heffect.toUnit("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl",fleetingData.enterUnit,1)
             hattr.set(fleetingData.enterUnit, 0, { str_green = "+1" })
-            echo("获得了一本力量之书,力量临时+1", p)
-        elseif (buffId == hitem.FLEETING_IDS.BOOK_GREEN) then
+        elseif (buffId == hitem.FLEETING_IDS.BOOK_RED) then
+            heffect.toUnit("Abilities\\Spells\\Items\\AIam\\AIamTarget.mdl",fleetingData.enterUnit,1)
             hattr.set(fleetingData.enterUnit, 0, { agi_green = "+1" })
-            echo("获得了一本敏捷之书,敏捷临时+1", p)
-        elseif (buffId == hitem.FLEETING_IDS.BOOK_BLUE) then
-            hattr.set(fleetingData.enterUnit, 0, { agi_green = "+1" })
-            echo("获得了一本智力之书,智力临时+1", p)
+        elseif (buffId == hitem.FLEETING_IDS.BOOK_PURPLE) then
+            heffect.toUnit("Abilities\\Spells\\Items\\AIim\\AIimTarget.mdl",fleetingData.enterUnit,1)
+            hattr.set(fleetingData.enterUnit, 0, { int_green = "+1" })
         elseif (buffId == hitem.FLEETING_IDS.DOTA2_CURE) then
             hattr.set(fleetingData.enterUnit, 3, {
-                life_back = "+100",
-                life_mana = "+50",
+                life_back = "+150",
+                life_mana = "+100",
             })
             heffect.bindUnit(
                 "Abilities\\Spells\\Items\\ScrollOfRejuvenation\\ScrollManaHealth.mdl",
@@ -55,13 +56,13 @@ onEnemyAwardFleeting = function(fleetingData)
         end
     end
 end
-onEnemyAward = function(evtData)
+onNormalAward = function(evtData)
     local triggerUnit = evtData.triggerUnit
     local killer = evtData.killer
     local mi = hunit.getUserData(triggerUnit)
-    local level = monsterEnemy[mi].level
+    local level = monsterNormal[mi].level
     local gold = level * 5 + game.diff
-    local exp = (level + monsterIntegral) * 5 + game.diff
+    local exp = level * 6 + game.diff
     if (killer ~= nil) then
         haward.forUnit(killer, exp, gold, 0)
         local p = hunit.getOwner(killer)
@@ -75,8 +76,8 @@ onEnemyAward = function(evtData)
             hitem.FLEETING_IDS.GOLD,
             hitem.FLEETING_IDS.LUMBER,
             hitem.FLEETING_IDS.BOOK_RED,
-            hitem.FLEETING_IDS.BOOK_GREEN,
-            hitem.FLEETING_IDS.BOOK_BLUE,
+            hitem.FLEETING_IDS.BOOK_YELLOW,
+            hitem.FLEETING_IDS.BOOK_PURPLE,
             hitem.FLEETING_IDS.DOTA2_CURE,
             hitem.FLEETING_IDS.DOTA2_DAMAGE,
             hitem.FLEETING_IDS.DOTA2_GOLD,
@@ -84,19 +85,19 @@ onEnemyAward = function(evtData)
             hitem.FLEETING_IDS.DOTA2_INVISIBLE,
         }
         local buff = table.random(buffs)
-        hitem.fleeting(buff, hunit.x(triggerUnit), hunit.y(triggerUnit), 30, onEnemyAwardFleeting)
+        hitem.fleeting(buff, hunit.x(triggerUnit), hunit.y(triggerUnit), 30, onNormalAwardFleeting)
     end
 end
 
-onBossAward = function(evtData)
+onEliteAward = function(evtData)
     local triggerUnit = evtData.triggerUnit
     local killer = evtData.killer
     local mi = math.floor(hunit.getUserData(triggerUnit) / 1000)
     local level = monsterBoss[mi].level
-    local killerGold = level * 50 + game.diff * 10
-    local killerExp = (level + monsterIntegral) * (10 + game.diff)
-    local gold = level * 10 + game.diff * 2
-    local exp = (level + monsterIntegral) * (20 + game.diff)
+    local killerGold = level * 30 + game.diff * 10
+    local killerExp = level * (10 + game.diff)
+    local gold = level * 11 + game.diff * 2
+    local exp = level * (60 + game.diff)
     monsterBoss[mi].creating = false
     if (killer ~= nil) then
         haward.forUnit(killer, killerExp, killerGold, 1) --杀手专有

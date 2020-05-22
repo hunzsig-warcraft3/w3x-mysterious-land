@@ -1,20 +1,4 @@
 ?>
-globals
-    string SLK_ENEMY_WATER
-    string SLK_ENEMY_FIRE
-    string SLK_ENEMY_SNOW
-    string SLK_ENEMY_JUNGLE
-    string SLK_ENEMY_MOUNTAIN
-    string SLK_ENEMY_RUINS
-    string SLK_ENEMY_DARK
-    string SLK_BOSS_WATER
-    string SLK_BOSS_FIRE
-    string SLK_BOSS_SNOW
-    string SLK_BOSS_JUNGLE
-    string SLK_BOSS_MOUNTAIN
-    string SLK_BOSS_RUINS
-    string SLK_BOSS_DARK
-endglobals
 
 library mySlk initializer Init
 
@@ -30,44 +14,13 @@ library mySlk initializer Init
             #include "../h-lua/foundation/math.lua"
             #include "../h-lua/foundation/string.lua"
             #include "../h-lua/foundation/color.lua"
-
             #include "./slk/courier.lua"
             #include "./slk/units.lua"
             #include "./slk/shops.lua"
-            
-            #include "./slk/monster/enemyWater.lua"
-            #include "./slk/monster/enemyFire.lua"
-            #include "./slk/monster/enemySnow.lua"
-            #include "./slk/monster/enemyJungle.lua"
-            #include "./slk/monster/enemyMountain.lua"
-            #include "./slk/monster/enemyRuins.lua"
-            #include "./slk/monster/enemyDark.lua"
-            ?>
-                set SLK_ENEMY_WATER = "<?=string.addslashes(json.stringify(ENEMY_WATER))?>"
-                set SLK_ENEMY_FIRE = "<?=string.addslashes(json.stringify(ENEMY_FIRE))?>"
-                set SLK_ENEMY_SNOW = "<?=string.addslashes(json.stringify(ENEMY_SNOW))?>"
-                set SLK_ENEMY_JUNGLE = "<?=string.addslashes(json.stringify(ENEMY_JUNGLE))?>"
-                set SLK_ENEMY_MOUNTAIN = "<?=string.addslashes(json.stringify(ENEMY_MOUNTAIN))?>"
-                set SLK_ENEMY_RUINS = "<?=string.addslashes(json.stringify(ENEMY_RUINS))?>"
-                set SLK_ENEMY_DARK = "<?=string.addslashes(json.stringify(ENEMY_DARK))?>"
-            <?
-            #include "./slk/monster/bossDark.lua"
-            #include "./slk/monster/bossFire.lua"
-            #include "./slk/monster/bossJungle.lua"
-            #include "./slk/monster/bossMountain.lua"
-            #include "./slk/monster/bossRuins.lua"
-            #include "./slk/monster/bossSnow.lua"
-            #include "./slk/monster/bossWater.lua"
-            ?>
-                set SLK_BOSS_WATER = "<?=string.addslashes(json.stringify(BOSS_WATER))?>"
-                set SLK_BOSS_FIRE = "<?=string.addslashes(json.stringify(BOSS_FIRE))?>"
-                set SLK_BOSS_SNOW = "<?=string.addslashes(json.stringify(BOSS_SNOW))?>"
-                set SLK_BOSS_JUNGLE = "<?=string.addslashes(json.stringify(BOSS_JUNGLE))?>"
-                set SLK_BOSS_MOUNTAIN = "<?=string.addslashes(json.stringify(BOSS_MOUNTAIN))?>"
-                set SLK_BOSS_RUINS = "<?=string.addslashes(json.stringify(BOSS_RUINS))?>"
-                set SLK_BOSS_DARK = "<?=string.addslashes(json.stringify(BOSS_DARK))?>"
-            <?
             #include "./slk/hero.lua"
+            #include "./slk/monsterNormal.lua"
+            #include "./slk/monsterElite.lua"
+            #include "./slk/monsterBoss.lua"
         ?>
     endfunction
 
