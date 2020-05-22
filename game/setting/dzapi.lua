@@ -50,7 +50,6 @@ dzCurrent.doRecord = function(whichPlayer)
             game.playerDZData.item.courier[playerIndex][slotIndex + 1] = {}
         end
     end)
-    print_mbr(game.playerDZData.item)
     --
     game.playerDZData.gift[playerIndex] = {}
     -- 计算战力

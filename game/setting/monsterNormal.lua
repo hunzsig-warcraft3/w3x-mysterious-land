@@ -511,7 +511,7 @@ autoMonsterNormal = function(delay)
         end
         local oi = {}
         for mi, m in ipairs(monsterNormal) do
-            if (m.creating ~= true and htime.min > m.level) then
+            if (m.creating ~= true and (htime.min+1) >= m.level) then
                 table.insert(oi, mi)
             end
         end
