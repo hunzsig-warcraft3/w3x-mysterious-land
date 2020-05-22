@@ -68,7 +68,7 @@ onNormalAward = function(evtData)
         local p = hunit.getOwner(killer)
         if (his.playing(p)) then
             local pIndex = hplayer.index(p)
-            game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 50
+            game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 1
         end
     end
     if (math.random(1, 50) == 26) then
@@ -105,7 +105,7 @@ onEliteAward = function(evtData)
         local p = hunit.getOwner(killer)
         if (his.playing(p)) then
             local pIndex = hplayer.index(p)
-            game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 1
+            game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 3
         end
     end
     for _ = 1, (9 + level) do
