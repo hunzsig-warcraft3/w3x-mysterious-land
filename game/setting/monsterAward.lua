@@ -108,7 +108,7 @@ onEliteAward = function(evtData)
             game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 3
         end
     end
-    for _ = 1, (9 + level) do
+    for _ = 1, (4 + level) do
         hitem.fleeting(
             hitem.FLEETING_IDS.GOLD,
             hunit.x(triggerUnit) + math.random(0, 200),
