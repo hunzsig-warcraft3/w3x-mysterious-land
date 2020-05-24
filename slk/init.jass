@@ -18,6 +18,8 @@ library mySlk initializer Init
             #include "./slk/units.lua"
             #include "./slk/shops.lua"
             #include "./slk/hero.lua"
+            #include "./slk/feature.lua"
+            #include "./slk/gift.lua"
             #include "./slk/monsterNormal.lua"
             #include "./slk/monsterElite.lua"
             #include "./slk/monsterBoss.lua"

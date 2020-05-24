@@ -7,11 +7,45 @@ end
 --- 英雄被选择
 hevent.onPickHero(function(evtData)
     --- 默认给个复活石
-    game.unitsReborn[evtData.triggerUnit] = game.rebornStonePoint[1]
+    if (game.unitsReborn[evtData.triggerUnit] == nil) then
+        game.unitsReborn[evtData.triggerUnit] = game.rebornStonePoint[1]
+    end
+    local heroSlk = hunit.getSlk(evtData.triggerUnit)
+    if (heroSlk ~= nil) then
+        -- 特性
+        local feature = heroSlk.CUSTOM_DATA.feature
+        if(feature ~= nil)then
+            local feature = "特性 - " .. feature
+            hskill.add(evtData.triggerUnit, hslk_global.name2Value.ability[feature].ABILITY_ID)
+        end
+    end
+    local ownerIndex = hplayer.index(hunit.getOwner(evtData.triggerUnit))
+    -- 英雄物品
+    if (#game.playerDZData.item.hero[ownerIndex] > 0)then
+        for _,itemVal in ipairs(game.playerDZData.item.hero[ownerIndex]) do
+            if(itemVal ~= nil and #itemVal > 0)then
+                hitem.create({
+                    itemId = hslk_global.name2Value.item[itemVal[1]].ITEM_ID,
+                    charges = itemVal[2] or 1,
+                    whichUnit = lastHero,
+                    slotIndex = itemVal[3],
+                })
+            end
+        end
+    end
+    -- 英雄天赋
+    if (#game.playerDZData.gift[ownerIndex] > 0)then
+        for _,g in ipairs(game.playerDZData.gift[ownerIndex]) do
+            if(g ~= nil)then
+                local data = hslk_global.name2Value.ability[g]
+                hskill.add(lastHero, data.ABILITY_ID, 0)
+            end
+        end
+    end
     --- 复活动作
     hevent.onDead(evtData.triggerUnit, function(evtDeadData)
-        if (game.unitsReborn[evtDeadData.triggerUnit] == nil) then
-            echo(hColor.red("所有复活石已经崩坏！山海力量已无法帮助英雄复活"), hunit.getOwner(evtDeadData.triggerUnit))
+        if (game.unitsReborn[evtDeadData.triggerUnit] == nil or game.unitsReborn[evtDeadData.triggerUnit] == -1) then
+            echo(hColor.red("所有复活石已经崩坏！你已永久逝去！"), hunit.getOwner(evtDeadData.triggerUnit))
             -- 检查是否全员失败
             local defeatQty = 0
             for playerIndex = 1, hplayer.qty_max, 1 do
@@ -24,7 +58,7 @@ hevent.onPickHero(function(evtData)
                 end
             end
             if (defeatQty == hplayer.qty_max) then
-                echo(hColor.red("复活石已不复存在，你们的英雄灵魂也永远迷失在混沌之中"))
+                echo(hColor.red("复活石已不复存在，所有人的英雄灵魂也永远迷失在混沌之中"))
                 htime.setTimeout(10, function(curTimer)
                     htime.delTimer(curTimer)
                     for playerIndex = 1, hplayer.qty_max, 1 do
@@ -55,7 +89,7 @@ hevent.onPickHero(function(evtData)
                 game.unitsReborn[evtDeadData.triggerUnit] = game.rebornStonePoint[rePointIdx]
                 echo(hColor.yellow("一个复活石复生多次已经消亡，余下的复活石肩负起了复活英雄的责任"), hunit.getOwner(evtDeadData.triggerUnit))
             else
-                game.unitsReborn[evtDeadData.triggerUnit] = nil
+                game.unitsReborn[evtDeadData.triggerUnit] = -1
                 echo(hColor.red("所有复活石已经崩坏！山海力量已无法帮助英雄复活"))
                 -- 检查是否全员失败
                 local defeatQty = 0
@@ -266,7 +300,7 @@ cj.TriggerAddAction(
                         local soldUnit = evtData.soldUnit
                         local soldUid = hunit.getId(soldUnit)
                         hunit.del(soldUnit, 0)
-                        if (game.playerDZData.hero[playerIndex][1] == "") then
+                        if (hhero.player_heroes[playerIndex][1] == "") then
                             return
                         end
                         local unitValue = hslk_global.id2Value.unit[soldUid]
@@ -280,7 +314,20 @@ cj.TriggerAddAction(
                             end
                             return
                         end
+                        hitem.slotLoop(prevHero, function(slotItem, slotIndex)
+                            if (slotItem ~= nil) then
+                                local charges = hitem.getCharges(slotItem)
+                                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {
+                                    hitem.getName(slotItem),
+                                    charges,
+                                    slotIndex,
+                                }
+                            else
+                                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {}
+                            end
+                        end)
                         hunit.hide(prevHero)
+                        ---
                         local newHero = hunit.create({
                             whichPlayer = p,
                             unitId = soldUid,
@@ -289,7 +336,6 @@ cj.TriggerAddAction(
                             y = hunit.y(prevHero),
                         })
                         hhero.setCurLevel(newHero, hhero.getCurLevel(prevHero), false)
-                        hitem.copy(prevHero, newHero)
                         hhero.player_heroes[playerIndex][1] = newHero
                         hunit.del(prevHero, 0)
                         echo(hColor.green(hplayer.getName(p))
@@ -352,23 +398,6 @@ cj.TriggerAddAction(
                             })
                             table.insert(hhero.player_heroes[i], lastHero)
                             hhero.setCurLevel(lastHero, game.playerDZData.hero[i][2], false)
-                            -- 过去的英雄物品
-                            for _,itemVal in ipairs(game.playerDZData.item.hero[i]) do
-                                if(itemVal ~= nil)then
-                                    hitem.create({
-                                        itemId = hslk_global.name2Value.item[itemVal[1]].ITEM_ID,
-                                        charges = itemVal[2] or 1,
-                                        whichUnit = lastHero,
-                                        slotIndex = itemVal[3],
-                                    })
-                                end
-                            end
-                            -- 过去的英雄天赋
-                            for _,g in ipairs(game.playerDZData.gift[i]) do
-                                if(g ~= nil)then
-                                    hskill.add(lastHero, hslk_global.name2Value.ability[g], 0)
-                                end
-                            end
                             -- 触发英雄被选择事件(全局)
                             hevent.triggerEvent(
                                 "global",

@@ -2,7 +2,7 @@ local heros = {
     {
         Name = "剑士",
         Propernames = "无名氏",
-        Ubertip = hColor.sky("特征：战士") .. "|n" .. hColor.grey("身穿盔甲的战士，持剑作战，攻防兼备。"),
+        Ubertip = hColor.sky("特性：无惧") .. "|n" .. hColor.grey("身穿盔甲的战士，持剑作战，攻防兼备。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNFootman.blp",
         file = "units\\human\\Footman\\Footman",
         unitSound = "Footman",
@@ -28,13 +28,13 @@ local heros = {
         INTplus = 2.1,
         goldcost = 0,
         CUSTOM_DATA = {
-            features = "战士"
+            feature = "无惧"
         },
     },
     {
         Name = "骑士",
         Propernames = "无名氏",
-        Ubertip = hColor.sky("特征：战士") .. "|n" .. hColor.grey("骑架铁马的战士，冲锋陷阵，防御奇佳。"),
+        Ubertip = hColor.sky("特性：无惧") .. "|n" .. hColor.grey("骑架铁马的战士，冲锋陷阵，防御奇佳。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNKnight.blp",
         file = "units\\human\\Knight\\Knight",
         unitSound = "Knight",
@@ -60,13 +60,13 @@ local heros = {
         INTplus = 2.0,
         goldcost = 0,
         CUSTOM_DATA = {
-            features = "战士"
+            feature = "无惧"
         },
     },
     {
         Name = "弓箭手",
         Propernames = "无名氏",
-        Ubertip = hColor.sky("特征：射击手") .. "|n" .. hColor.grey("远程攻击手，在安全的地方妥善袭击，游击战斗。"),
+        Ubertip = hColor.sky("特性：游击") .. "|n" .. hColor.grey("远程攻击手，在安全的地方妥善袭击，游击战斗。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNHighElvenArcher.blp",
         file = "units\\creeps\\HighElfArcher\\HighElfArcher",
         unitSound = "Archer",
@@ -92,13 +92,13 @@ local heros = {
         INTplus = 2.2,
         goldcost = 0,
         CUSTOM_DATA = {
-            features = "射击手"
+            feature = "游击"
         },
     },
     {
         Name = "魔法师",
         Propernames = "无名氏",
-        Ubertip = hColor.sky("特征：魔导者") .. "|n" .. hColor.grey("神秘的魔法使用者，善用法术进行攻防。"),
+        Ubertip = hColor.sky("特性：魔力") .. "|n" .. hColor.grey("神秘的魔法使用者，善用法术进行攻防。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNMedivh.blp",
         file = "units\\creeps\\Medivh\\Medivh",
         unitSound = "Medivh",
@@ -125,13 +125,13 @@ local heros = {
         goldcost = 0,
         lumbercost = 0,
         CUSTOM_DATA = {
-            features = "魔导者"
+            feature = "魔力"
         },
     },
     {
         Name = "疾风剑圣",
         Propernames = "逸风",
-        Ubertip = hColor.sky("特征：剑圣") .. "|n" .. hColor.grey("无影无踪的剑圣，一人如同万军的神剑。在过去逃出生天后，开始在山海间游历。"),
+        Ubertip = hColor.sky("特性：剑圣") .. "|n" .. hColor.grey("无影无踪的剑圣，一人如同万军的神剑。在过去逃出生天后，开始在山海间游历。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNHeroBlademaster.blp",
         file = "units\\orc\\HeroBladeMaster\\HeroBladeMaster",
         unitSound = "HeroBladeMaster",
@@ -157,13 +157,13 @@ local heros = {
         INTplus = 2.6,
         goldcost = 10000,
         CUSTOM_DATA = {
-            features = "剑圣"
+            feature = "剑圣"
         },
     },
     {
         Name = "山丘之王",
         Propernames = "波尔",
-        Ubertip = hColor.sky("特征：领袖") .. "|n" .. hColor.grey("波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。"),
+        Ubertip = hColor.sky("特性：领袖") .. "|n" .. hColor.grey("波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp",
         file = "units\\human\\HeroMountainKing\\HeroMountainKing",
         unitSound = "HeroMountainKing",
@@ -189,7 +189,7 @@ local heros = {
         INTplus = 2.8,
         goldcost = 10000,
         CUSTOM_DATA = {
-            features = "领袖"
+            feature = "领袖"
         },
     },
 }

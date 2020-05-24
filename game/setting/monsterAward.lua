@@ -5,7 +5,7 @@ onNormalAwardFleeting = function(fleetingData)
         return
     end
     local p = hunit.getOwner(fleetingData.enterUnit)
-    if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p)) then
+    if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p) and his.computer(p) == false) then
         local buffId = cj.GetUnitTypeId(fleetingData.centerUnit)
         hunit.del(fleetingData.centerUnit)
         if (buffId == hitem.FLEETING_IDS.GOLD) then
@@ -66,7 +66,7 @@ onNormalAward = function(evtData)
     if (killer ~= nil) then
         haward.forUnit(killer, exp, gold, 0)
         local p = hunit.getOwner(killer)
-        if (his.playing(p)) then
+        if (his.playing(p) and his.computer(p) == false) then
             local pIndex = hplayer.index(p)
             game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 1
         end
@@ -103,7 +103,7 @@ onEliteAward = function(evtData)
         haward.forUnit(killer, killerExp, killerGold, 1) --杀手专有
         haward.forGroupExp(killer, exp) --大队经验
         local p = hunit.getOwner(killer)
-        if (his.playing(p)) then
+        if (his.playing(p) and his.computer(p) == false) then
             local pIndex = hplayer.index(p)
             game.playerDZData.info[pIndex][2] = game.playerDZData.info[pIndex][2] + 3
         end
@@ -119,7 +119,7 @@ onEliteAward = function(evtData)
                     return
                 end
                 local p = hunit.getOwner(fleetingData.enterUnit)
-                if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p)) then
+                if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p) and his.computer(p) == false) then
                     hunit.del(fleetingData.centerUnit)
                     haward.forUnitGold(fleetingData.enterUnit, gold)
                     hsound.sound2Player(cg.gg_snd_ReceiveGold, p)
