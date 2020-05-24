@@ -17,6 +17,8 @@ dzCurrent.doRecord = function(whichPlayer)
     end
     -- hero
     local heroLv = hhero.getCurLevel(hhero.player_heroes[playerIndex][1])
+    local heroGoldcost = hunit.getSlk(hhero.player_heroes[playerIndex][1]).goldcost or 0
+    local heroGoldcostLv = math.floor(heroGoldcost / 500)
     game.playerDZData.hero[playerIndex][1] = hunit.getName(hhero.player_heroes[playerIndex][1])
     game.playerDZData.hero[playerIndex][2] = heroLv
     -- courier
@@ -55,6 +57,7 @@ dzCurrent.doRecord = function(whichPlayer)
     -- 计算战力
     local power = math.floor((game.playerDZData.info[playerIndex][2] or 0) / 50)
             + heroLv + courierLv
+            + heroGoldcostLv
             + #game.playerDZData.gift[playerIndex] * 25
             + itLv
     game.playerDZData.info[playerIndex][3] = math.integerFormat(power)
@@ -74,7 +77,7 @@ dzCurrent.doRecord = function(whichPlayer)
     local jsonInfo = string.addslashes(json.stringify(game.playerDZData.info[playerIndex]))
     local jsonHero = string.addslashes(json.stringify(game.playerDZData.hero[playerIndex]))
     local jsonCourier = string.addslashes(json.stringify(game.playerDZData.courier[playerIndex]))
-    local jsonGift = string.addslashes(json.stringify(game.playerDZData.gift[playerIndex]))
+    local jsonGift = string.implode("|", game.playerDZData.gift[playerIndex])
     print(string.len(jsonInfo))
     print_mb(jsonInfo)
     print(string.len(jsonHero))
@@ -99,22 +102,22 @@ dzCurrent.doRecord = function(whichPlayer)
 end
 
 dzCurrent.enableRecord = function(whichPlayer)
-    hdzapi.server.clear.str(whichPlayer, "info")
-    hdzapi.server.clear.str(whichPlayer, "hero")
-    hdzapi.server.clear.str(whichPlayer, "courier")
-    hdzapi.server.clear.str(whichPlayer, "gift")
-    hdzapi.server.clear.str(whichPlayer, "itemh1")
-    hdzapi.server.clear.str(whichPlayer, "itemh2")
-    hdzapi.server.clear.str(whichPlayer, "itemh3")
-    hdzapi.server.clear.str(whichPlayer, "itemh4")
-    hdzapi.server.clear.str(whichPlayer, "itemh5")
-    hdzapi.server.clear.str(whichPlayer, "itemh6")
-    hdzapi.server.clear.str(whichPlayer, "itemc1")
-    hdzapi.server.clear.str(whichPlayer, "itemc2")
-    hdzapi.server.clear.str(whichPlayer, "itemc3")
-    hdzapi.server.clear.str(whichPlayer, "itemc4")
-    hdzapi.server.clear.str(whichPlayer, "itemc5")
-    hdzapi.server.clear.str(whichPlayer, "itemc6")
+    --hdzapi.server.clear.str(whichPlayer, "info")
+    --hdzapi.server.clear.str(whichPlayer, "hero")
+    --hdzapi.server.clear.str(whichPlayer, "courier")
+    --hdzapi.server.clear.str(whichPlayer, "gift")
+    --hdzapi.server.clear.str(whichPlayer, "itemh1")
+    --hdzapi.server.clear.str(whichPlayer, "itemh2")
+    --hdzapi.server.clear.str(whichPlayer, "itemh3")
+    --hdzapi.server.clear.str(whichPlayer, "itemh4")
+    --hdzapi.server.clear.str(whichPlayer, "itemh5")
+    --hdzapi.server.clear.str(whichPlayer, "itemh6")
+    --hdzapi.server.clear.str(whichPlayer, "itemc1")
+    --hdzapi.server.clear.str(whichPlayer, "itemc2")
+    --hdzapi.server.clear.str(whichPlayer, "itemc3")
+    --hdzapi.server.clear.str(whichPlayer, "itemc4")
+    --hdzapi.server.clear.str(whichPlayer, "itemc5")
+    --hdzapi.server.clear.str(whichPlayer, "itemc6")
     if (whichPlayer == nil or his.playing(whichPlayer) == false) then
         return
     end
@@ -153,7 +156,7 @@ dzCurrent.enableRecord = function(whichPlayer)
         game.playerDZData.courier[playerIndex] = json.parse(string.stripslashes(courier))
     end
     if (gift ~= "") then
-        game.playerDZData.gift[playerIndex] = json.parse(string.stripslashes(gift))
+        game.playerDZData.gift[playerIndex] = string.explode("|", gift)
     end
     for i = 1, 6 do
         local hit = hdzapi.server.get.str(whichPlayer, "itemh" .. i)

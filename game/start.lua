@@ -352,6 +352,23 @@ cj.TriggerAddAction(
                             })
                             table.insert(hhero.player_heroes[i], lastHero)
                             hhero.setCurLevel(lastHero, game.playerDZData.hero[i][2], false)
+                            -- 过去的英雄物品
+                            for _,itemVal in ipairs(game.playerDZData.item.hero[i]) do
+                                if(itemVal ~= nil)then
+                                    hitem.create({
+                                        itemId = hslk_global.name2Value.item[itemVal[1]].ITEM_ID,
+                                        charges = itemVal[2] or 1,
+                                        whichUnit = lastHero,
+                                        slotIndex = itemVal[3],
+                                    })
+                                end
+                            end
+                            -- 过去的英雄天赋
+                            for _,g in ipairs(game.playerDZData.gift[i]) do
+                                if(g ~= nil)then
+                                    hskill.add(lastHero, hslk_global.name2Value.ability[g], 0)
+                                end
+                            end
                             -- 触发英雄被选择事件(全局)
                             hevent.triggerEvent(
                                 "global",
@@ -374,6 +391,17 @@ cj.TriggerAddAction(
                             })
                             game.playerCourier[i] = lastCourier
                             hevent.onDead(game.playerCourier[i], courierDead)
+                            -- 过去的信使物品
+                            for _,itemVal in ipairs(game.playerDZData.item.courier[i]) do
+                                if(itemVal ~= nil)then
+                                    hitem.create({
+                                        itemId = hslk_global.name2Value.item[itemVal[1]].ITEM_ID,
+                                        charges = itemVal[2] or 1,
+                                        whichUnit = lastCourier,
+                                        slotIndex = itemVal[3],
+                                    })
+                                end
+                            end
                         end
                     end
                 end
