@@ -350,7 +350,7 @@ cj.TriggerAddAction(
                     buildDistance = 256,
                     direct = { 1, -1 },
                     buildRowQty = 5,
-                    buildTavernQty = 12, -- 酒馆模式下，一个酒馆最多拥有几种单位
+                    tavernUnitQty = 12, -- 酒馆模式下，一个酒馆最多拥有几种单位
                     onUnitSell = function(evtData)
                         local p = hunit.getOwner(evtData.buyingUnit)
                         local playerIndex = hplayer.index(p)
@@ -415,15 +415,20 @@ cj.TriggerAddAction(
                     buildY = -384, -- 构建点Y
                     buildDistance = 256,
                     buildRowQty = 1,
-                    buildTavernQty = 12, -- 酒馆模式下，一个酒馆最多拥有几种单位
+                    tavernUnitQty = 11, -- 酒馆模式下，一个酒馆最多拥有几种单位
                     tavernId = hslk_global.name2Value.unit["信使之笼"].UNIT_ID,
                     heroes = {
                         hslk_global.name2Value.unit["小饥鸡"].UNIT_ID,
                         hslk_global.name2Value.unit["冷静的绵羊"].UNIT_ID,
                         hslk_global.name2Value.unit["依诺吸吸"].UNIT_ID,
                         hslk_global.name2Value.unit["野狗"].UNIT_ID,
+                        hslk_global.name2Value.unit["树精"].UNIT_ID,
+                        hslk_global.name2Value.unit["熊妖"].UNIT_ID,
                         hslk_global.name2Value.unit["阴影之狼"].UNIT_ID,
+                        hslk_global.name2Value.unit["炎魔"].UNIT_ID,
+                        hslk_global.name2Value.unit["毁灭守卫"].UNIT_ID,
                         hslk_global.name2Value.unit["烈火凤凰"].UNIT_ID,
+                        hslk_global.name2Value.unit["冰戟幻灵"].UNIT_ID,
                     },
                     onUnitSell = function(evtData)
                         local p = hunit.getOwner(evtData.buyingUnit)
