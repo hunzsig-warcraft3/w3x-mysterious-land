@@ -5,45 +5,115 @@ else
 end
 
 --- 英雄被选择
-pickHero = function(whichHero)
+pickHero = function(newHero)
+    local owner = hunit.getOwner(newHero)
+    local playerIndex = hplayer.index(owner)
+    local heroSlk = hunit.getSlk(newHero)
     --- 默认给个复活石
-    if (game.unitsReborn[whichHero] == nil) then
-        game.unitsReborn[whichHero] = game.rebornStonePoint[1]
+    if (game.unitsReborn[newHero] == nil) then
+        game.unitsReborn[newHero] = game.rebornStonePoint[1]
     end
-    local heroSlk = hunit.getSlk(whichHero)
+    local lastHeroLv = 1
+    if (hhero.player_heroes[playerIndex][1] ~= nil) then
+        lastHeroLv = hhero.getCurLevel(hhero.player_heroes[playerIndex][1])
+        local prevHero = hhero.player_heroes[playerIndex][1]
+        hunit.hide(prevHero)
+        if (his.alive(prevHero)) then
+            if (hunit.getId(newHero) == hunit.getId(prevHero)) then
+                if (heroSlk.goldcost > 0) then
+                    hplayer.addGold(owner, heroSlk.goldcost)
+                end
+                if (heroSlk.lumbercost > 0) then
+                    hplayer.addLumber(owner, heroSlk.lumbercost)
+                end
+                hunit.del(newHero)
+                hunit.show(prevHero)
+                return
+            end
+            hunit.portal(newHero, hunit.x(prevHero), hunit.y(prevHero))
+        else
+            hunit.portal(newHero, game.unitsReborn[newHero].x, game.unitsReborn[newHero].y, 270)
+        end
+        hitem.slotLoop(prevHero, function(slotItem, slotIndex)
+            if (slotItem ~= nil) then
+                local charges = hitem.getCharges(slotItem)
+                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {
+                    hitem.getName(slotItem),
+                    charges,
+                    slotIndex,
+                }
+            else
+                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {}
+            end
+        end)
+        hunit.del(prevHero)
+    end
+    hhero.player_heroes[playerIndex][1] = newHero
+    hhero.setCurLevel(newHero, lastHeroLv, false)
+    echo(hColor.green(hplayer.getName(owner)) .. "的英雄灵魂成为了" .. hColor.yellow("<" .. hunit.getName(newHero) .. ">"))
+    -- 删除信使重建
+    if (game.playerCourier[playerIndex] ~= nil) then
+        hitem.slotLoop(game.playerCourier[playerIndex], function(slotItem, slotIndex)
+            if (slotItem ~= nil) then
+                local charges = hitem.getCharges(slotItem)
+                game.playerDZData.item.courier[playerIndex][slotIndex + 1] = {
+                    hitem.getName(slotItem),
+                    charges,
+                    slotIndex,
+                }
+            else
+                game.playerDZData.item.courier[playerIndex][slotIndex + 1] = {}
+            end
+        end)
+        local tmpX = hunit.x(game.playerCourier[playerIndex])
+        local tmpY = hunit.y(game.playerCourier[playerIndex])
+        local tmpFac = hunit.getFacing(game.playerCourier[playerIndex])
+        local tmpLifePercent = hunit.getCurLifePercent(game.playerCourier[playerIndex])
+        local tmpId = hunit.getId(game.playerCourier[playerIndex])
+        hunit.del(game.playerCourier[playerIndex])
+        game.playerCourier[playerIndex] = nil
+        local newCourier = hunit.create({
+            whichPlayer = hplayer.players[playerIndex],
+            unitId = tmpId,
+            x = tmpX,
+            y = tmpY,
+            facing = tmpFac,
+        })
+        hunit.setCurLifePercent(newCourier, tmpLifePercent)
+        courierPick(newCourier)
+    end
+    -- 特性
     if (heroSlk ~= nil) then
-        -- 特性
         local feature = heroSlk.CUSTOM_DATA.feature
-        if(feature ~= nil)then
+        if (feature ~= nil) then
             local feature = "特性 - " .. feature
-            hskill.add(whichHero, hslk_global.name2Value.ability[feature].ABILITY_ID)
+            hskill.add(newHero, hslk_global.name2Value.ability[feature].ABILITY_ID)
         end
     end
-    local ownerIndex = hplayer.index(hunit.getOwner(whichHero))
     -- 英雄物品
-    if (#game.playerDZData.item.hero[ownerIndex] > 0)then
-        for _,itemVal in ipairs(game.playerDZData.item.hero[ownerIndex]) do
-            if(itemVal ~= nil and #itemVal > 0)then
+    if (#game.playerDZData.item.hero[playerIndex] > 0) then
+        for _, itemVal in ipairs(game.playerDZData.item.hero[playerIndex]) do
+            if (itemVal ~= nil and #itemVal > 0) then
                 hitem.create({
                     itemId = hslk_global.name2Value.item[itemVal[1]].ITEM_ID,
                     charges = itemVal[2] or 1,
-                    whichUnit = lastHero,
+                    whichUnit = newHero,
                     slotIndex = itemVal[3],
                 })
             end
         end
     end
     -- 英雄天赋
-    if (#game.playerDZData.gift[ownerIndex] > 0)then
-        for _,g in ipairs(game.playerDZData.gift[ownerIndex]) do
-            if(g ~= nil)then
+    if (#game.playerDZData.gift[playerIndex] > 0) then
+        for _, g in ipairs(game.playerDZData.gift[playerIndex]) do
+            if (g ~= nil) then
                 local data = hslk_global.name2Value.ability[g]
-                hskill.add(lastHero, data.ABILITY_ID, 0)
+                hskill.add(newHero, data.ABILITY_ID, 0)
             end
         end
     end
     --- 复活动作
-    hevent.onDead(whichHero, function(evtData)
+    hevent.onDead(newHero, function(evtData)
         if (game.unitsReborn[evtData.triggerUnit] == nil or game.unitsReborn[evtData.triggerUnit] == -1) then
             echo(hColor.red("所有复活石已经崩坏！你已永久逝去！"), hunit.getOwner(evtData.triggerUnit))
             -- 检查是否全员失败
@@ -133,18 +203,18 @@ pickHero = function(whichHero)
     end)
     --- 每秒检测音效
     htime.setInterval(1.5, function(curTimer)
-        local p = hunit.getOwner(whichHero)
-        if (his.deleted(whichHero)) then
+        local p = hunit.getOwner(newHero)
+        if (his.deleted(newHero)) then
             htime.delTimer(curTimer)
             hsound.bgmStop(p)
             return
         end
-        if (his.death(whichHero)) then
+        if (his.death(newHero)) then
             hsound.bgmStop(p)
             return
         end
         local pi = hplayer.index(p)
-        if (his.damaging(whichHero) == true) then
+        if (his.damaging(newHero) == true) then
             if (hRuntime.sound[pi].prevBgm == nil) then
                 hRuntime.sound[pi].prevBgm = hRuntime.sound[pi].currentBgm
             end
@@ -156,7 +226,7 @@ pickHero = function(whichHero)
             return
         end
         for _, obj in ipairs(islands) do
-            if (his.inRect(obj.rect, hunit.x(whichHero), hunit.y(whichHero)) == true) then
+            if (his.inRect(obj.rect, hunit.x(newHero), hunit.y(newHero)) == true) then
                 if (obj.name == "七灵岛") then
                     hsound.bgm(cg.gg_snd_bgm_seven, p)
                 else
@@ -184,6 +254,7 @@ courierPick = function(newCourier)
     local playerIndex = hplayer.index(owner)
     if (game.playerCourier[playerIndex] ~= nil) then
         local prevCourier = game.playerCourier[playerIndex]
+        hunit.hide(prevCourier)
         if (his.alive(prevCourier)) then
             if (hunit.getId(newCourier) == hunit.getId(prevCourier)) then
                 local unitValue = hunit.getSlk(newCourier)
@@ -194,10 +265,13 @@ courierPick = function(newCourier)
                     hplayer.addLumber(owner, unitValue.lumbercost)
                 end
                 hunit.del(newCourier)
+                hunit.show(prevCourier)
                 return
             end
+            hunit.portal(newCourier, hunit.x(prevCourier), hunit.y(prevCourier))
+        else
+            hunit.portal(newCourier, hhero.bornX, hhero.bornY, 270)
         end
-        hunit.hide(prevCourier)
         hitem.slotLoop(prevCourier, function(slotItem, slotIndex)
             if (slotItem ~= nil) then
                 local charges = hitem.getCharges(slotItem)
@@ -207,18 +281,15 @@ courierPick = function(newCourier)
                     slotIndex,
                 }
             else
-                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {}
+                game.playerDZData.item.courier[playerIndex][slotIndex + 1] = {}
             end
         end)
-        hunit.portal(newCourier, hunit.x(prevCourier), hunit.y(prevCourier), hunit.getFacing(prevCourier))
         hunit.del(prevCourier)
     end
     game.playerCourier[playerIndex] = newCourier
     echo(hColor.green(hplayer.getName(owner)) .. "获得了信使" .. hColor.yellow("<" .. hunit.getName(newCourier) .. ">"))
-    hhero.formatHero(newCourier)
-    hevent.onDead(game.playerCourier[playerIndex], function(evtData)
-        local courier = evtData.triggerUnit
-        local courierId = hunit.getId(courier)
+    hevent.onDead(newCourier, function(evtData)
+        local courierId = hunit.getId(evtData.triggerUnit)
         local newCourier = hunit.create({
             whichPlayer = hplayer.players[playerIndex],
             unitId = courierId,
@@ -228,8 +299,8 @@ courierPick = function(newCourier)
         courierPick(newCourier)
     end)
     -- 过去的信使物品
-    for _,itemVal in ipairs(game.playerDZData.item.courier[playerIndex]) do
-        if(itemVal ~= nil and #itemVal > 0)then
+    for _, itemVal in ipairs(game.playerDZData.item.courier[playerIndex]) do
+        if (itemVal ~= nil and #itemVal > 0) then
             hitem.create({
                 itemId = hslk_global.name2Value.item[itemVal[1]].ITEM_ID,
                 charges = itemVal[2] or 1,
@@ -356,55 +427,11 @@ cj.TriggerAddAction(
                         local playerIndex = hplayer.index(p)
                         local soldUnit = evtData.soldUnit
                         local soldUid = hunit.getId(soldUnit)
-                        hunit.del(soldUnit, 0)
                         if (hhero.player_heroes[playerIndex][1] == "") then
+                            hunit.del(soldUnit, 0)
                             return
                         end
-                        local unitValue = hslk_global.id2Value.unit[soldUid]
-                        local prevHero = hhero.player_heroes[playerIndex][1]
-                        if (soldUid == hunit.getId(prevHero)) then
-                            if (unitValue.goldcost > 0) then
-                                hplayer.addGold(p, unitValue.goldcost)
-                            end
-                            if (unitValue.lumbercost > 0) then
-                                hplayer.addLumber(p, unitValue.lumbercost)
-                            end
-                            return
-                        end
-                        hitem.slotLoop(prevHero, function(slotItem, slotIndex)
-                            if (slotItem ~= nil) then
-                                local charges = hitem.getCharges(slotItem)
-                                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {
-                                    hitem.getName(slotItem),
-                                    charges,
-                                    slotIndex,
-                                }
-                            else
-                                game.playerDZData.item.hero[playerIndex][slotIndex + 1] = {}
-                            end
-                        end)
-                        hunit.hide(prevHero)
-                        ---
-                        local newHero = hunit.create({
-                            whichPlayer = p,
-                            unitId = soldUid,
-                            facing = hunit.getFacing(prevHero),
-                            x = hunit.x(prevHero),
-                            y = hunit.y(prevHero),
-                        })
-                        hhero.setCurLevel(newHero, hhero.getCurLevel(prevHero), false)
-                        hhero.player_heroes[playerIndex][1] = newHero
-                        hunit.del(prevHero, 0)
-                        echo(hColor.green(hplayer.getName(p)) .. "的英雄灵魂成为了" .. hColor.yellow("<" .. unitValue.Name .. ">"))
-                        -- 触发英雄被选择事件(全局)
-                        hevent.triggerEvent(
-                            "global",
-                            CONST_EVENT.pickHero,
-                            {
-                                triggerPlayer = p,
-                                triggerUnit = newHero
-                            }
-                        )
+                        pickHero(soldUnit)
                     end
                 })
                 --- 信使商店
@@ -417,19 +444,7 @@ cj.TriggerAddAction(
                     buildRowQty = 1,
                     tavernUnitQty = 11, -- 酒馆模式下，一个酒馆最多拥有几种单位
                     tavernId = hslk_global.name2Value.unit["信使之笼"].UNIT_ID,
-                    heroes = {
-                        hslk_global.name2Value.unit["小饥鸡"].UNIT_ID,
-                        hslk_global.name2Value.unit["冷静的绵羊"].UNIT_ID,
-                        hslk_global.name2Value.unit["依诺吸吸"].UNIT_ID,
-                        hslk_global.name2Value.unit["野狗"].UNIT_ID,
-                        hslk_global.name2Value.unit["树精"].UNIT_ID,
-                        hslk_global.name2Value.unit["熊妖"].UNIT_ID,
-                        hslk_global.name2Value.unit["阴影之狼"].UNIT_ID,
-                        hslk_global.name2Value.unit["炎魔"].UNIT_ID,
-                        hslk_global.name2Value.unit["毁灭守卫"].UNIT_ID,
-                        hslk_global.name2Value.unit["烈火凤凰"].UNIT_ID,
-                        hslk_global.name2Value.unit["冰戟幻灵"].UNIT_ID,
-                    },
+                    heroes = hRuntime.unit_type_ids.courier_hero,
                     onUnitSell = function(evtData)
                         local p = hunit.getOwner(evtData.buyingUnit)
                         local playerIndex = hplayer.index(p)
@@ -458,15 +473,7 @@ cj.TriggerAddAction(
                                     y = hhero.bornY,
                                 })
                                 table.insert(hhero.player_heroes[i], firstHero)
-                                -- 触发英雄被选择事件(全局)
-                                hevent.triggerEvent(
-                                    "global",
-                                    CONST_EVENT.pickHero,
-                                    {
-                                        triggerPlayer = hplayer.players[i],
-                                        triggerUnit = firstHero
-                                    }
-                                )
+                                pickHero(firstHero)
                                 -- 初始信使
                                 local firstCourier = hunit.create({
                                     whichPlayer = hplayer.players[i],
@@ -484,17 +491,7 @@ cj.TriggerAddAction(
                                 x = hhero.bornX,
                                 y = hhero.bornY,
                             })
-                            table.insert(hhero.player_heroes[i], lastHero)
-                            hhero.setCurLevel(lastHero, game.playerDZData.hero[i][2], false)
-                            -- 触发英雄被选择事件(全局)
-                            hevent.triggerEvent(
-                                "global",
-                                CONST_EVENT.pickHero,
-                                {
-                                    triggerPlayer = hplayer.players[i],
-                                    triggerUnit = lastHero
-                                }
-                            )
+                            pickHero(lastHero)
                             -- 最后的信使
                             local lastCourierName = "小饥鸡"
                             if (game.playerDZData.courier[i] ~= nil) then

@@ -71,7 +71,7 @@ autoMonsterElite = function(delay)
                     hgroup.clear(g, true, false)
                     for _ = 1, 3 do
                         local u = henemy.create({
-                            unitId = hslk_global.name2Value.unit["[精英]"..table.random(m.mon)].UNIT_ID,
+                            unitId = hslk_global.name2Value.unit["[精英]" .. table.random(m.mon)].UNIT_ID,
                             x = m.loc[1], --创建坐标X，可选
                             y = m.loc[2], --创建坐标Y，可选
                         })

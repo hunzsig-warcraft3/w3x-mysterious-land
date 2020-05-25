@@ -56,10 +56,10 @@ dzCurrent.doRecord = function(whichPlayer)
     game.playerDZData.gift[playerIndex] = {}
     -- 计算战力
     local power = math.floor((game.playerDZData.info[playerIndex][2] or 0) / 50)
-            + heroLv + courierLv
-            + heroGoldcostLv
-            + #game.playerDZData.gift[playerIndex] * 25
-            + itLv
+        + heroLv + courierLv
+        + heroGoldcostLv
+        + #game.playerDZData.gift[playerIndex] * 25
+        + itLv
     game.playerDZData.info[playerIndex][3] = math.integerFormat(power)
     game.playerDZData.info[playerIndex][4] = hplayer.getGold(whichPlayer)
     game.playerDZData.info[playerIndex][5] = hplayer.getLumber(whichPlayer)

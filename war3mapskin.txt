@@ -1,6 +1,5 @@
 [CustomSkin]
 PlacementCursor=war3mapImported\SpellAreaOfEffect512.blp
-CommandButtonCooldown=war3mapImported\cooldown ui.mdx
 SimpleHpBarConsoleSmall=war3mapImported\boold2.blp
 IdlePeon=ReplaceableTextures\CommandButtons\BTNCritterChicken.blp
 

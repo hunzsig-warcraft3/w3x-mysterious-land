@@ -1,4 +1,4 @@
-local keys = {"A","S","D","F"}
+local keys = { "A", "S", "D", "F" }
 
 local gifts = {
     {
