@@ -548,7 +548,7 @@ autoMonsterNormal = function(delay)
                         hunit.setUserData(u, mi, 0)
                         local attr = {
                             life = "=" .. (19 + game.diff) * m.level,
-                            attack_white = "=" .. (9 + game.diff) * m.level,
+                            attack_white = "=" .. (19 + game.diff) * m.level,
                         }
                         if (m.level >= 5) then
                             attr.defend = math.floor((m.level + game.diff) / 3)
@@ -560,13 +560,6 @@ autoMonsterNormal = function(delay)
                         end
                         hattr.set(u, 0, attr)
                         hevent.onDead(u, onNormalAward)
-                        htime.setTimeout(75, function(normalTimer)
-                            htime.delTimer(normalTimer)
-                            if (his.alive(u)) then
-                                cj.IssuePointOrder(u, "attack", hunit.x(game.sevenStone), hunit.y(game.sevenStone))
-                                hattr.set(u, 30, { move = "-50" })
-                            end
-                        end)
                     end
                     w = w + 1
                 end

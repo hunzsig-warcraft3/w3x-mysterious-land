@@ -77,8 +77,8 @@ autoMonsterElite = function(delay)
                         })
                         hunit.setUserData(u, mi * 1000, 0)
                         local attr = {
-                            life = "=" .. (99 + game.diff) * m.level,
-                            attack_white = "=" .. (29 + game.diff) * m.level,
+                            life = "=" .. (199 + game.diff) * m.level,
+                            attack_white = "=" .. (99 + game.diff) * m.level,
                             defend = "=" .. math.floor(m.level * 1.5 + game.diff / 2),
                             toughness = "=" .. m.level + game.diff,
                             avoid = "=" .. m.level + game.diff,
@@ -86,11 +86,10 @@ autoMonsterElite = function(delay)
                         }
                         hattr.set(u, 0, attr)
                         hevent.onDead(u, onEliteAward)
-                        htime.setTimeout(150, function(normalTimer)
+                        htime.setTimeout(180, function(normalTimer)
                             htime.delTimer(normalTimer)
                             if (his.alive(u)) then
                                 cj.IssuePointOrder(u, "attack", hunit.x(game.sevenStone), hunit.y(game.sevenStone))
-                                hattr.set(u, 30, { move = "-50" })
                             end
                         end)
                     end

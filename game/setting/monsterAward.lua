@@ -64,7 +64,8 @@ onNormalAward = function(evtData)
     local gold = level * 5 + game.diff
     local exp = level * 6 + game.diff
     if (killer ~= nil) then
-        haward.forUnit(killer, exp, gold, 0)
+        haward.forUnitGold(killer, gold)
+        haward.forGroupExp(killer, exp)
         local p = hunit.getOwner(killer)
         if (his.playing(p) and his.computer(p) == false) then
             local pIndex = hplayer.index(p)
@@ -95,13 +96,12 @@ onEliteAward = function(evtData)
     local mi = math.floor(hunit.getUserData(triggerUnit) / 1000)
     local level = monsterBoss[mi].level
     local killerGold = level * 30 + game.diff * 10
-    local killerExp = level * (10 + game.diff)
-    local gold = level * 11 + game.diff * 2
-    local exp = level * (60 + game.diff)
+    local gold = level * 15 + game.diff * 3
+    local exp = level * (99 + game.diff)
     monsterBoss[mi].creating = false
     if (killer ~= nil) then
-        haward.forUnit(killer, killerExp, killerGold, 1) --杀手专有
-        haward.forGroupExp(killer, exp) --大队经验
+        haward.forUnit(killer, 0, killerGold, 1)
+        haward.forGroupExp(killer, exp)
         local p = hunit.getOwner(killer)
         if (his.playing(p) and his.computer(p) == false) then
             local pIndex = hplayer.index(p)

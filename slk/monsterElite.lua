@@ -20,8 +20,8 @@ local monster = {
     {
         Name = "大龙龟",
         file = "Units\\Creeps\\DragonSeaTurtle\\DragonSeaTurtle",
-        modelScale = 1.50,
-        scale = 5.00,
+        modelScale = 1.20,
+        scale = 3.80,
         unitSound = "GiantSeaTurtle",
         weapTp1 = CONST_WEAPON_TYPE.missile.value,
         Missileart = "Abilities\\Weapons\\WaterElementalMissile\\WaterElementalMissile.mdl",
