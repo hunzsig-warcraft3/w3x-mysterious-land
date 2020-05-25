@@ -94,11 +94,11 @@ onEliteAward = function(evtData)
     local triggerUnit = evtData.triggerUnit
     local killer = evtData.killer
     local mi = math.floor(hunit.getUserData(triggerUnit) / 1000)
-    local level = monsterBoss[mi].level
+    local level = monsterElite[mi].level
     local killerGold = level * 30 + game.diff * 10
     local gold = level * 15 + game.diff * 3
     local exp = level * (99 + game.diff)
-    monsterBoss[mi].creating = false
+    monsterElite[mi].creating = false
     if (killer ~= nil) then
         haward.forUnit(killer, 0, killerGold, 1)
         haward.forGroupExp(killer, exp)
