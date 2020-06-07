@@ -10,16 +10,6 @@ local features = {
         },
     },
     {
-        Name = "游击",
-        Desc = "对事物的判断会更加地精确",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
-        ATTR = {
-            attack_speed = "+15",
-            aim = "+20",
-            move = "+30",
-        },
-    },
-    {
         Name = "魔力",
         Desc = "与魔力同在",
         Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
@@ -29,16 +19,25 @@ local features = {
         },
     },
     {
+        Name = "月的使者",
+        Desc = "在月光下行动的精灵使者，灵动而又不惧怕魔法",
+        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
+        ATTR = {
+            attack_speed = "+13",
+            resistance = "+16",
+        },
+    },
+    {
         Name = "剑圣",
         Desc = "剑之圣者，一瞬断魂",
         Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
         ATTR = {
-            attack_speed = "+36",
+            attack_speed = "+24",
             move = "+20",
             attack_effect = {
                 {
                     attr = "knocking",
-                    odds = 25,
+                    odds = 20,
                     percent = 75,
                 },
             }
@@ -56,7 +55,7 @@ local features = {
     },
     {
         Name = "暗夜精灵",
-        Desc = "远古神秘的月夜精灵",
+        Desc = "远古神秘的暗夜精灵",
         Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
         ATTR = {
             sight = "+500",

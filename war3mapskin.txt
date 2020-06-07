@@ -1,7 +1,7 @@
 [CustomSkin]
-PlacementCursor=war3mapImported\SpellAreaOfEffect512.blp
 SimpleHpBarConsoleSmall=war3mapImported\boold2.blp
-IdlePeon=ReplaceableTextures\CommandButtons\BTNCritterChicken.blp
+IdlePeon=ReplaceableTextures\CommandButtons\BTNStone.blp
+LoadingProgressBar=
 
 [FrameDef]
 BONUS_ATTACK_SPEED= - 提升攻速
@@ -12,18 +12,18 @@ BONUS_DEFENSE_FIXED= - 提升回避
 BONUS_DAMAGE= |cffffff00- 主属性|r
 BONUS_HITPOINTS= - 提升生命
 BONUS_MANA= - 提升魔力
-UPKEEP_NONE=山海七剑
-UPKEEP_HIGH=山海七剑
-UPKEEP_LOW=山海七剑
+UPKEEP_NONE=秘地探奇
+UPKEEP_HIGH=秘地探奇
+UPKEEP_LOW=秘地探奇
 COLON_DAMAGE=攻击力：
 STRENGTH_HILIGHT=力量
 AGILITY_HILIGHT=敏捷
 INTELLECT_HILIGHT=智力
-RESOURCE_UBERTIP_UPKEEP_INFO_WOOD=www.hunzsig.org
+RESOURCE_UBERTIP_UPKEEP_INFO_WOOD=hunzsig.org
 RESOURCE_UBERTIP_UPKEEP_INFO=战斗吧！
 PRIMARY_ATTRIBUTE= * 属性会影响部分技能效果
-IDLE_PEON=空闲 (|Cfffed312F8|R)
-IDLE_PEON_DESC=有很多秘密～
+IDLE_PEON=得闲 (|Cfffed312F8|R)
+IDLE_PEON_DESC=宠物在家中学习h-lua做图...
 DAMAGE_NORMAL=种类： |Cffffcc00防御|R
 DAMAGE_MELEE=种类： |Cffffcc00攻击|R
 ARMOR_HERO=种类： |Cffffcc00攻击|R
