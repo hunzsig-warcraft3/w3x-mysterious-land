@@ -43,7 +43,7 @@ dzCurrent.doRecord = function(whichPlayer)
     local prestigeLabel = dzCurrent.calePrestige(game.playerData.power[playerIndex])
     hplayer.setPrestige(whichPlayer, prestigeLabel)
     -- 写入服务器
-    hdzapi.server.set.int(whichPlayer, "power", game.playerData.power)
+    hdzapi.server.set.int(whichPlayer, "power", game.playerData.power[playerIndex])
     hdzapi.server.set.int(whichPlayer, "kill", kill)
     if (game.playerData.power[playerIndex] > game.playerData.prevPower[playerIndex]) then
         hdzapi.setRoomStat(whichPlayer, "prestige", prestigeLabel) --房间称号
@@ -55,16 +55,17 @@ dzCurrent.doRecord = function(whichPlayer)
 end
 
 dzCurrent.enableRecord = function(whichPlayer)
-    -- hdzapi.setRoomStat(whichPlayer, "prestige", '')
-    -- hdzapi.setRoomStat(whichPlayer, "power", '0')
-    -- hdzapi.setRoomStat(whichPlayer, "kill", '0')
-    -- hdzapi.server.clear.int(whichPlayer, "power")
-    -- hdzapi.server.clear.int(whichPlayer, "kill")
+    hdzapi.setRoomStat(whichPlayer, "prestige", '')
+    hdzapi.setRoomStat(whichPlayer, "power", '0')
+    hdzapi.setRoomStat(whichPlayer, "kill", '0')
+    hdzapi.server.clear.int(whichPlayer, "power")
+    hdzapi.server.clear.int(whichPlayer, "kill")
     if (whichPlayer == nil or his.playing(whichPlayer) == false) then
         return
     end
     local playerIndex = hplayer.index(whichPlayer)
     -- init
+    game.playerData.gift[playerIndex] = {}
     game.playerData.prevPower[playerIndex] = hdzapi.server.get.int(whichPlayer, "power")
     game.playerData.prevKill[playerIndex] = hdzapi.server.get.int(whichPlayer, "kill")
     local prestigeLabel = dzCurrent.calePrestige(game.playerData.prevPower[playerIndex])
