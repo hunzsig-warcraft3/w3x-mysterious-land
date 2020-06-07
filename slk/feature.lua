@@ -1,36 +1,18 @@
 local features = {
     {
-        Name = "无惧",
-        Desc = "会变得勇猛",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
-        ATTR = {
-            attack_white = "+13",
-            defend = "+9",
-            toughness = "+20",
-        },
-    },
-    {
-        Name = "魔力",
-        Desc = "与魔力同在",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
-        ATTR = {
-            int_white = "+40",
-            resistance = "+10",
-        },
-    },
-    {
-        Name = "月的使者",
-        Desc = "在月光下行动的精灵使者，灵动而又不惧怕魔法",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
+        Name = "典雅之月",
+        Desc = "在月光下行动的精灵使者，灵动而又不惧怕黑暗魔法",
+        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
         ATTR = {
             attack_speed = "+13",
             resistance = "+16",
+            natural_dark_oppose = "+10"
         },
     },
     {
         Name = "剑圣",
         Desc = "剑之圣者，一瞬断魂",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
+        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNCriticalStrike.blp",
         ATTR = {
             attack_speed = "+24",
             move = "+20",
@@ -44,13 +26,14 @@ local features = {
         },
     },
     {
-        Name = "领袖",
-        Desc = "大有王者之风",
+        Name = "王权",
+        Desc = "身为领袖之人，具有王者气派",
         Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
         ATTR = {
-            life = "+1000",
-            life_back = "+22",
+            life = "+600",
+            life_back = "+20",
             sight = "+300",
+            gold_ratio = "+5"
         },
     },
     {

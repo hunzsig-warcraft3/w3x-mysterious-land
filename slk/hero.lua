@@ -2,7 +2,7 @@ local heros = {
     {
         Name = "月白虎祭祀",
         Propernames = "米拉",
-        Ubertip = hColor.sky("特性：月的使者") .. "|n" .. hColor.grey("侍奉月神的骑虎女弓手，在月光的照耀下优雅游击战斗"),
+        Ubertip = hColor.sky("特性：典雅之月") .. "|n" .. hColor.grey("侍奉月神的骑虎女弓手，在月光的照耀下优雅游击战斗"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNPriestessOfTheMoon.blp",
         file = "units\\nightelf\\HeroMoonPriestess\\HeroMoonPriestess",
         unitSound = "HeroMoonPriestess",
@@ -27,7 +27,7 @@ local heros = {
         AGIplus = 2.5,
         INTplus = 2.5,
         CUSTOM_DATA = {
-            feature = "月的使者"
+            feature = "典雅之月"
         },
     },
     {
@@ -64,7 +64,7 @@ local heros = {
     {
         Name = "山丘之王",
         Propernames = "波尔",
-        Ubertip = hColor.sky("特性：领袖") .. "|n" .. hColor.grey("波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。"),
+        Ubertip = hColor.sky("特性：王权") .. "|n" .. hColor.grey("波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。"),
         Art = "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp",
         file = "units\\human\\HeroMountainKing\\HeroMountainKing",
         unitSound = "HeroMountainKing",
@@ -89,7 +89,7 @@ local heros = {
         AGIplus = 1.5,
         INTplus = 1.6,
         CUSTOM_DATA = {
-            feature = "领袖"
+            feature = "王权"
         },
     },
 }

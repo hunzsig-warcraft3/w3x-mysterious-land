@@ -7,6 +7,8 @@ hevent.onPickHero(function(evtPickData)
     local owner = hunit.getOwner(newHero)
     echo(hColor.green(hplayer.getName(owner)) .. "的英雄灵魂成为了" .. hColor.yellow("<" .. hunit.getName(newHero) .. ">"))
     local heroSlk = hunit.getSlk(newHero)
+    -- 镜头
+    hcamera.toUnit(owner, 0, newHero)
     -- 特性
     if (heroSlk ~= nil) then
         local feature = heroSlk.CUSTOM_DATA.feature
@@ -15,6 +17,11 @@ hevent.onPickHero(function(evtPickData)
             hskill.add(newHero, hslk_global.name2Value.ability[feature].ABILITY_ID)
         end
     end
+    --- 经验收获
+    hevent.onDamage(newHero, function(evtData)
+        local exp = math.floor(evtData.damage * 0.1)
+        haward.forUnitExp(evtData.triggerUnit, exp)
+    end)
     --- 复活动作
     hevent.onDead(newHero, function(evtData)
         if (game.rebornQty <= 0) then
@@ -130,8 +137,8 @@ cj.TriggerAddAction(
             if (his.playing(hplayer.players[i])) then
                 -- 允许调节镜头
                 hplayer.setAllowCameraDistance(hplayer.players[i], true)
-                -- 禁止使用random、repick
-                hplayer.setAllowCommandPick(hplayer.players[i], false)
+                -- 使用random、repick
+                hplayer.setAllowCommandPick(hplayer.players[i], true)
                 -- 称号
                 hplayer.setPrestige(hplayer.players[i], "冒险者")
                 --
@@ -213,6 +220,7 @@ cj.TriggerAddAction(
                         pickCourier(c)
                     end
                 end
+                stage1()
                 --- 创建多面板
                 hmultiBoard.create(
                     "player",

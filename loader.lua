@@ -24,10 +24,12 @@ require "game.setting.env"
 -- 设定友军
 game.ALLY_PLAYER = hplayer.players[12]
 require "game.setting.f9"
---H-LUA F9提示
+-- H-LUA F9提示
 hLuaF9({ 'all' })
-require "game.monster.1"
 require "game.setting.quest"
+-- stage
+require "game.stages.common"
+require "game.stages.stage1"
 
 -- 商店
 --THIS_SHOPS = {}

@@ -1,8 +1,8 @@
 -- env岛屿环境
 islands = {
     {
-        name = "七灵岛",
-        rect = hrect.create(1024, 1024, 4096, 5120, "七灵岛"),
+        name = "初始之地",
+        rect = hrect.create(-6100, -8745, 2304, 1228, "初始之地"),
         env = nil,
         color = hColor.gold,
         voice = nil,
@@ -129,7 +129,6 @@ autoWeather = function(obj)
             end
         end
         game.island[obj.name] = weather
-        echo(obj.color(obj.name) .. "此时" .. desc)
         hweather.create({
             whichRect = obj.rect,
             type = weather,
