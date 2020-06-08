@@ -14,7 +14,7 @@ stage1 = function()
         attack_white = "=" .. 100 + game.diff * 10,
         life = "=" .. 1500 + game.diff * 500,
         life_back = "=10",
-        move = "=50",
+        move = "=" .. (50 + game.diff),
         avoid = "=" .. (game.diff - 20),
     })
     hevent.onAttack(boss, function(evtData)
@@ -52,29 +52,11 @@ stage1 = function()
         stage_ttg(evtData.triggerUnit, "竟然...!")
         local deadUnit = evtData.triggerUnit
         local killer = evtData.killer
-        local gold = 25 + game.diff * 5
         local exp = 10000 * game.diff
         if (killer ~= nil) then
             haward.forGroupExp(killer, exp)
         end
-        for _ = 1, (9 + game.diff + hplayer.qty_current) do
-            hitem.fleeting(
-                hitem.FLEETING_IDS.GOLD,
-                hunit.x(deadUnit) + math.random(0, 200),
-                hunit.y(deadUnit) + math.random(0, 200),
-                30,
-                function(fleetingData)
-                    if (his.deleted(fleetingData.centerUnit) == true) then
-                        return
-                    end
-                    local p = hunit.getOwner(fleetingData.enterUnit)
-                    if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p) and his.computer(p) == false) then
-                        hunit.del(fleetingData.centerUnit)
-                        haward.forUnitGold(fleetingData.enterUnit, gold)
-                    end
-                end
-            )
-        end
+        stage_fleeting(deadUnit, 25 + game.diff * 5)
     end)
     hevent.onEnterRect(trap1, function(evtData)
         if (his.alive(boss) and his.allyPlayer(evtData.triggerUnit, game.ALLY_PLAYER)) then
