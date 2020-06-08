@@ -18,7 +18,10 @@ library mySlk initializer Init
             #include "./slk/shops.lua"
             #include "./slk/hero.lua"
             #include "./slk/feature.lua"
-            #include "./slk/gift.lua"
+            #include "./slk/gift/weapon.lua"
+            #include "./slk/gift/defend.lua"
+            #include "./slk/gift/speed.lua"
+            #include "./slk/gift/tao.lua"
             #include "./slk/monster.lua"
         ?>
     endfunction
