@@ -20,15 +20,13 @@ islands = {
         },
     },
     {
-        name = "冰极雪原",
-        rect = hrect.create(-6640, 5100, 5120, 7700, "冰极雪原"),
-        env = "winterDeep",
+        name = "篝火洞府",
+        rect = hrect.create(-770, -8200, 2816, 2560, "篝火洞府"),
+        env = "ruins",
         voice = nil,
         allowWeather = {
-            { weather = hweather.rain, desc = "下起了冻雨" },
-            { weather = hweather.snow, desc = "下起了雪，冰封大地" },
-            { weather = hweather.snowstorm, desc = "受到暴雪的侵袭，险象迭生" },
-            { weather = hweather.mistwhite, desc = "冰消泛起了白雾，影响了视野" },
+            { weather = hweather.rain },
+            { weather = hweather.wind },
         },
     },
     {
