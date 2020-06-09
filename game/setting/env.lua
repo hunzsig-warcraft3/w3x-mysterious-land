@@ -4,30 +4,25 @@ islands = {
         name = "初始之地",
         rect = hrect.create(-6100, -8745, 2304, 1228, "初始之地"),
         env = nil,
-        color = hColor.gold,
         voice = nil,
         allowWeather = {
-            { weather = "time", desc = "悠然自在~" },
+            { weather = "time" },
         },
     },
     {
-        name = "斑斓海",
-        rect = hrect.create(-5520, -5200, 5800, 7300, "斑斓海"),
-        env = "sea",
-        color = hColor.sea,
-        voice = cg.gg_snd_voice_sea,
+        name = "内山小湾",
+        rect = hrect.create(-3580, -8702, 2048, 2048, "内山小湾"),
+        env = nil,
+        voice = nil,
         allowWeather = {
-            { weather = "time", desc = "风光无限好" },
-            { weather = hweather.rain, desc = "忽然下起了小雨" },
-            { weather = hweather.rainstorm, desc = "下起了暴雨，波涛汹涌" },
-            { weather = hweather.snow, desc = "受到了北方冷空气的影响，奇妙地下起了雪" },
+            { weather = "time" },
+            { weather = hweather.rain },
         },
     },
     {
         name = "冰极雪原",
         rect = hrect.create(-6640, 5100, 5120, 7700, "冰极雪原"),
         env = "winterDeep",
-        color = hColor.sky,
         voice = nil,
         allowWeather = {
             { weather = hweather.rain, desc = "下起了冻雨" },
@@ -40,7 +35,6 @@ islands = {
         name = "火蛇岛",
         rect = hrect.create(2030, 5888, 4096, 4096, "火蛇岛"),
         env = "fire",
-        color = hColor.red,
         voice = nil,
         allowWeather = {
             { weather = hweather.mistred, desc = "天火坠落，危险万分" },
@@ -51,7 +45,6 @@ islands = {
         name = "铁环山",
         rect = hrect.create(6970, 0, 4096, 4300, "铁环山"),
         env = "poor",
-        color = hColor.yellow,
         voice = cg.gg_snd_voice_eagle,
         allowWeather = {
             { weather = "time", desc = "一派大好河山的景象" },
@@ -64,7 +57,6 @@ islands = {
         name = "遗迹草原",
         rect = hrect.create(6788, -6781, 4608, 5120, "遗迹草原"),
         env = "ruins",
-        color = hColor.greenLight,
         voice = nil,
         allowWeather = {
             { weather = "time", desc = "展现原野靓景" },
@@ -78,7 +70,6 @@ islands = {
         name = "秘潭幽林",
         rect = hrect.create(400, -6900, 2900, 3900, "秘潭幽林"),
         env = "summer",
-        color = hColor.green,
         voice = nil,
         allowWeather = {
             { weather = "time", desc = "万物逗趣，生机勃勃" },
@@ -90,7 +81,6 @@ islands = {
         name = "枯死岸",
         rect = hrect.create(7544, 6759, 3800, 4608, "枯死岸"),
         env = "dark",
-        color = hColor.purple,
         voice = cg.gg_snd_voice_ghost_laugh,
         allowWeather = {
             { weather = hweather.shield, desc = "可看到紫色灵魂升天的奇象" },
@@ -106,26 +96,17 @@ autoWeather = function(obj)
     if (#obj.allowWeather > 0) then
         local which = obj.allowWeather[math.random(1, #obj.allowWeather)]
         local weather = which.weather
-        local desc = which.desc
         if (weather == "time") then
             if (his.day()) then
                 during = (18 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
-                if (obj.name ~= "七灵岛" and during > 90) then
-                    during = math.random(90, during)
-                end
                 weather = hweather.sun
-                desc = "阳光灿烂，" .. desc
             else
                 if (cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY) < 6.00) then
                     during = (6 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
                 else
                     during = (24 - cj.GetFloatGameState(GAME_STATE_TIME_OF_DAY)) * 20
                 end
-                if (obj.name ~= "七灵岛" and during > 90) then
-                    during = math.random(90, during)
-                end
                 weather = hweather.moon
-                desc = "月色照耀，" .. desc
             end
         end
         game.island[obj.name] = weather
@@ -339,8 +320,8 @@ autoWeather = function(obj)
                                 whichUnit = enumUnit,
                                 damage = 0,
                                 odds = 100,
-                                distance = 200,
-                                high = 0,
+                                distance = 0,
+                                high = 100,
                                 during = 1.0,
                             })
                             hattr.set(enumUnit, 2.5, {
@@ -365,8 +346,8 @@ autoWeather = function(obj)
                             whichUnit = enumUnit,
                             damage = 0,
                             odds = 100,
-                            distance = 350,
-                            high = 100,
+                            distance = 0,
+                            high = 200,
                             during = 1.4,
                         })
                         hattr.set(enumUnit, 2.5, {

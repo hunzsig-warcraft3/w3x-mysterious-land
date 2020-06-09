@@ -1,7 +1,8 @@
 local gift_weapon = {
     {
-        Name = "尚未拥有",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
+        Name = "封印",
+        Desc = "[御]字技，在于巩固英雄的防御|n当前正处于封印状态",
+        Art = "war3mapImported\\icon_pas_Slow_Grey.blp",
         ATTR = {},
     },
     {
@@ -19,6 +20,7 @@ for _, v in ipairs(gift_weapon) do
         ATTR = v.ATTR,
         Name = "御 - " .. v.Name,
         race = v.race or "human",
-        HotKey = "S"
+        Buttonpos1 = 1,
+        Buttonpos2 = 1,
     })
 end

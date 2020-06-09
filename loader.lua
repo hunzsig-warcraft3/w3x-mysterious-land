@@ -21,6 +21,8 @@ henemy.setPlayer(hplayer.players[11])
 require "game.setting.global"
 require "game.setting.dz"
 require "game.setting.env"
+-- 可破坏物
+require "game.setting.destructable"
 -- 设定友军
 game.ALLY_PLAYER = hplayer.players[12]
 require "game.setting.f9"

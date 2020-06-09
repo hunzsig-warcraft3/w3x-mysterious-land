@@ -1,22 +1,36 @@
 stage1 = function()
     local quest = gameQuestEvent.state1()
+    -- 土匪
+    henemy.create({
+        unitId = hslk_global.name2Value.unit["土匪"].UNIT_ID,
+        x = -6057,
+        y = -8706,
+        facing = 180,
+        qty = 10,
+        attr = {
+            attack_white = "=" .. 5 + game.diff * 5,
+            attack_speed = "-20",
+            life = "=" .. 50 + game.diff * 25,
+            move = "=150",
+        }
+    })
     -- boss
     local boss = henemy.create({
         unitId = hslk_global.name2Value.unit["秘地傀儡"].UNIT_ID,
         x = -5036,
         y = -8908,
         facing = 180,
+        attr = {
+            attack_white = "=" .. 100 + game.diff * 10,
+            life = "=" .. 1500 + game.diff * 500,
+            life_back = "=10",
+            move = "=" .. (50 + game.diff),
+            avoid = "=" .. (game.diff - 20),
+        }
     })
     -- 区域陷阱
-    local trap1 = hrect.create(-4990, -8893, 256, 512, "trap1")
+    local trap1 = hrect.create(-5183, -8893, 384, 700, "trap1")
     --
-    hattr.set(boss, 0, {
-        attack_white = "=" .. 100 + game.diff * 10,
-        life = "=" .. 1500 + game.diff * 500,
-        life_back = "=10",
-        move = "=" .. (50 + game.diff),
-        avoid = "=" .. (game.diff - 20),
-    })
     hevent.onAttack(boss, function(evtData)
         stage_ttg(evtData.attacker, "越战越强")
         heffect.bindUnit("Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl", evtData.attacker, "weapon", 3)
@@ -24,16 +38,16 @@ stage1 = function()
             attack_white = "+" .. math.floor(hattr.get(evtData.attacker) * 0.2),
             move = "+5",
         })
-        local small = henemy.create({
+        henemy.create({
             unitId = hslk_global.name2Value.unit["秘地小傀儡"].UNIT_ID,
             x = hunit.x(evtData.attacker),
             y = hunit.y(evtData.attacker),
             facing = hunit.getFacing(evtData.attacker),
-        })
-        hattr.set(small, 0, {
-            attack_white = "=" .. 10 + game.diff,
-            life = "=50",
-            move = "=110",
+            attr = {
+                attack_white = "=" .. 10 + game.diff,
+                life = "=50",
+                move = "=110",
+            }
         })
     end)
     hevent.onBeDamage(boss, function(evtData)
@@ -48,7 +62,7 @@ stage1 = function()
     hevent.onDead(boss, function(evtData)
         hrect.del(trap1)
         hquest.setCompleted(quest)
-        gameQuestEvent.state2()
+        stage2()
         stage_ttg(evtData.triggerUnit, "竟然...!")
         local deadUnit = evtData.triggerUnit
         local killer = evtData.killer

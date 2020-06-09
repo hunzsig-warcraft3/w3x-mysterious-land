@@ -72,7 +72,7 @@ hevent.onPickHero(function(evtPickData)
         end
         for _, obj in ipairs(islands) do
             if (his.inRect(obj.rect, hunit.x(newHero), hunit.y(newHero)) == true) then
-                if (obj.name == "七灵岛") then
+                if (obj.name == "中央灵地") then
                     hsound.bgm(cg.gg_snd_bgm_seven, p)
                 else
                     local weather = game.island[obj.name]
@@ -132,6 +132,11 @@ cj.TriggerAddAction(
         hsound.bgmStop()
         -- hello
         echo("^_^ 您来到了秘境，请选择" .. hColor.yellow("你的英雄"))
+        -- 可破坏物
+        htime.setTimeout(30, function(curTimer)
+            htime.delTimer(curTimer)
+            htime.setTimeout(onMapDestructableDestroy)
+        end)
         -- 玩家配置
         for i = 1, hplayer.qty_max, 1 do
             if (his.playing(hplayer.players[i])) then

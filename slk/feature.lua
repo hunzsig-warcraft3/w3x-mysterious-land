@@ -12,7 +12,7 @@ local features = {
     {
         Name = "剑圣",
         Desc = "剑之圣者，一瞬断魂",
-        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNCriticalStrike.blp",
+        Art = "war3mapImported\\icon_pas_Spell_Nature_UnleashedRage.blp",
         ATTR = {
             attack_speed = "+24",
             move = "+20",
@@ -28,7 +28,7 @@ local features = {
     {
         Name = "王权",
         Desc = "身为领袖之人，具有王者气派",
-        Art = "ReplaceableTextures\\CommandButtons\\BTNStormHammer.blp",
+        Art = "war3mapImported\\icon_pas_Spell_Holy_Power.blp",
         ATTR = {
             life = "+600",
             life_back = "+20",
