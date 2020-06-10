@@ -1,5 +1,8 @@
 onMapDestructableDestroy = function()
     hevent.onMapDestructableDestroy(function(evtData)
+        if (math.random(1, 3) ~= 2) then
+            return
+        end
         local dest = evtData.triggerDestructable
         local destId = string.id2char(cj.GetDestructableTypeId(dest))
         print(destId)
@@ -24,8 +27,8 @@ onMapDestructableDestroy = function()
             htime.setTimeout(3, function(curTimer)
                 cj.DestructableRestoreLife(dest, cj.GetDestructableMaxLife(dest), true)
             end)
-        elseif (destId == 'LTba' and math.random(1, 3) == 2) then
-            -- 路障，50%给10木材
+        elseif (destId == 'LTba') then
+            -- 路障，给10木材
             item.fleeting(
                 hitem.FLEETING_IDS.LUMBER,
                 cj.GetDestructableX(dest),
@@ -38,7 +41,7 @@ onMapDestructableDestroy = function()
                     local p = hunit.getOwner(fleetingData.enterUnit)
                     if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p) and his.computer(p) == false) then
                         hunit.del(fleetingData.centerUnit)
-                        haward.forUnitLumber(fleetingData.enterUnit, 10)
+                        haward.forUnitLumber(fleetingData.enterUnit, math.random(5, 15))
                     end
                 end
             )
@@ -56,11 +59,12 @@ onMapDestructableDestroy = function()
                     local p = hunit.getOwner(fleetingData.enterUnit)
                     if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p) and his.computer(p) == false) then
                         hunit.del(fleetingData.centerUnit)
-                        haward.forUnitGold(fleetingData.enterUnit, math.random(10, 100))
+                        haward.forUnitGold(fleetingData.enterUnit, math.random(20, 90))
                     end
                 end
             )
         elseif (destId == 'LTbs' or destId == 'LTbr' or destId == 'LTbx') then
+            -- 木桶，给天赋书
         end
     end)
 end

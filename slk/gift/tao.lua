@@ -1,9 +1,9 @@
-local gift_weapon = {
+local gift = {
     {
         Name = "封印",
         Desc = "[气]字技，特别而神秘|n当前正处于封印状态",
         Art = "war3mapImported\\icon_pas_Slow_Grey.blp",
-        ATTR = {},
+        ATTR = nil,
     },
     {
         Name = "无我",
@@ -29,13 +29,10 @@ local gift_weapon = {
     },
 }
 
-for _, v in ipairs(gift_weapon) do
-    slkHelper.ability.empty({
-        Art = v.Art,
-        ATTR = v.ATTR,
-        Name = "气 - " .. v.Name,
-        race = v.race or "human",
-        Buttonpos1 = 3,
-        Buttonpos2 = 1,
-    })
+for _, v in ipairs(gift) do
+    v.Name = "气 - " .. v.Name
+    v.Buttonpos1 = 3
+    v.Buttonpos2 = 1
+    v.race = "human"
+    slkHelper.ability.empty(v)
 end

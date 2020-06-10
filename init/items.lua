@@ -125,10 +125,10 @@ end
 local len = #itemsShop[shopName]
 if (shopName ~= "combo" and len < 12) then
 len = len + 1
-obj.HotKey = CONST_HOTKEY[len].HotKey
-obj.Tip = "购买" .. v.Name .. "(" .. hColor.gold(CONST_HOTKEY[len].HotKey) .. ")"
-obj.Buttonpos1 = CONST_HOTKEY[len].Buttonpos1
-obj.Buttonpos2 = CONST_HOTKEY[len].Buttonpos2
+obj.HotKey = CONST_HOTKEY_FULL[len].HotKey
+obj.Tip = "购买" .. v.Name .. "(" .. hColor.gold(CONST_HOTKEY_FULL[len].HotKey) .. ")"
+obj.Buttonpos1 = CONST_HOTKEY_FULL[len].Buttonpos1
+obj.Buttonpos2 = CONST_HOTKEY_FULL[len].Buttonpos2
 else
 obj.Tip = "获得" .. v.Name
 end

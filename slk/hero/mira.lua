@@ -1,3 +1,16 @@
+slkHelper.ability.ring({
+    Name = "月神强击",
+    Art = "ReplaceableTextures\\PassiveButtons\\PASBTNTrueShot.blp",
+    TargetArt = "Abilities\\Spells\\NightElf\\TrueshotAura\\TrueshotAura.mdl",
+    Area1 = 600,
+    HotKey = "E",
+    race = "human",
+    RING = {
+        attack_green = "+90",
+        aim = "+20"
+    },
+})
+
 slkHelper.unit.hero({
     Name = "白虎女祭祀",
     Propernames = "米拉",
@@ -27,6 +40,7 @@ slkHelper.unit.hero({
     INTplus = 2.5,
     race = "human",
     CUSTOM_DATA = {
-        feature = "典雅之月"
+        feature = "典雅之月",
+        ability = { "月神强击" }
     },
 })

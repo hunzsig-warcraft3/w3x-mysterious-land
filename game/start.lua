@@ -9,12 +9,18 @@ hevent.onPickHero(function(evtPickData)
     local heroSlk = hunit.getSlk(newHero)
     -- 镜头
     hcamera.toUnit(owner, 0, newHero)
-    -- 特性
+    -- 特性、技能
     if (heroSlk ~= nil) then
         local feature = heroSlk.CUSTOM_DATA.feature
         if (feature ~= nil) then
             feature = "特性 - " .. feature
             hskill.add(newHero, hslk_global.name2Value.ability[feature].ABILITY_ID)
+        end
+        local ability = heroSlk.CUSTOM_DATA.ability
+        if (ability ~= nil) then
+            for _, a in ipairs(ability) do
+                hskill.add(newHero, hslk_global.name2Value.ability[a].ABILITY_ID)
+            end
         end
     end
     --- 经验收获
@@ -133,9 +139,9 @@ cj.TriggerAddAction(
         -- hello
         echo("^_^ 您来到了秘境，请选择" .. hColor.yellow("你的英雄"))
         -- 可破坏物
-        htime.setTimeout(30, function(curTimer)
+        htime.setTimeout(20, function(curTimer)
             htime.delTimer(curTimer)
-            htime.setTimeout(onMapDestructableDestroy)
+            onMapDestructableDestroy()
         end)
         -- 玩家配置
         for i = 1, hplayer.qty_max, 1 do

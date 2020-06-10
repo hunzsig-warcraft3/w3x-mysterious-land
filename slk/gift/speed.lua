@@ -1,9 +1,9 @@
-local gift_weapon = {
+local gift = {
     {
         Name = "封印",
         Desc = "[速]字技，在于加快英雄的速度|n当前正处于封印状态",
         Art = "war3mapImported\\icon_pas_Slow_Grey.blp",
-        ATTR = {},
+        ATTR = nil,
     },
     {
         Name = "神行太保",
@@ -15,13 +15,10 @@ local gift_weapon = {
     },
 }
 
-for _, v in ipairs(gift_weapon) do
-    slkHelper.ability.empty({
-        Art = v.Art,
-        ATTR = v.ATTR,
-        Name = "速 - " .. v.Name,
-        race = v.race or "human",
-        Buttonpos1 = 2,
-        Buttonpos2 = 1,
-    })
+for _, v in ipairs(gift) do
+    v.Name = "速 - " .. v.Name
+    v.Buttonpos1 = 2
+    v.Buttonpos2 = 1
+    v.race = "human"
+    slkHelper.ability.empty(v)
 end

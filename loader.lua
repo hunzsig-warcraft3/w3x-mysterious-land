@@ -32,6 +32,7 @@ require "game.setting.quest"
 -- stage
 require "game.stages.common"
 require "game.stages.stage1"
+require "game.stages.stage2"
 
 -- 商店
 --THIS_SHOPS = {}

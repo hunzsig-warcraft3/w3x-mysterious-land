@@ -9,6 +9,7 @@ library mySlk initializer Init
             #include "../h-lua/const/hotKey.lua"
             #include "../h-lua/const/attribute.lua"
             #include "../h-lua/const/unit.lua"
+            #include "../h-lua/const/target.lua"
             #include "../h-lua/foundation/json.lua"
             #include "../h-lua/foundation/table.lua"
             #include "../h-lua/foundation/string.lua"
