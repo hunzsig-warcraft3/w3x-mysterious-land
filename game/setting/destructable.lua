@@ -29,7 +29,7 @@ onMapDestructableDestroy = function()
             end)
         elseif (destId == 'LTba') then
             -- 路障，给10木材
-            item.fleeting(
+            hitem.fleeting(
                 hitem.FLEETING_IDS.LUMBER,
                 cj.GetDestructableX(dest),
                 cj.GetDestructableY(dest),
@@ -47,7 +47,7 @@ onMapDestructableDestroy = function()
             )
         elseif (destId == 'LTcr') then
             -- 木箱，给黄金
-            item.fleeting(
+            hitem.fleeting(
                 hitem.FLEETING_IDS.GOLD,
                 cj.GetDestructableX(dest),
                 cj.GetDestructableY(dest),
@@ -65,6 +65,16 @@ onMapDestructableDestroy = function()
             )
         elseif (destId == 'LTbs' or destId == 'LTbr' or destId == 'LTbx') then
             -- 木桶，给天赋书
+            local types = { "gift_weapon", "gift_defend", "gift_speed", "gift_tao" }
+            local t = table.random(types)
+            local giftId = table.random(hslk_global.id_array.item[t])
+            hitem.create({
+                itemId = giftId,
+                charges = 1,
+                x = cj.GetDestructableX(dest),
+                y = cj.GetDestructableY(dest),
+                during = 60,
+            })
         end
     end)
 end

@@ -35,7 +35,7 @@ stage1 = function()
         stage_ttg(evtData.attacker, "越战越强")
         heffect.bindUnit("Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl", evtData.attacker, "weapon", 3)
         hattr.set(evtData.attacker, 3, {
-            attack_white = "+" .. math.floor(hattr.get(evtData.attacker) * 0.2),
+            attack_white = "+" .. math.floor(hattr.get(evtData.attacker, "attack_white") * 0.2),
             move = "+5",
         })
         henemy.create({

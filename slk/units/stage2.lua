@@ -59,6 +59,25 @@ local items = {
         OVERLIE = 99,
         Hotkey = "R",
     },
+    {
+        Name = "神木枯枝",
+        Desc = "一个小树枝",
+        Art = "ReplaceableTextures\\CommandButtons\\BTNNatureTouchGrow.blp",
+        goldcost = 150,
+        lumbercost = 0,
+        powerup = 0,
+        sellable = 1,
+        pawnable = 1,
+        droppable = 1,
+        OVERLIE = 1,
+        Hotkey = "A",
+        ATTR = {
+            attack_green = "+5",
+            str_green = "+5",
+            agi_green = "+5",
+            int_green = "+5",
+        }
+    },
 }
 local ids = ""
 for _, v in ipairs(items) do

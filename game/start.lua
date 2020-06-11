@@ -9,7 +9,7 @@ hevent.onPickHero(function(evtPickData)
     local heroSlk = hunit.getSlk(newHero)
     -- 镜头
     hcamera.toUnit(owner, 0, newHero)
-    -- 特性、技能
+    -- 特性、技能、天赋
     if (heroSlk ~= nil) then
         local feature = heroSlk.CUSTOM_DATA.feature
         if (feature ~= nil) then
@@ -22,11 +22,40 @@ hevent.onPickHero(function(evtPickData)
                 hskill.add(newHero, hslk_global.name2Value.ability[a].ABILITY_ID)
             end
         end
+        hskill.add(newHero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)
+        hskill.add(newHero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)
+        hskill.add(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)
+        hskill.add(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)
     end
     --- 经验收获
     hevent.onDamage(newHero, function(evtData)
         local exp = math.floor(evtData.damage * 0.1)
         haward.forUnitExp(evtData.triggerUnit, exp)
+    end)
+    --- 使用物品
+    hevent.onItemUsed(newHero, function(evtData)
+        local itemName = hitem.getName(evtData.triggerItem)
+        local abName = string.gsub(itemName, "秘笈：", "")
+        local abSlk = hslk_global.name2Value.ability[abName]
+        local abid = abSlk.ABILITY_ID
+        local id_array = abSlk.ID_ARRAY
+        if (id_array == "gift_weapon" and hskill.has(newHero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)) then
+            hskill.del(newHero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)
+        elseif (id_array == "gift_defend" and hskill.has(newHero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)) then
+            hskill.del(newHero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)
+        elseif (id_array == "gift_speed" and hskill.has(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)) then
+            hskill.del(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)
+        elseif (id_array == "gift_tao" and hskill.has(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)) then
+            hskill.del(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)
+        end
+        local playerIndex = hplayer.index(hunit.getOwner(evtData.triggerUnit))
+        if (game.playerData.gift[playerIndex][id_array] ~= nil) then
+            hskill.del(evtData.triggerUnit, game.playerData.gift[playerIndex][id_array])
+        end
+        hskill.add(evtData.triggerUnit, abid)
+        game.playerData.gift[playerIndex][id_array] = abid
+        heffect.toUnit("Abilities\\Spells\\Items\\AIem\\AIemTarget.mdl", evtData.triggerUnit)
+        echo("学会了[" .. hColor.green(abName) .. "]")
     end)
     --- 复活动作
     hevent.onDead(newHero, function(evtData)

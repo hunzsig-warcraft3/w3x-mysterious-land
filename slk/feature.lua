@@ -37,11 +37,19 @@ local features = {
         },
     },
     {
+        Name = "皇家骑士",
+        Art = "war3mapImported\\icon_pas_Holy_GreaterBlessingofKings.blp",
+        ATTR = {
+            str_green = "+100",
+            life = "+300",
+        },
+    },
+    {
         Name = "暗夜精灵",
         Desc = "远古神秘的暗夜精灵",
-        Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
+        Art = "war3mapImported\\icon_pas_AvengingAssassin.blp",
         ATTR = {
-            sight = "+500",
+            natural_dark = "+30",
             PASSIVE = "在夜晚每隔30秒自动获得隐身5秒的效果",
         },
     },

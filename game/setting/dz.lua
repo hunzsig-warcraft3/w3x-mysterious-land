@@ -38,7 +38,19 @@ dzCurrent.doRecord = function(whichPlayer)
     -- 杀敌
     local kill = hplayer.getKill(whichPlayer)
     -- 计算战力
-    game.playerData.power[playerIndex] = kill + heroLv * 2 + itLv + #game.playerData.gift[playerIndex] * 100
+    game.playerData.power[playerIndex] = kill + heroLv * 2 + itLv
+    if (game.playerData.gift[playerIndex].gift_weapon ~= nil) then
+        game.playerData.power[playerIndex] = game.playerData.power[playerIndex] + 100
+    end
+    if (game.playerData.gift[playerIndex].gift_defend ~= nil) then
+        game.playerData.power[playerIndex] = game.playerData.power[playerIndex] + 100
+    end
+    if (game.playerData.gift[playerIndex].gift_speed ~= nil) then
+        game.playerData.power[playerIndex] = game.playerData.power[playerIndex] + 100
+    end
+    if (game.playerData.gift[playerIndex].gift_tao ~= nil) then
+        game.playerData.power[playerIndex] = game.playerData.power[playerIndex] + 100
+    end
     -- 计算称号
     local prestigeLabel = dzCurrent.calePrestige(game.playerData.power[playerIndex])
     hplayer.setPrestige(whichPlayer, prestigeLabel)
@@ -50,7 +62,9 @@ dzCurrent.doRecord = function(whichPlayer)
         hdzapi.setRoomStat(whichPlayer, "power", math.integerFormat(game.playerData.power[playerIndex])) --房间战力
     end
     if (kill > game.playerData.prevKill[playerIndex]) then
-        hdzapi.setRoomStat(whichPlayer, "kill", math.integerFormat(kill)) --杀敌
+        hdzapi.setRoomStat(whichPlayer, "kill", math.integerFormat(kill)
+        )
+        --杀敌
     end
 end
 
@@ -65,7 +79,12 @@ dzCurrent.enableRecord = function(whichPlayer)
     end
     local playerIndex = hplayer.index(whichPlayer)
     -- init
-    game.playerData.gift[playerIndex] = {}
+    game.playerData.gift[playerIndex] = {
+        gift_weapon = nil,
+        gift_defend = nil,
+        gift_speed = nil,
+        gift_tao = nil,
+    }
     game.playerData.prevPower[playerIndex] = hdzapi.server.get.int(whichPlayer, "power")
     game.playerData.prevKill[playerIndex] = hdzapi.server.get.int(whichPlayer, "kill")
     local prestigeLabel = dzCurrent.calePrestige(game.playerData.prevPower[playerIndex])
