@@ -60,7 +60,7 @@ local items = {
         Hotkey = "R",
     },
     {
-        Name = "神木枯枝",
+        Name = "枯枝",
         Desc = "一个小树枝",
         Art = "ReplaceableTextures\\CommandButtons\\BTNNatureTouchGrow.blp",
         goldcost = 150,
@@ -92,7 +92,7 @@ end
 slkHelper.unit.shop({
     Name = "小神木商店",
     abilList = "Avul,Apit,Aneu",
-    file = "Doodads\\Cinematic\\RessurectionStoneSE\\RessurectionStoneSE",
+    file = "buildings\\nightelf\\ChimaeraRoost\\ChimaeraRoost",
     Art = "ReplaceableTextures\\CommandButtons\\BTNResStone.blp",
     modelScale = 0.70,
     scale = 2.20,

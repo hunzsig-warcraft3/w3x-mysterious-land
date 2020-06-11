@@ -1,6 +1,11 @@
 -- 游戏任务（左边）
 gameQuests = {
-    state1 = nil,
+    state1 = nil, state2 = nil,
+    state3 = nil, state4 = nil,
+    state5 = nil, state6 = nil,
+    state7 = nil, state8 = nil,
+    state9 = nil, state10 = nil,
+    state11 = nil, state12 = nil,
 }
 gameQuestFlash = function()
     hsound.sound(cg.gg_snd_voice_mission_start)
@@ -12,6 +17,7 @@ gameQuestComplete = function(quest)
 end
 gameQuestEvent = {
     state1 = function()
+        echo("一群土匪被秘地傀儡拦在了山谷中....")
         gameQuests.state1 = hquest.create(
             {
                 title = "[主线]土匪 x 秘地傀儡",
@@ -30,10 +36,28 @@ gameQuestEvent = {
         gameQuestFlash()
     end,
     state2 = function()
-        gameQuests.state1 = hquest.create(
+        echo("一大群鱼妖出现了....")
+        gameQuests.state2 = hquest.create(
             {
                 title = "[主线]钢门后的鱼妖群",
                 icon = "ReplaceableTextures\\CommandButtons\\BTNMurloc.blp",
+                content = {
+                    "终于打败了秘地傀儡，门后出现了一大片鱼妖",
+                    "虽然鱼妖不强，但是这么多还是挺危险的，先把它们干掉吧~",
+                    "任务：" .. hColor.yellow(" - 到达小神木"),
+                    "成功：" .. hColor.green(" - 到达小神木"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash()
+    end,
+    state3 = function()
+        echo("发现了4个奇怪的山洞....")
+        gameQuests.state3 = hquest.create(
+            {
+                title = "[主线]篝火山洞战",
+                icon = "ReplaceableTextures\\CommandButtons\\BTNFire.blp",
                 content = {
                     "终于打败了秘地傀儡，门后出现了一大片鱼妖",
                     "虽然鱼妖不强，但是这么多还是挺危险的，先把它们干掉吧~",

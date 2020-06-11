@@ -33,6 +33,7 @@ require "game.setting.quest"
 require "game.stages.common"
 require "game.stages.stage1"
 require "game.stages.stage2"
+require "game.stages.stage3"
 
 -- 商店
 --THIS_SHOPS = {}

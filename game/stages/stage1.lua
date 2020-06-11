@@ -75,7 +75,7 @@ stage1 = function()
     hevent.onEnterRect(trap1, function(evtData)
         if (his.alive(boss) and his.allyPlayer(evtData.triggerUnit, game.ALLY_PLAYER)) then
             hattr.set(boss, 10, {
-                attack_white = "+10000",
+                attack_white = "+1000",
                 move = "+522",
             })
             cj.IssueTargetOrder(boss, "attack", evtData.triggerUnit)
@@ -84,6 +84,8 @@ stage1 = function()
     end)
     hevent.onDestructableDestroy(cg.gg_dest_DTg7_0109, function(evtData)
         henv.delDestructable(evtData.triggerDestructable)
-        hunit.kill(boss, 0)
+        if (his.alive(boss)) then
+            hunit.kill(boss, 0)
+        end
     end)
 end

@@ -1,13 +1,19 @@
 stage2 = function()
     local quest = gameQuestEvent.state2()
     -- 小神木商店
-    hunit.create({
+    local shop = hunit.create({
         whichPlayer = game.ALLY_PLAYER,
         unitId = hslk_global.name2Value.unit["小神木商店"].UNIT_ID,
         x = -2432,
         y = -8448,
         facing = 270,
     })
+    local rect = hrect.create(-2495, -8895, 640, 640)
+    hevent.onEnterRect(rect, function(evtData)
+        hrect.del(evtData.triggerRect, 0)
+        hquest.setCompleted(quest)
+        stage3()
+    end)
     -- 小鱼
     henemy.create({
         unitId = hslk_global.name2Value.unit["小鱼妖"].UNIT_ID,
