@@ -4,7 +4,6 @@ islands = {
         name = "初始之地",
         rect = hrect.create(-6100, -8745, 2304, 1228, "初始之地"),
         env = nil,
-        voice = nil,
         allowWeather = {
             { weather = "time" },
         },
@@ -13,7 +12,6 @@ islands = {
         name = "内山小湾",
         rect = hrect.create(-3580, -8702, 2048, 2048, "内山小湾"),
         env = nil,
-        voice = nil,
         allowWeather = {
             { weather = "time" },
             { weather = hweather.rain },
@@ -23,27 +21,24 @@ islands = {
         name = "篝火洞府",
         rect = hrect.create(-770, -8200, 2816, 2560, "篝火洞府"),
         env = "ruins",
-        voice = nil,
         allowWeather = {
             { weather = hweather.rain },
             { weather = hweather.wind },
         },
     },
     {
-        name = "火蛇岛",
-        rect = hrect.create(2030, 5888, 4096, 4096, "火蛇岛"),
-        env = "fire",
-        voice = nil,
+        name = "迷惑之森",
+        rect = hrect.create(2030, 5888, 4096, 4096, "迷惑之森"),
+        env = "summer",
         allowWeather = {
-            { weather = hweather.mistred, desc = "天火坠落，危险万分" },
-            { weather = hweather.wind, desc = "刮起了风，火星满天，小心热火焚身" },
+            { weather = hweather.rain },
+            { weather = hweather.rainstorm },
         },
     },
     {
         name = "铁环山",
         rect = hrect.create(6970, 0, 4096, 4300, "铁环山"),
         env = "poor",
-        voice = cg.gg_snd_voice_eagle,
         allowWeather = {
             { weather = "time", desc = "一派大好河山的景象" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -55,7 +50,6 @@ islands = {
         name = "遗迹草原",
         rect = hrect.create(6788, -6781, 4608, 5120, "遗迹草原"),
         env = "ruins",
-        voice = nil,
         allowWeather = {
             { weather = "time", desc = "展现原野靓景" },
             { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
@@ -68,7 +62,6 @@ islands = {
         name = "秘潭幽林",
         rect = hrect.create(400, -6900, 2900, 3900, "秘潭幽林"),
         env = "summer",
-        voice = nil,
         allowWeather = {
             { weather = "time", desc = "万物逗趣，生机勃勃" },
             { weather = hweather.rain, desc = "下雨了，空气十分凉爽" },
@@ -79,7 +72,6 @@ islands = {
         name = "枯死岸",
         rect = hrect.create(7544, 6759, 3800, 4608, "枯死岸"),
         env = "dark",
-        voice = cg.gg_snd_voice_ghost_laugh,
         allowWeather = {
             { weather = hweather.shield, desc = "可看到紫色灵魂升天的奇象" },
             { weather = hweather.mistgreen, desc = "毒雾弥漫，注意小心" },
@@ -330,6 +322,7 @@ autoWeather = function(obj)
                     end, true)
                 end
             elseif (weather == hweather.windstorm) then
+                hsound.sound2Rect(cg.gg_snd_voice_wind, obj.rect)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -492,8 +485,4 @@ for _, v in ipairs(islands) do
         htime.delTimer(t)
         autoWeather(v)
     end)
-    -- 环境音效
-    if (v.voice ~= nil) then
-        hsound.sound2Rect(v.voice, v.rect)
-    end
 end

@@ -82,7 +82,7 @@ hevent.onPickHero(function(evtPickData)
         end)
     end)
     --- 检测环境音效
-    htime.setInterval(3, function(curTimer)
+    htime.setInterval(5, function(curTimer)
         local p = hunit.getOwner(newHero)
         if (his.deleted(newHero)) then
             htime.delTimer(curTimer)
@@ -94,7 +94,7 @@ hevent.onPickHero(function(evtPickData)
             return
         end
         local pi = hplayer.index(p)
-        if (his.damaging(newHero) == true) then
+        if (his.damaging(newHero) == true or his.beDamaging(newHero) == true) then
             if (hRuntime.sound[pi].prevBgm == nil) then
                 hRuntime.sound[pi].prevBgm = hRuntime.sound[pi].currentBgm
             end

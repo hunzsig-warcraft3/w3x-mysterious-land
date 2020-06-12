@@ -8,12 +8,6 @@ stage2 = function()
         y = -8448,
         facing = 270,
     })
-    local rect = hrect.create(-2495, -8895, 640, 640)
-    hevent.onEnterRect(rect, function(evtData)
-        hrect.del(evtData.triggerRect, 0)
-        hquest.setCompleted(quest)
-        stage3()
-    end)
     -- 小鱼
     henemy.create({
         unitId = hslk_global.name2Value.unit["小鱼妖"].UNIT_ID,
@@ -51,4 +45,11 @@ stage2 = function()
             move = "=130",
         }
     })
+    --
+    local rect = hrect.create(-2108, -8895, 384, 640)
+    hevent.onEnterRect(rect, function(evtData)
+        hrect.del(evtData.triggerRect, 0)
+        hquest.setCompleted(quest)
+        stage3()
+    end)
 end
