@@ -5,29 +5,7 @@ onMapDestructableDestroy = function()
         end
         local dest = evtData.triggerDestructable
         local destId = string.id2char(cj.GetDestructableTypeId(dest))
-        print(destId)
-        if (destId == 'FTtw' or destId == 'LTlt') then
-            -- 树木，给1木材
-            hitem.fleeting(
-                hitem.FLEETING_IDS.LUMBER,
-                cj.GetDestructableX(dest),
-                cj.GetDestructableY(dest),
-                20,
-                function(fleetingData)
-                    if (his.deleted(fleetingData.centerUnit) == true) then
-                        return
-                    end
-                    local p = hunit.getOwner(fleetingData.enterUnit)
-                    if (his.allyPlayer(fleetingData.enterUnit, game.ALLY_PLAYER) and his.playing(p) and his.computer(p) == false) then
-                        hunit.del(fleetingData.centerUnit)
-                        haward.forUnitLumber(fleetingData.enterUnit, 1)
-                    end
-                end
-            )
-            htime.setTimeout(3, function(curTimer)
-                cj.DestructableRestoreLife(dest, cj.GetDestructableMaxLife(dest), true)
-            end)
-        elseif (destId == 'LTba') then
+        if (destId == 'LTba') then
             -- 路障，给10木材
             hitem.fleeting(
                 hitem.FLEETING_IDS.LUMBER,

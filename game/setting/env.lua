@@ -19,7 +19,7 @@ islands = {
     },
     {
         name = "篝火洞府",
-        rect = hrect.create(-770, -8200, 2816, 2560, "篝火洞府"),
+        rect = hrect.create(-770, -8446, 2560, 2432, "篝火洞府"),
         env = "ruins",
         allowWeather = {
             { weather = hweather.rain },
@@ -28,55 +28,33 @@ islands = {
     },
     {
         name = "迷惑之森",
-        rect = hrect.create(2030, 5888, 4096, 4096, "迷惑之森"),
+        rect = hrect.create(5385, -7171, 7930, 5100, "迷惑之森"),
         env = "summer",
         allowWeather = {
+            { weather = "time" },
             { weather = hweather.rain },
             { weather = hweather.rainstorm },
         },
     },
     {
-        name = "铁环山",
-        rect = hrect.create(6970, 0, 4096, 4300, "铁环山"),
-        env = "poor",
+        name = "斑斓海",
+        rect = hrect.create(-5896, -2830, 4608, 4608, "斑斓海"),
+        env = "sea",
         allowWeather = {
-            { weather = "time", desc = "一派大好河山的景象" },
-            { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
-            { weather = hweather.wind, desc = "起风了，山体和风犹如铁笼枷锁" },
-            { weather = hweather.windstorm, desc = "暴风侵袭，令人生怕" },
+            { weather = "time" },
+            { weather = hweather.rain },
+            { weather = hweather.rainstorm },
+            { weather = hweather.snow },
         },
     },
     {
-        name = "遗迹草原",
-        rect = hrect.create(6788, -6781, 4608, 5120, "遗迹草原"),
-        env = "ruins",
+        name = "斑斓海2",
+        rect = hrect.create(-4096, -4096, 4096, 3584, "斑斓海2"),
+        env = "sea",
         allowWeather = {
-            { weather = "time", desc = "展现原野靓景" },
-            { weather = hweather.rain, desc = "小雨冲刷着历史的痕迹" },
-            { weather = hweather.rainstorm, desc = "大雨疯狂地从天而降" },
-            { weather = hweather.wind, desc = "吹起了风，遗迹更添哀愁" },
-            { weather = hweather.windstorm, desc = "狂风卷裂青空像夺命的鞭子" },
-        },
-    },
-    {
-        name = "秘潭幽林",
-        rect = hrect.create(400, -6900, 2900, 3900, "秘潭幽林"),
-        env = "summer",
-        allowWeather = {
-            { weather = "time", desc = "万物逗趣，生机勃勃" },
-            { weather = hweather.rain, desc = "下雨了，空气十分凉爽" },
-            { weather = hweather.rainstorm, desc = "下起了蹉跎大雨，天空乌云密布" },
-        },
-    },
-    {
-        name = "枯死岸",
-        rect = hrect.create(7544, 6759, 3800, 4608, "枯死岸"),
-        env = "dark",
-        allowWeather = {
-            { weather = hweather.shield, desc = "可看到紫色灵魂升天的奇象" },
-            { weather = hweather.mistgreen, desc = "毒雾弥漫，注意小心" },
-            { weather = hweather.mistblue, desc = "迷惑蓝烟处处，困惑人心" },
-            { weather = hweather.rain, desc = "下起了令人生怯的小雨" },
+            { weather = "time" },
+            { weather = hweather.rain },
+            { weather = hweather.rainstorm },
         },
     },
 }
@@ -105,6 +83,16 @@ autoWeather = function(obj)
             type = weather,
             during = during
         })
+        -- 音效
+        if (weather == hweather.sun) then
+            hsound.sound2Rect(cg.gg_snd_voice_rect_sun, obj.rect, during)
+        elseif (weather == hweather.moon) then
+            hsound.sound2Rect(cg.gg_snd_voice_rect_moon, obj.rect, during)
+        elseif (weather == hweather.wind or weather == hweather.windstorm) then
+            hsound.sound2Rect(cg.gg_snd_voice_rect_wind, obj.rect, during)
+        elseif (weather == hweather.rainstorm) then
+            hsound.sound2Rect(cg.gg_snd_voice_rect_rainstorm, obj.rect, during)
+        end
         local dur = 0
         htime.setInterval(3, function(t)
             dur = dur + 3
@@ -128,7 +116,7 @@ autoWeather = function(obj)
                             enumUnit, "origin", 5
                         )
                         hattr.set(enumUnit, 5, {
-                            life_back = "+" .. (75 - 2 * game.diff),
+                            life_back = "+" .. math.floor(50 - game.diff * 0.5),
                         })
                     end
                 end, true)
@@ -275,54 +263,31 @@ autoWeather = function(obj)
                     end
                 end, true)
             elseif (weather == hweather.wind) then
-                if (obj.name == "火蛇岛") then
-                    local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                        local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
-                        return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
-                    end)
-                    hgroup.loop(g, function(enumUnit)
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit)
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 3) == 1) then
                         httg.style(
-                            httg.create2Unit(enumUnit, "山火焚身", 10, "FF6347", 1, 2, 50),
+                            httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
                             'scale', 0, 0.05
                         )
-                        heffect.bindUnit("Environment\\LargeBuildingFire\\LargeBuildingFire0.mdl", enumUnit, "origin", 7)
-                        local burn = 250 * game.diff
-                        local oppose = hattr.get(enumUnit, "natural_fire_oppose") or 0
-                        burn = math.round(burn * (1 - oppose * 0.01))
-                        if (burn > 0) then
-                            hattr.set(enumUnit, 5, {
-                                life_back = "-" .. burn,
-                            })
-                        end
-                    end, true)
-                else
-                    local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                        return his.hero(filterUnit) and his.alive(filterUnit)
-                    end)
-                    hgroup.loop(g, function(enumUnit)
-                        if (math.random(1, 3) == 1) then
-                            httg.style(
-                                httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
-                                'scale', 0, 0.05
-                            )
-                            heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
-                            hskill.crackFly({
-                                whichUnit = enumUnit,
-                                damage = 0,
-                                odds = 100,
-                                distance = 0,
-                                high = 100,
-                                during = 1.0,
-                            })
-                            hattr.set(enumUnit, 2.5, {
-                                move = "-" .. (30 + game.diff),
-                            })
-                            hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
-                        end
-                    end, true)
-                end
+                        heffect.toUnit("Abilities\\Spells\\Other\\Tornado\\TornadoElementalSmall.mdl", enumUnit, 1)
+                        hskill.crackFly({
+                            whichUnit = enumUnit,
+                            damage = 0,
+                            odds = 100,
+                            distance = 0,
+                            high = 100,
+                            during = 1.0,
+                        })
+                        hattr.set(enumUnit, 2.5, {
+                            move = "-" .. (30 + game.diff),
+                        })
+                        hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
+                    end
+                end, true)
             elseif (weather == hweather.windstorm) then
-                hsound.sound2Rect(cg.gg_snd_voice_wind, obj.rect)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
@@ -395,6 +360,33 @@ autoWeather = function(obj)
                         end)
                     end)
                 end
+                -- 火焰灼烧
+                local g = hgroup.createByRect(obj.rect, function(filterUnit)
+                    local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
+                    return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
+                end)
+                hgroup.loop(g, function(enumUnit)
+                    httg.style(
+                        httg.create2Unit(enumUnit, "山火焚身", 10, "FF6347", 1, 2, 50),
+                        'scale', 0, 0.05
+                    )
+                    heffect.bindUnit("Environment\\LargeBuildingFire\\LargeBuildingFire0.mdl", enumUnit, "origin", 7)
+                    local burn = 300 * game.diff
+                    local oppose = hattr.get(enumUnit, "natural_fire_oppose") or 0
+                    burn = math.round(burn * (1 - oppose * 0.01))
+                    if (burn > 0) then
+                        hskill.damageStep({
+                            whichUnit = enumUnit, --受伤单位（必须有）
+                            frequency = 0.25, --伤害频率（必须有）
+                            times = 5, --伤害次数（必须有）
+                            effect = "", --特效（可选）
+                            damage = burn, --单次伤害（大于0）
+                            sourceUnit = nil, --伤害来源单位（可选）
+                            damageKind = CONST_DAMAGE_KIND.special,
+                            damageType = { CONST_DAMAGE_TYPE.fire },
+                        })
+                    end
+                end, true)
             elseif (weather == hweather.mistgreen) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
@@ -485,4 +477,8 @@ for _, v in ipairs(islands) do
         htime.delTimer(t)
         autoWeather(v)
     end)
+    -- 海域
+    if (v.name == "斑斓海" or v.name == "斑斓海2") then
+        hsound.sound2Rect(cg.gg_snd_voice_rect_sea, v.rect)
+    end
 end
