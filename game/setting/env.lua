@@ -5,7 +5,8 @@ islands = {
         rect = hrect.create(-6100, -8745, 2304, 1228, "初始之地"),
         env = nil,
         allowWeather = {
-            { weather = "time" },
+            --{ weather = "time" },
+            { weather = hweather.mistred },
         },
     },
     {
@@ -41,9 +42,8 @@ islands = {
         rect = hrect.create(-5896, -2830, 4608, 4608, "斑斓海"),
         env = "sea",
         allowWeather = {
-            { weather = "time" },
-            { weather = hweather.rain },
             { weather = hweather.rainstorm },
+            { weather = hweather.mistwhite },
             { weather = hweather.snow },
         },
     },
@@ -52,9 +52,17 @@ islands = {
         rect = hrect.create(-4096, -4096, 4096, 3584, "斑斓海2"),
         env = "sea",
         allowWeather = {
-            { weather = "time" },
             { weather = hweather.rain },
             { weather = hweather.rainstorm },
+            { weather = hweather.mistwhite },
+        },
+    },
+    {
+        name = "金钟之城",
+        rect = hrect.create(-6655, 5633, 5000, 7100, "金钟之城"),
+        env = nil,
+        allowWeather = {
+            { weather = "time" },
         },
     },
 }
