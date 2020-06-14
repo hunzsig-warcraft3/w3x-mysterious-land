@@ -4,15 +4,16 @@ islands = {
         name = "初始之地",
         rect = hrect.create(-6100, -8745, 2304, 1228, "初始之地"),
         env = nil,
+        bgm = nil,
         allowWeather = {
-            --{ weather = "time" },
-            { weather = hweather.mistred },
+            { weather = "time" },
         },
     },
     {
         name = "内山小湾",
         rect = hrect.create(-3580, -8702, 2048, 2048, "内山小湾"),
         env = nil,
+        bgm = nil,
         allowWeather = {
             { weather = "time" },
             { weather = hweather.rain },
@@ -22,6 +23,7 @@ islands = {
         name = "篝火洞府",
         rect = hrect.create(-770, -8446, 2560, 2432, "篝火洞府"),
         env = "ruins",
+        bgm = cg.gg_snd_bgm_stage3,
         allowWeather = {
             { weather = hweather.rain },
             { weather = hweather.wind },
@@ -31,6 +33,7 @@ islands = {
         name = "迷惑之森",
         rect = hrect.create(5385, -7171, 7930, 5100, "迷惑之森"),
         env = "summer",
+        bgm = cg.gg_snd_bgm_stage4,
         allowWeather = {
             { weather = "time" },
             { weather = hweather.rain },
@@ -41,6 +44,7 @@ islands = {
         name = "斑斓海",
         rect = hrect.create(-5896, -2830, 4608, 4608, "斑斓海"),
         env = "sea",
+        bgm = nil,
         allowWeather = {
             { weather = hweather.rainstorm },
             { weather = hweather.mistwhite },
@@ -51,6 +55,7 @@ islands = {
         name = "斑斓海2",
         rect = hrect.create(-4096, -4096, 4096, 3584, "斑斓海2"),
         env = "sea",
+        bgm = nil,
         allowWeather = {
             { weather = hweather.rain },
             { weather = hweather.rainstorm },
@@ -61,8 +66,51 @@ islands = {
         name = "金钟之城",
         rect = hrect.create(-6655, 5633, 5000, 7100, "金钟之城"),
         env = nil,
+        bgm = cg.gg_snd_bgm_stage6,
         allowWeather = {
             { weather = "time" },
+        },
+    },
+    {
+        name = "雪原",
+        rect = hrect.create(-773, 2300, 5632, 5632, "雪原"),
+        env = "winter",
+        bgm = cg.gg_snd_bgm_stage7,
+        allowWeather = {
+            { weather = hweather.mistwhite },
+            { weather = hweather.snow },
+            { weather = hweather.snowstorm },
+        },
+    },
+    {
+        name = "雪原2",
+        rect = hrect.create(-773, 2300, 4096, 6144, "雪原2"),
+        env = "winterDeep",
+        bgm = cg.gg_snd_bgm_stage7,
+        allowWeather = {
+            { weather = hweather.mistwhite },
+            { weather = hweather.snow },
+            { weather = hweather.snowstorm },
+        },
+    },
+    {
+        name = "枯死地",
+        rect = hrect.create(6660, 1434, 4700, 4700, "枯死地"),
+        env = "dark",
+        bgm = "nil",
+        allowWeather = {
+            { weather = hweather.mistgreen },
+            { weather = hweather.mistblue },
+            { weather = hweather.shield },
+        },
+    },
+    {
+        name = "火蛇山",
+        rect = hrect.create(3467, 7168, 10240, 3584, "火蛇山"),
+        env = "fire",
+        bgm = cg.gg_snd_bgm_stage9,
+        allowWeather = {
+            { weather = hweather.mistred },
         },
     },
 }
@@ -102,8 +150,8 @@ autoWeather = function(obj)
             hsound.sound2Rect(cg.gg_snd_voice_rect_rainstorm, obj.rect, during)
         end
         local dur = 0
-        htime.setInterval(3, function(t)
-            dur = dur + 3
+        htime.setInterval(4, function(t)
+            dur = dur + 4
             if (dur >= during) then
                 htime.delTimer(t)
                 autoWeather(obj)
@@ -114,7 +162,7 @@ autoWeather = function(obj)
                     return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 3) == 1) then
+                    if (math.random(1, 4) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "阳光回照", 10, "FFD700", 1, 2, 50),
                             'scale', 0, 0.05
@@ -133,7 +181,7 @@ autoWeather = function(obj)
                     return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 3) == 1) then
+                    if (math.random(1, 4) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "月光护佑", 10, "00BFFF", 1, 2, 50),
                             'scale', 0, 0.05
@@ -189,7 +237,7 @@ autoWeather = function(obj)
                     end
                 end, true)
                 -- 雷暴
-                for i = 1, (5 + game.diff) do
+                for i = 1, (4 + game.diff) do
                     htime.setTimeout(i * 0.1, function(ti)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))
@@ -326,7 +374,7 @@ autoWeather = function(obj)
                     return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    if (math.random(1, 2) == 1) then
+                    if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "白雾蔽目", 10, "F5FFFA", 1, 2, 50),
                             'scale', 0, 0.05
@@ -400,18 +448,20 @@ autoWeather = function(obj)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
-                    httg.style(
-                        httg.create2Unit(enumUnit, "毒雾侵蚀", 10, "7FFF00", 1, 2, 50),
-                        'scale', 0, 0.05
-                    )
-                    heffect.bindUnit("Abilities\\Spells\\Human\\Banish\\BanishTarget.mdl", enumUnit, "origin", 7)
-                    local poison = 500 * game.diff
-                    local oppose = hattr.get(enumUnit, "natural_poison_oppose") or 0
-                    poison = math.round(poison * (1 - oppose * 0.01))
-                    if (poison > 0) then
-                        hattr.set(enumUnit, 5, {
-                            life_back = "-" .. poison,
-                        })
+                    if (math.random(1, 3) == 1) then
+                        httg.style(
+                            httg.create2Unit(enumUnit, "毒雾侵蚀", 10, "7FFF00", 1, 2, 50),
+                            'scale', 0, 0.05
+                        )
+                        heffect.bindUnit("Abilities\\Spells\\Human\\Banish\\BanishTarget.mdl", enumUnit, "origin", 7)
+                        local poison = 500 * game.diff
+                        local oppose = hattr.get(enumUnit, "natural_poison_oppose") or 0
+                        poison = math.round(poison * (1 - oppose * 0.01))
+                        if (poison > 0) then
+                            hattr.set(enumUnit, 5, {
+                                life_back = "-" .. poison,
+                            })
+                        end
                     end
                 end, true)
             elseif (weather == hweather.mistblue) then
@@ -419,23 +469,25 @@ autoWeather = function(obj)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
                 hgroup.loop(g, function(enumUnit)
+                    if (math.random(1, 3) == 1) then
+                        hskill.swim({
+                            whichUnit = enumUnit,
+                            damage = 50 * game.diff,
+                            during = 1.0 + 0.25 * game.diff,
+                            odds = 100,
+                            effect = "Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround.mdl",
+                            damageKind = CONST_DAMAGE_KIND.special,
+                            damageType = { CONST_DAMAGE_TYPE.dark }
+                        })
+                    end
                     httg.style(
-                        httg.create2Unit(enumUnit, "蛊惑蓝烟", 10, "4169E1", 1, 2, 50),
+                        httg.create2Unit(enumUnit, "迷惑蓝烟", 10, "4169E1", 1, 2, 50),
                         'scale', 0, 0.05
                     )
-                    hskill.swim({
-                        whichUnit = enumUnit,
-                        damage = 50 * game.diff,
-                        during = 1.0 + 0.25 * game.diff,
-                        odds = 100,
-                        effect = "Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround.mdl",
-                        damageKind = CONST_DAMAGE_KIND.special,
-                        damageType = { CONST_DAMAGE_TYPE.dark }
-                    })
                 end, true)
             elseif (weather == hweather.shield) then
                 -- 紫光爆炸
-                for i = 1, (8 + game.diff) do
+                for i = 1, (6 + game.diff) do
                     htime.setTimeout(i * 0.3, function(ti)
                         htime.delTimer(ti)
                         local x = math.random(hrect.getStartX(obj.rect), hrect.getEndX(obj.rect))

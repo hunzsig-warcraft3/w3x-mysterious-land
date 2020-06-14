@@ -32,31 +32,6 @@ hevent.onPickHero(function(evtPickData)
         local exp = math.floor(evtData.damage * 0.1)
         haward.forUnitExp(evtData.triggerUnit, exp)
     end)
-    --- 使用物品
-    hevent.onItemUsed(newHero, function(evtData)
-        local itemName = hitem.getName(evtData.triggerItem)
-        local abName = string.gsub(itemName, "秘笈：", "")
-        local abSlk = hslk_global.name2Value.ability[abName]
-        local abid = abSlk.ABILITY_ID
-        local id_array = abSlk.ID_ARRAY
-        if (id_array == "gift_weapon" and hskill.has(newHero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)) then
-            hskill.del(newHero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)
-        elseif (id_array == "gift_defend" and hskill.has(newHero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)) then
-            hskill.del(newHero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)
-        elseif (id_array == "gift_speed" and hskill.has(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)) then
-            hskill.del(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)
-        elseif (id_array == "gift_tao" and hskill.has(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)) then
-            hskill.del(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)
-        end
-        local playerIndex = hplayer.index(hunit.getOwner(evtData.triggerUnit))
-        if (game.playerData.gift[playerIndex][id_array] ~= nil) then
-            hskill.del(evtData.triggerUnit, game.playerData.gift[playerIndex][id_array])
-        end
-        hskill.add(evtData.triggerUnit, abid)
-        game.playerData.gift[playerIndex][id_array] = abid
-        heffect.toUnit("Abilities\\Spells\\Items\\AIem\\AIemTarget.mdl", evtData.triggerUnit)
-        echo("学会了[" .. hColor.green(abName) .. "]")
-    end)
     --- 复活动作
     hevent.onDead(newHero, function(evtData)
         if (game.rebornQty <= 0) then
@@ -67,7 +42,7 @@ hevent.onPickHero(function(evtPickData)
         end
         game.rebornQty = game.rebornQty - 1
         local rebornTime = 5
-        echo(hColor.green(hplayer.getName(owner)) .. "的英雄死亡了，" .. hColor.yellow(rebornTime) .. '后复活')
+        echo(hColor.green(hplayer.getName(owner)) .. "的英雄死亡了，" .. hColor.yellow(rebornTime) .. '秒后复活')
         -- 血幕
         htexture.mark(htexture.DEFAULT_MARKS.DREAM, rebornTime, p, 255, 0, 0)
         hhero.rebornAtXY(
@@ -82,7 +57,7 @@ hevent.onPickHero(function(evtPickData)
         end)
     end)
     --- 检测环境音效
-    htime.setInterval(5, function(curTimer)
+    htime.setInterval(3.5, function(curTimer)
         local p = hunit.getOwner(newHero)
         if (his.deleted(newHero)) then
             htime.delTimer(curTimer)
@@ -105,26 +80,21 @@ hevent.onPickHero(function(evtPickData)
             hRuntime.sound[pi].prevBgm = nil
             return
         end
+        local bgm = cg.gg_snd_bgm_main
         for _, obj in ipairs(islands) do
             if (his.inRect(obj.rect, hunit.x(newHero), hunit.y(newHero)) == true) then
-                if (obj.name == "中央灵地") then
-                    hsound.bgm(cg.gg_snd_bgm_seven, p)
-                else
-                    local weather = game.island[obj.name]
-                    if (weather == hweather.sun) then
-                        hsound.bgm(cg.gg_snd_bgm_sun, p)
-                    elseif (weather == hweather.moon) then
-                        hsound.bgm(cg.gg_snd_bgm_moon, p)
-                    elseif (weather == hweather.rainstorm) then
-                        hsound.bgm(cg.gg_snd_bgm_thunder, p)
-                    elseif (weather == hweather.wind or weather == hweather.windstorm) then
-                        hsound.bgm(cg.gg_snd_bgm_wind, p)
-                    else
-                        hsound.bgmStop(p)
-                    end
+                if (obj.bgm == "nil") then
+                    bgm = nil
+                elseif (obj.bgm ~= nil) then
+                    bgm = obj.bgm
                 end
                 break
             end
+        end
+        if (bgm == nil) then
+            hsound.bgmStop(p)
+        else
+            hsound.bgm(bgm, p)
         end
     end)
 end)

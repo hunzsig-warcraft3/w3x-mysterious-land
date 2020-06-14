@@ -29,6 +29,8 @@ require "game.setting.f9"
 -- H-LUA F9提示
 hLuaF9({ 'all' })
 require "game.setting.quest"
+-- 物品匹配使用
+require "game.setting.itemMatchUsed"
 -- stage
 require "game.stages.common"
 require "game.stages.stage1"

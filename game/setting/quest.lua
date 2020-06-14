@@ -7,20 +7,19 @@ gameQuests = {
     state9 = nil, state10 = nil,
     state11 = nil, state12 = nil,
 }
-gameQuestFlash = function()
-    hsound.sound(cg.gg_snd_voice_mission_start)
+gameQuestFlash = function(tit)
+    echo(hColor.green("-> 发现了新的事件：<" .. tit .. ">"))
     hquest.flash()
 end
 gameQuestComplete = function(quest)
-    hsound.sound(cg.gg_snd_voice_mission_end)
     hquest.setCompleted(quest)
 end
 gameQuestEvent = {
     state1 = function()
-        echo("一群土匪被秘地傀儡拦在了山谷中....")
+        local tit = "[主线]土匪 x 秘地傀儡"
         gameQuests.state1 = hquest.create(
             {
-                title = "[主线]土匪 x 秘地傀儡",
+                title = tit,
                 icon = "ReplaceableTextures\\CommandButtons\\BTNArmorGolem.blp",
                 content = {
                     "又来到了神奇的秘地，这次一定要得悉最终的奥秘！",
@@ -33,13 +32,13 @@ gameQuestEvent = {
                 },
             }
         )
-        gameQuestFlash()
+        gameQuestFlash(tit)
     end,
     state2 = function()
-        echo("一大群鱼妖出现了....")
+        local tit = "[主线]寻找小神木商店"
         gameQuests.state2 = hquest.create(
             {
-                title = "[主线]钢门后的鱼妖群",
+                title = tit,
                 icon = "ReplaceableTextures\\CommandButtons\\BTNMurloc.blp",
                 content = {
                     "终于打败了秘地傀儡，门后出现了一大片鱼妖",
@@ -50,24 +49,24 @@ gameQuestEvent = {
                 },
             }
         )
-        gameQuestFlash()
+        gameQuestFlash(tit)
     end,
     state3 = function()
-        echo("发现了4个奇怪的山洞....")
+        local tit = "[主线]依靠篝火！勇战洞妖"
         gameQuests.state3 = hquest.create(
             {
-                title = "[主线]靠近篝火！",
+                title = tit,
                 icon = "ReplaceableTextures\\CommandButtons\\BTNFire.blp",
                 content = {
                     "越过鱼妖，进入到了一个低地势山地，有4个山洞",
-                    "山洞吹出奇怪的风，让人窒息，似有中毒迹象，肯定是有[boss]在作祟",
-                    "虽然可以不管继续前行，但[毒气]威力实在太强，只有在[篝火]旁才能歇息作战",
-                    "任务：" .. hColor.yellow(" - 保护[篝火]打败洞穴boss"),
+                    "山洞吹出奇怪的风，让人窒息，肯定是有妖魔在作祟",
+                    "虽然可以不管继续前行，但[妖风]威力实在太强，只有在[篝火]旁才能歇息作战",
+                    "任务：" .. hColor.yellow(" - 保护[篝火]并打败洞穴boss"),
                     "成功：" .. hColor.green(" - 打败洞穴boss"),
                     "失败：" .. hColor.red(" - 复活耗光且死亡"),
                 },
             }
         )
-        gameQuestFlash()
+        gameQuestFlash(tit)
     end,
 }
