@@ -1,5 +1,5 @@
 stage1 = function()
-    local quest = gameQuestEvent.state1()
+    gameQuestEvent.state1()
     -- 土匪
     henemy.create({
         unitId = hslk_global.name2Value.unit["土匪"].UNIT_ID,
@@ -61,12 +61,11 @@ stage1 = function()
     end)
     hevent.onDead(boss, function(evtData)
         hrect.del(trap1)
-        hquest.setCompleted(quest)
         stage2()
         stage_ttg(evtData.triggerUnit, "竟然...!")
         local deadUnit = evtData.triggerUnit
         local killer = evtData.killer
-        local exp = 10000 * game.diff
+        local exp = 4000 + 1000 * game.diff
         if (killer ~= nil) then
             haward.forGroupExp(killer, exp)
         end

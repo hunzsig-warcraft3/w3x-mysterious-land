@@ -1,5 +1,6 @@
 stage3 = function()
-    local quest = gameQuestEvent.state3()
+    hquest.setCompleted(gameQuests.state2)
+    gameQuestEvent.state3()
 
     local fire = hunit.create({
         whichUnit = game.ALLY_PLAYER,
@@ -24,8 +25,20 @@ stage3 = function()
         }
     })
     hunit.hide(boss)
+    hevent.onDead(boss, function(evtData)
+        stage4()
+        stage_ttg(evtData.triggerUnit, "可恶!")
+        local deadUnit = evtData.triggerUnit
+        local killer = evtData.killer
+        local exp = 8000 + 2000 * game.diff
+        if (killer ~= nil) then
+            haward.forGroupExp(killer, exp)
+        end
+        stage_fleeting(deadUnit, 32 + game.diff * 8)
+    end)
 
-    htime.setInterval(2, function(curTimer)
+    local eCount = 0
+    htime.setInterval(3, function(curTimer)
         local m = { "毒蝎子", "狗头人战士", "狗头人牧师" }
         local a = {
             {
@@ -63,10 +76,25 @@ stage3 = function()
             unitId = hslk_global.name2Value.unit[m[mi]].UNIT_ID,
             x = xyt[1],
             y = xyt[2],
-            ATTR = a[mi]
+            ATTR = a[mi],
+            qty = 2,
+            attackX = -763,
+            attackY = -8641,
         })
+        eCount = eCount + 1
+        if (eCount > 60) then
+            htime.delTimer(curTimer)
+            hunit.show(boss)
+            cj.IssuePointOrder(boss, "attack", -763, -8641)
+        end
     end)
 
+    for i = 1, hplayer.qty_max, 1 do
+        if (his.playing(hplayer.players[i])) then
+            local hero = hhero.player_heroes[i][1]
+            hattr.set(hero, 1, { life_back = "-100" })
+        end
+    end
     htime.setInterval(1.5, function(curTimer)
         if (his.death(boss) == true) then
             htime.delTimer(curTimer)
@@ -76,13 +104,11 @@ stage3 = function()
             if (his.playing(hplayer.players[i])) then
                 local hero = hhero.player_heroes[i][1]
                 if (math.getDistanceBetweenUnit(fire, hero) <= 700) then
-                    hattr.set(hero, 2, { life_back = "+10" })
+                    hattr.set(hero, 2, { life_back = "+75" })
                     heffect.bindUnit(
                         "Abilities\\Spells\\Human\\Heal\\HealTarget.mdl",
                         hero, "origin", 1.5
                     )
-                else
-                    hattr.set(hero, 1, { life_back = "-100" })
                 end
             end
         end

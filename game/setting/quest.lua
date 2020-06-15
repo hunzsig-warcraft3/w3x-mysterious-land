@@ -4,11 +4,10 @@ gameQuests = {
     state3 = nil, state4 = nil,
     state5 = nil, state6 = nil,
     state7 = nil, state8 = nil,
-    state9 = nil, state10 = nil,
-    state11 = nil, state12 = nil,
+    state9 = nil
 }
 gameQuestFlash = function(tit)
-    echo(hColor.green("-> 发现了新的事件：<" .. tit .. ">"))
+    echo(hColor.green("#发现了新的事件：<" .. tit .. ">"))
     hquest.flash()
 end
 gameQuestComplete = function(quest)
@@ -68,5 +67,32 @@ gameQuestEvent = {
             }
         )
         gameQuestFlash(tit)
+    end,
+    state4 = function()
+        local tit = "[主线]寻找入海口"
+        gameQuests.state4 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNSummonWaterElemental.blp",
+                content = {
+                    "山洞boss真不好对付，终于可以进入森林",
+                    "森林里有很多敌人和机关，小心应付",
+                    "任务：" .. hColor.yellow(" - 打败森林boss"),
+                    "成功：" .. hColor.green(" - 打败boss后到达入海口"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
+    end,
+    state5 = function()
+    end,
+    state6 = function()
+    end,
+    state7 = function()
+    end,
+    state8 = function()
+    end,
+    state9 = function()
     end,
 }

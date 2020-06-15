@@ -1,5 +1,6 @@
 stage2 = function()
-    local quest = gameQuestEvent.state2()
+    hquest.setCompleted(gameQuests.state1)
+    gameQuestEvent.state2()
     -- 小神木商店
     local shop = hunit.create({
         whichPlayer = game.ALLY_PLAYER,
@@ -49,7 +50,6 @@ stage2 = function()
     local rect = hrect.create(-2108, -8895, 384, 640)
     hevent.onEnterRect(rect, function(evtData)
         hrect.del(evtData.triggerRect, 0)
-        hquest.setCompleted(quest)
         stage3()
     end)
 end

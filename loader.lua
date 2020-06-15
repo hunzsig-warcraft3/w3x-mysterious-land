@@ -36,6 +36,12 @@ require "game.stages.common"
 require "game.stages.stage1"
 require "game.stages.stage2"
 require "game.stages.stage3"
+require "game.stages.stage4"
+require "game.stages.stage5"
+require "game.stages.stage6"
+require "game.stages.stage7"
+require "game.stages.stage8"
+require "game.stages.stage9"
 
 -- 商店
 --THIS_SHOPS = {}
