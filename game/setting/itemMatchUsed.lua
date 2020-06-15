@@ -84,4 +84,53 @@ hitem.matchUsed({
             })
         end
     },
+    {
+        "吸血药水",
+        function(evtData)
+            local triggerUnit = evtData.triggerUnit
+            hattr.set(triggerUnit, 35, {
+                hemophagia = "+20",
+            })
+        end
+    },
+    {
+        "完美药水",
+        function(evtData)
+            heffect.toUnit("Abilities\\Spells\\Items\\AIma\\AImaTarget.mdl", evtData.triggerUnit)
+            hunit.setCurLifePercent(evtData.triggerUnit, 100)
+            hunit.setCurManaPercent(evtData.triggerUnit, 100)
+        end
+    },
+    {
+        "恢复卷轴",
+        function(evtData)
+            local triggerUnit = evtData.triggerUnit
+            local g = hgroup.createByUnit(evtData.triggerUnit, 600, function(filterUnit)
+                return his.alive(filterUnit) and his.ally(triggerUnit, filterUnit)
+            end)
+            hgroup.loop(g, function(enumUnit)
+                heffect.toUnit("Abilities\\Spells\\Human\\Heal\\HealTarget.mdl", enumUnit)
+                hunit.addCurLife(enumUnit, 300)
+            end, true)
+        end
+    },
+    {
+        "加速卷轴",
+        function(evtData)
+            local triggerUnit = evtData.triggerUnit
+            local g = hgroup.createByUnit(evtData.triggerUnit, 600, function(filterUnit)
+                return his.alive(filterUnit) and his.ally(triggerUnit, filterUnit)
+            end)
+            hgroup.loop(g, function(enumUnit)
+                heffect.bindUnit(
+                    "Abilities\\Spells\\Items\\AIsp\\SpeedTarget.mdl",
+                    enumUnit, "overhead", 30
+                )
+                hattr.set(enumUnit, 30, {
+                    move = "+100",
+                    attack_speed = "+15",
+                })
+            end, true)
+        end
+    },
 })

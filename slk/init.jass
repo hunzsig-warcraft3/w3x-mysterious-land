@@ -16,6 +16,7 @@ library mySlk initializer Init
             #include "../h-lua/foundation/color.lua"
             #include "./slk/courier.lua"
             #include "./slk/units/stage2.lua"
+            #include "./slk/units/stage3.lua"
             #include "./slk/feature.lua"
             #include "./slk/gift/weapon.lua"
             #include "./slk/gift/defend.lua"
