@@ -24,6 +24,7 @@ library mySlk initializer Init
             #include "./slk/gift/tao.lua"
             #include "./slk/monster/stage1.lua"
             #include "./slk/monster/stage2.lua"
+            #include "./slk/monster/stage3.lua"
             #include "./slk/hero/mira.lua" // 白虎女祭祀
             #include "./slk/hero/wind.lua" // 逸风
             #include "./slk/hero/poe.lua" // 波尔
