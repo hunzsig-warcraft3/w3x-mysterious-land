@@ -84,6 +84,7 @@ stage3 = function()
         eCount = eCount + 1
         if (eCount > 60) then
             htime.delTimer(curTimer)
+            echo("BOSS出现了！！！")
             hunit.show(boss)
             cj.IssuePointOrder(boss, "attack", -763, -8641)
         end
@@ -92,12 +93,25 @@ stage3 = function()
     for i = 1, hplayer.qty_max, 1 do
         if (his.playing(hplayer.players[i])) then
             local hero = hhero.player_heroes[i][1]
-            hattr.set(hero, 1, { life_back = "-100" })
+            hattr.set(hero, 0, {
+                life_back = "-100",
+                sight = "-600",
+            })
         end
     end
+
     htime.setInterval(1.5, function(curTimer)
         if (his.death(boss) == true) then
             htime.delTimer(curTimer)
+            for i = 1, hplayer.qty_max, 1 do
+                if (his.playing(hplayer.players[i])) then
+                    local hero = hhero.player_heroes[i][1]
+                    hattr.set(hero, 0, {
+                        life_back = "+100",
+                        sight = "+600",
+                    })
+                end
+            end
             return
         end
         for i = 1, hplayer.qty_max, 1 do

@@ -75,7 +75,7 @@ gameQuestEvent = {
                 title = tit,
                 icon = "ReplaceableTextures\\CommandButtons\\BTNSummonWaterElemental.blp",
                 content = {
-                    "山洞boss真不好对付，终于可以进入森林",
+                    "山洞boss真不好对付，是时候进入森林",
                     "森林里有很多敌人和机关，小心应付",
                     "任务：" .. hColor.yellow(" - 打败森林boss"),
                     "成功：" .. hColor.green(" - 打败boss后到达入海口"),
@@ -86,13 +86,88 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state5 = function()
+        local tit = "[主线]大海探索"
+        gameQuests.state5 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNHumanDestroyer.blp",
+                content = {
+                    "来到一片广阔无垠的大海，探索吧~",
+                    "大海天气变幻莫测，注意适应气候的变化",
+                    "任务：" .. hColor.yellow(" - 海中探秘"),
+                    "成功：" .. hColor.green(" - 打败所有大海boss"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
     end,
     state6 = function()
+        local tit = "[主线]神秘之城"
+        gameQuests.state6 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNCastle.blp",
+                content = {
+                    "没想到大海西岸竟然有一大座城市，城市的人都很友好",
+                    "在这个城市休息一下，购入一些物资吧！",
+                    "任务：" .. hColor.yellow(" - 保护神秘城市"),
+                    "成功：" .. hColor.green(" - 保护神秘城市国王成功"),
+                    "失败：" .. hColor.red(" - 城市国王死亡；复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
     end,
     state7 = function()
+        local tit = "[主线]茫茫雪原"
+        gameQuests.state7 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNHumanDestroyer.blp",
+                content = {
+                    "来到一片广阔无垠的大海，探索吧~",
+                    "大海天气变幻莫测，注意适应气候的变化",
+                    "任务：" .. hColor.yellow(" - 海中探秘"),
+                    "成功：" .. hColor.green(" - 打败所有大海boss"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
     end,
     state8 = function()
+        local tit = "[主线]枯死之地"
+        gameQuests.state8 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNAnimateDead.blp",
+                content = {
+                    "来到一片广阔无垠的大海，探索吧~",
+                    "大海天气变幻莫测，注意适应气候的变化",
+                    "任务：" .. hColor.yellow(" - 海中探秘"),
+                    "成功：" .. hColor.green(" - 打败所有大海boss"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
     end,
     state9 = function()
+        local tit = "[主线]火海决战"
+        gameQuests.state9 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNWallOfFire.blp",
+                content = {
+                    "枯地的尽头有座桥，桥后是一片大火山山地",
+                    "火海中一直有山火焚烧，非常难受，注意抵抗火焰",
+                    "任务：" .. hColor.yellow(" - 破灭火海"),
+                    "成功：" .. hColor.green(" - 寻找到火海中的宝藏"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
     end,
 }
