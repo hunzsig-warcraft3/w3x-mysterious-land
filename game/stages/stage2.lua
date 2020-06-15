@@ -17,7 +17,7 @@ stage2 = function()
         qty = 6,
         attr = {
             attack_white = "=" .. 20 + game.diff * 10,
-            life = "=" .. 100 + game.diff * 35,
+            life = "=" .. 100 + game.diff * 20,
             move = "=120",
         }
     })
@@ -29,7 +29,7 @@ stage2 = function()
         qty = 7,
         attr = {
             attack_white = "=" .. 25 + game.diff * 13,
-            life = "=" .. 120 + game.diff * 40,
+            life = "=" .. 120 + game.diff * 25,
             move = "=125",
         }
     })
@@ -41,7 +41,7 @@ stage2 = function()
         qty = 8,
         attr = {
             attack_white = "=" .. 30 + game.diff * 15,
-            life = "=" .. 130 + game.diff * 45,
+            life = "=" .. 130 + game.diff * 30,
             move = "=130",
         }
     })

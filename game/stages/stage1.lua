@@ -8,9 +8,9 @@ stage1 = function()
         facing = 180,
         qty = 10,
         attr = {
-            attack_white = "=" .. 5 + game.diff * 5,
+            attack_white = "=" .. 9 + game.diff * 1,
             attack_speed = "-20",
-            life = "=" .. 50 + game.diff * 25,
+            life = "=" .. 65 + game.diff * 5,
             move = "=150",
         }
     })
@@ -21,8 +21,8 @@ stage1 = function()
         y = -8908,
         facing = 180,
         attr = {
-            attack_white = "=" .. 100 + game.diff * 10,
-            life = "=" .. 1500 + game.diff * 500,
+            attack_white = "=" .. 125 + game.diff * 5,
+            life = "=" .. 1900 + game.diff * 100,
             life_back = "=10",
             move = "=" .. (50 + game.diff),
             avoid = "=" .. (game.diff - 20),
