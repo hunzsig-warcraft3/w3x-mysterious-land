@@ -43,21 +43,5 @@ require "game.stages.stage7"
 require "game.stages.stage8"
 require "game.stages.stage9"
 
--- 商店
---THIS_SHOPS = {}
---for spi, sp in ipairs(game.shopsConfig) do
---    THIS_SHOPS[spi] = hunit.create(
---        {
---            register = false,
---            whichPlayer = game.ALLY_PLAYER,
---            unitId = game.shops[sp[1]].UNIT_ID,
---            qty = 1,
---            x = sp[2][1],
---            y = sp[2][2]
---        }
---    )
---end
-
-
 -- game start(这里需要用时间事件延时N秒，不然很多动作会在初始化失效)
 require "game.start"
