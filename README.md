@@ -25,7 +25,7 @@ info 玩家
 房间key：
 prestige 巅峰称号
 power 巅峰战力
-kill 巅峰杀敌
+point 探奇积分
 
 激活方式：进入游戏自动生效
 

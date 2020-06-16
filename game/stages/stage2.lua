@@ -1,5 +1,4 @@
 stage2 = function()
-    hquest.setCompleted(gameQuests.state1)
     gameQuestEvent.state2()
     -- 小神木商店
     local shop = hunit.create({

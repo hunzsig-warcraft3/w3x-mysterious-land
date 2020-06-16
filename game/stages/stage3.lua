@@ -1,5 +1,4 @@
 stage3 = function()
-    hquest.setCompleted(gameQuests.state2)
     gameQuestEvent.state3()
 
     local fire = hunit.create({
@@ -26,7 +25,6 @@ stage3 = function()
     })
     hunit.hide(boss)
     hevent.onDead(boss, function(evtData)
-        stage4()
         stage_ttg(evtData.triggerUnit, "可恶!")
         local deadUnit = evtData.triggerUnit
         local killer = evtData.killer
@@ -35,6 +33,7 @@ stage3 = function()
             haward.forGroupExp(killer, exp)
         end
         stage_fleeting(deadUnit, 32 + game.diff * 8)
+        stage4()
     end)
 
     local eCount = 0

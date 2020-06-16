@@ -1,17 +1,20 @@
 -- 游戏任务（左边）
+gameQuestPoint = 0
 gameQuests = {
     state1 = nil, state2 = nil,
     state3 = nil, state4 = nil,
     state5 = nil, state6 = nil,
     state7 = nil, state8 = nil,
-    state9 = nil
+    state9 = nil, state10 = nil
 }
 gameQuestFlash = function(tit)
     echo(hColor.green("#发现了新的事件：<" .. tit .. ">"))
     hquest.flash()
 end
-gameQuestComplete = function(quest)
+gameQuestComplete = function(quest, point)
     hquest.setCompleted(quest)
+    point = point or 0
+    gameQuestPoint = gameQuestPoint + point
 end
 gameQuestEvent = {
     state1 = function()
@@ -34,6 +37,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state2 = function()
+        gameQuestComplete(gameQuests.state1, 1)
         local tit = "[主线]寻找小神木商店"
         gameQuests.state2 = hquest.create(
             {
@@ -51,6 +55,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state3 = function()
+        gameQuestComplete(gameQuests.state2, 1)
         local tit = "[主线]依靠篝火！勇战洞妖"
         gameQuests.state3 = hquest.create(
             {
@@ -69,6 +74,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state4 = function()
+        gameQuestComplete(gameQuests.state3, 3)
         local tit = "[主线]寻找入海口"
         gameQuests.state4 = hquest.create(
             {
@@ -86,6 +92,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state5 = function()
+        gameQuestComplete(gameQuests.state4, 6)
         local tit = "[主线]大海探索"
         gameQuests.state5 = hquest.create(
             {
@@ -103,6 +110,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state6 = function()
+        gameQuestComplete(gameQuests.state5, 7)
         local tit = "[主线]神秘之城"
         gameQuests.state6 = hquest.create(
             {
@@ -120,6 +128,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state7 = function()
+        gameQuestComplete(gameQuests.state6, 4)
         local tit = "[主线]茫茫雪原"
         gameQuests.state7 = hquest.create(
             {
@@ -137,6 +146,7 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state8 = function()
+        gameQuestComplete(gameQuests.state7, 9)
         local tit = "[主线]枯死之地"
         gameQuests.state8 = hquest.create(
             {
@@ -154,8 +164,27 @@ gameQuestEvent = {
         gameQuestFlash(tit)
     end,
     state9 = function()
+        gameQuestComplete(gameQuests.state8, 13)
         local tit = "[主线]火海决战"
         gameQuests.state9 = hquest.create(
+            {
+                title = tit,
+                icon = "ReplaceableTextures\\CommandButtons\\BTNWallOfFire.blp",
+                content = {
+                    "枯地的尽头有座桥，桥后是一片大火山山地",
+                    "火海中一直有山火焚烧，非常难受，注意抵抗火焰",
+                    "任务：" .. hColor.yellow(" - 破灭火海"),
+                    "成功：" .. hColor.green(" - 寻找到火海中的宝藏"),
+                    "失败：" .. hColor.red(" - 复活耗光且死亡"),
+                },
+            }
+        )
+        gameQuestFlash(tit)
+    end,
+    state10 = function()
+        gameQuestComplete(gameQuests.state9, 20)
+        local tit = "[主线]探奇宝藏"
+        gameQuests.state10 = hquest.create(
             {
                 title = tit,
                 icon = "ReplaceableTextures\\CommandButtons\\BTNWallOfFire.blp",

@@ -6,7 +6,7 @@ game = {
     unitsReborn = {},
     playerData = {
         prevPower = {},
-        prevKill = {},
+        prevPoint = {},
         --- 巅峰战力
         power = {},
         -- 信使

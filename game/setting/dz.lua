@@ -54,26 +54,29 @@ dzCurrent.doRecord = function(whichPlayer)
     -- 计算称号
     local prestigeLabel = dzCurrent.calePrestige(game.playerData.power[playerIndex])
     hplayer.setPrestige(whichPlayer, prestigeLabel)
+    -- 计算探奇
+    local point = game.playerData.prevPoint[playerIndex] + gameQuestPoint
+    if (point > (game.playerData.prevPoint[playerIndex] + 100)) then
+        point = game.playerData.prevPoint[playerIndex] + 100
+    end
     -- 写入服务器
     hdzapi.server.set.int(whichPlayer, "power", game.playerData.power[playerIndex])
-    hdzapi.server.set.int(whichPlayer, "kill", kill)
+    hdzapi.server.set.int(whichPlayer, "point", point)
     if (game.playerData.power[playerIndex] > game.playerData.prevPower[playerIndex]) then
         hdzapi.setRoomStat(whichPlayer, "prestige", prestigeLabel) --房间称号
         hdzapi.setRoomStat(whichPlayer, "power", math.integerFormat(game.playerData.power[playerIndex])) --房间战力
     end
-    if (kill > game.playerData.prevKill[playerIndex]) then
-        hdzapi.setRoomStat(whichPlayer, "kill", math.integerFormat(kill)
-        )
-        --杀敌
+    if (point > game.playerData.prevPoint[playerIndex]) then
+        hdzapi.setRoomStat(whichPlayer, "point", math.integerFormat(point)) -- 探奇点
     end
 end
 
 dzCurrent.enableRecord = function(whichPlayer)
     hdzapi.setRoomStat(whichPlayer, "prestige", '')
     hdzapi.setRoomStat(whichPlayer, "power", '0')
-    hdzapi.setRoomStat(whichPlayer, "kill", '0')
+    hdzapi.setRoomStat(whichPlayer, "point", '0')
     hdzapi.server.clear.int(whichPlayer, "power")
-    hdzapi.server.clear.int(whichPlayer, "kill")
+    hdzapi.server.clear.int(whichPlayer, "point")
     if (whichPlayer == nil or his.playing(whichPlayer) == false) then
         return
     end
@@ -86,7 +89,7 @@ dzCurrent.enableRecord = function(whichPlayer)
         gift_tao = nil,
     }
     game.playerData.prevPower[playerIndex] = hdzapi.server.get.int(whichPlayer, "power")
-    game.playerData.prevKill[playerIndex] = hdzapi.server.get.int(whichPlayer, "kill")
+    game.playerData.prevPoint[playerIndex] = hdzapi.server.get.int(whichPlayer, "point")
     local prestigeLabel = dzCurrent.calePrestige(game.playerData.prevPower[playerIndex])
     hplayer.setPrestige(whichPlayer, prestigeLabel)
     -- 10秒一次，自动检测玩家数据并保存,以1.7秒隔开每个玩家，不同时请求服务器
