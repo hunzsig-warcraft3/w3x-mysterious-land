@@ -2,7 +2,7 @@ stage3 = function()
     gameQuestEvent.state3()
 
     local fire = hunit.create({
-        whichUnit = game.ALLY_PLAYER,
+        whichPlayer = game.ALLY_PLAYER,
         unitId = hslk_global.name2Value.unit["孤单的火窖"].UNIT_ID,
         x = -763,
         y = -8641,
@@ -32,7 +32,7 @@ stage3 = function()
         if (killer ~= nil) then
             haward.forGroupExp(killer, exp)
         end
-        stage_fleeting(deadUnit, 32 + game.diff * 8)
+        stage_fleeting(deadUnit, 32 + game.diff)
         stage4()
     end)
 
@@ -42,14 +42,14 @@ stage3 = function()
         local a = {
             {
                 attack_white = "=" .. 51 + game.diff * 4,
-                life = "=" .. 116 + game.diff * 4,
-                move = "=115",
+                life = "=" .. 96 + game.diff * 4,
+                move = "=90",
                 attack_debuff = {
                     add = {
                         {
                             attr = "life_back",
                             odds = 50,
-                            val = 4.5 + game.diff * 0.5,
+                            val = 3.5 + game.diff * 0.3,
                             during = 3
                         }
                     }
@@ -57,15 +57,15 @@ stage3 = function()
             },
             {
                 attack_white = "=" .. 47 + game.diff * 3,
-                life = "=" .. 144 + game.diff * 6,
-                move = "=150",
-                toughness = "=18"
+                life = "=" .. 114 + game.diff * 6,
+                move = "=95",
+                toughness = "=10"
             },
             {
                 attack_white = "=" .. 38 + game.diff * 2,
-                life = "=" .. 125 + game.diff * 5,
-                move = "=130",
-                resistance = "=35"
+                life = "=" .. 105 + game.diff * 5,
+                move = "=93",
+                resistance = "=16"
             }
         }
         local mi = math.random(1, 3)
@@ -117,7 +117,7 @@ stage3 = function()
             if (his.playing(hplayer.players[i])) then
                 local hero = hhero.player_heroes[i][1]
                 if (math.getDistanceBetweenUnit(fire, hero) <= 700) then
-                    hattr.set(hero, 2, { life_back = "+75" })
+                    hattr.set(hero, 2, { life_back = "+80" })
                     heffect.bindUnit(
                         "Abilities\\Spells\\Human\\Heal\\HealTarget.mdl",
                         hero, "origin", 1.5

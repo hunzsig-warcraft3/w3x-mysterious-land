@@ -9,6 +9,8 @@ hevent.onPickHero(function(evtPickData)
     local heroSlk = hunit.getSlk(newHero)
     -- 镜头
     hcamera.toUnit(owner, 0, newHero)
+    -- 开启硬直
+    hunit.openPunish(newHero)
     -- 特性、技能、天赋
     if (heroSlk ~= nil) then
         local feature = heroSlk.CUSTOM_DATA.feature
@@ -27,6 +29,12 @@ hevent.onPickHero(function(evtPickData)
         hskill.add(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)
         hskill.add(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)
     end
+    --- 升级
+    hevent.onLevelUp(newHero, function(evtData)
+        hattr.set(newHero, 0, {
+            weight = "+0.5"
+        })
+    end)
     --- 经验收获
     hevent.onDamage(newHero, function(evtData)
         local exp = math.floor(evtData.damage * 0.1)
@@ -65,19 +73,6 @@ hevent.onPickHero(function(evtPickData)
             return
         end
         if (his.death(newHero)) then
-            hsound.bgmStop(p)
-            return
-        end
-        local pi = hplayer.index(p)
-        if (his.damaging(newHero) == true or his.beDamaging(newHero) == true) then
-            if (hRuntime.sound[pi].prevBgm == nil) then
-                hRuntime.sound[pi].prevBgm = hRuntime.sound[pi].currentBgm
-            end
-            hsound.bgm(cg.gg_snd_bgm_battle, p)
-            return
-        elseif (hRuntime.sound[pi].prevBgm ~= nil) then
-            hsound.bgm(hRuntime.sound[pi].prevBgm, p)
-            hRuntime.sound[pi].prevBgm = nil
             return
         end
         local bgm = cg.gg_snd_bgm_main
@@ -196,11 +191,11 @@ cj.TriggerAddAction(
                     rebornQty = 10
                 elseif (btnIdx == "极其困难") then
                     diff = 20
-                    diffColor = hColor.red
+                    diffColor = hColor.redLight
                     rebornQty = 3
                 elseif (btnIdx == "破天荒难") then
                     diff = 50
-                    diffColor = hColor.black
+                    diffColor = hColor.red
                     rebornQty = 1
                 end
                 game.diff = diff
@@ -242,7 +237,7 @@ cj.TriggerAddAction(
                         local data = {}
                         table.insert(data, {
                             { value = "探人", icon = nil },
-                            { value = "巅峰称号", icon = nil },
+                            { value = "名号", icon = nil },
                             { value = "战力", icon = nil },
                             { value = "杀敌", icon = nil },
                             { value = "英雄", icon = nil },
@@ -255,7 +250,8 @@ cj.TriggerAddAction(
                             { value = "魔抗", icon = nil },
                             { value = "回避", icon = nil },
                             { value = "背包", icon = nil },
-                            { value = "攻效", icon = nil },
+                            { value = "硬直", icon = nil },
+                            { value = "攻击类型", icon = nil },
                         })
                         --然后是form
                         for pi = 1, hplayer.qty_max, 1 do
@@ -276,6 +272,7 @@ cj.TriggerAddAction(
                                 local resistance = "-"
                                 local avoid = "-"
                                 local weight = "-"
+                                local punish = "-"
                                 local attack_damage_type = "-"
                                 hero = hhero.player_heroes[pi][1]
                                 if (hero ~= nil) then
@@ -294,6 +291,8 @@ cj.TriggerAddAction(
                                     avoid = math.round(hattr.get(hero, "avoid")) .. "%"
                                     weight = math.round(hattr.get(hero, "weight_current")) .. "/"
                                         .. math.round(hattr.get(hero, "weight")) .. "Kg"
+                                    punish = math.round(hattr.get(hero, "punish_current")) .. "/"
+                                        .. math.round(hattr.get(hero, "punish"))
                                     local adt = {}
                                     for _, v in ipairs(hattr.get(hero, "attack_damage_type")) do
                                         local label = CONST_ATTR[v]
@@ -318,6 +317,7 @@ cj.TriggerAddAction(
                                     { value = resistance, icon = nil },
                                     { value = avoid, icon = nil },
                                     { value = weight, icon = nil },
+                                    { value = punish, icon = nil },
                                     { value = attack_damage_type, icon = nil },
                                 })
                             end

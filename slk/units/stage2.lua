@@ -12,6 +12,7 @@ local items = {
         cooldown = 70,
         ACTIVE = "使用后在10秒内持续恢复共200点生命",
         OVERLIE = 99,
+        WEIGHT = 0.1,
         Hotkey = "Q",
     },
     {
@@ -27,6 +28,7 @@ local items = {
         cooldown = 70,
         ACTIVE = "使用后在10秒内持续恢复共150点魔法",
         OVERLIE = 99,
+        WEIGHT = 0.1,
         Hotkey = "W",
     },
     {
@@ -42,6 +44,7 @@ local items = {
         cooldown = 40,
         ACTIVE = "使用后在6秒内持续恢复共500点生命",
         OVERLIE = 99,
+        WEIGHT = 0.1,
         Hotkey = "E",
     },
     {
@@ -57,6 +60,7 @@ local items = {
         cooldown = 40,
         ACTIVE = "使用后在6秒内持续恢复共300点魔法",
         OVERLIE = 99,
+        WEIGHT = 0.1,
         Hotkey = "R",
     },
     {
@@ -72,6 +76,7 @@ local items = {
         cooldown = 60,
         ACTIVE = "使用后在35秒内增加20%吸血",
         OVERLIE = 9,
+        WEIGHT = 0.1,
         Hotkey = "A",
     },
     {
@@ -87,6 +92,7 @@ local items = {
         cooldown = 60,
         ACTIVE = "使用后瞬间恢复所有生命和魔法",
         OVERLIE = 9,
+        WEIGHT = 0.1,
         Hotkey = "S",
     },
     {
@@ -102,6 +108,7 @@ local items = {
         cooldown = 90,
         ACTIVE = "使用后600范围内的友军瞬间恢复300生命",
         OVERLIE = 3,
+        WEIGHT = 0.2,
         Hotkey = "D",
     },
     {
@@ -117,6 +124,7 @@ local items = {
         cooldown = 90,
         ACTIVE = "使用后600范围内的友军提升移动力100点，攻速15%，持续30秒",
         OVERLIE = 3,
+        WEIGHT = 0.2,
         Hotkey = "F",
     },
     {
@@ -130,6 +138,7 @@ local items = {
         pawnable = 1,
         droppable = 1,
         OVERLIE = 1,
+        WEIGHT = 0.3,
         Hotkey = "Z",
         ATTR = {
             str_green = "+9",
@@ -148,6 +157,7 @@ local items = {
         pawnable = 1,
         droppable = 1,
         OVERLIE = 1,
+        WEIGHT = 0.1,
         Hotkey = "X",
         ATTR = {
             mana = "+100",
@@ -165,6 +175,7 @@ local items = {
         pawnable = 1,
         droppable = 1,
         OVERLIE = 1,
+        WEIGHT = 0.2,
         Hotkey = "C",
         ATTR = {
             defend = "+4",
@@ -182,6 +193,7 @@ local items = {
         pawnable = 1,
         droppable = 1,
         OVERLIE = 1,
+        WEIGHT = 0.5,
         Hotkey = "V",
         ATTR = {
             move = "+55",

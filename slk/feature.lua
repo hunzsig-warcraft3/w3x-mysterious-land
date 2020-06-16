@@ -48,9 +48,9 @@ local features = {
         Name = "暗夜精灵",
         Desc = "远古神秘的暗夜精灵",
         Art = "war3mapImported\\icon_pas_AvengingAssassin.blp",
+        PASSIVE = "在夜晚每隔30秒自动获得隐身5秒的效果",
         ATTR = {
             natural_dark = "+30",
-            PASSIVE = "在夜晚每隔30秒自动获得隐身5秒的效果",
         },
     },
 }

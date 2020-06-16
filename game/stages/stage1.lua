@@ -51,13 +51,35 @@ stage1 = function()
         })
     end)
     hevent.onBeDamage(boss, function(evtData)
-        stage_ttg(evtData.triggerUnit, "继续打我呀")
-        hattr.set(evtData.triggerUnit, 5, {
+        local u = evtData.triggerUnit
+        stage_ttg(u, "继续打我呀")
+        hattr.set(u, 5, {
             move = "+70",
         })
         if (math.random(1, 2) == 1) then
-            cj.IssueTargetOrder(evtData.triggerUnit, "attack", evtData.sourceUnit)
+            cj.IssueTargetOrder(u, "attack", evtData.sourceUnit)
         end
+        local radius = 400
+        stage_spell(u, "怒气爆裂", 20, "attack spell",
+            function()
+                htexture.alertCircle(radius * 2, hunit.x(u), hunit.y(u), stage_holdOn())
+            end,
+            function()
+                hskill.rangeSwim({
+                    range = radius,
+                    during = 1.4,
+                    odds = 100,
+                    effect = "Abilities\\Spells\\Orc\\WarStomp\\WarStompCaster.mdl",
+                    whichUnit = u,
+                    filter = function(filterUnit)
+                        return his.alive(filterUnit) and his.allyPlayer(filterUnit, game.ALLY_PLAYER)
+                    end,
+                    damage = 200 + game.diff * 15,
+                    sourceUnit = u,
+                    damageKind = CONST_DAMAGE_KIND.skill,
+                    damageType = { CONST_DAMAGE_TYPE.physical, CONST_DAMAGE_TYPE.soil }
+                })
+            end)
     end)
     hevent.onDead(boss, function(evtData)
         hrect.del(trap1)
@@ -69,7 +91,7 @@ stage1 = function()
         if (killer ~= nil) then
             haward.forGroupExp(killer, exp)
         end
-        stage_fleeting(deadUnit, 25 + game.diff * 5)
+        stage_fleeting(deadUnit, 25 + game.diff)
     end)
     hevent.onEnterRect(trap1, function(evtData)
         if (his.alive(boss) and his.allyPlayer(evtData.triggerUnit, game.ALLY_PLAYER)) then

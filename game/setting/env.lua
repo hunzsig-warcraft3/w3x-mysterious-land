@@ -141,13 +141,13 @@ autoWeather = function(obj)
         })
         -- 音效
         if (weather == hweather.sun) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_sun, obj.rect, during)
+            hsound.sound2Rect(cg.gg_snd_voice_rect_sun, obj.rect, during - 1)
         elseif (weather == hweather.moon) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_moon, obj.rect, during)
+            hsound.sound2Rect(cg.gg_snd_voice_rect_moon, obj.rect, during - 1)
         elseif (weather == hweather.wind or weather == hweather.windstorm) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_wind, obj.rect, during)
+            hsound.sound2Rect(cg.gg_snd_voice_rect_wind, obj.rect, during - 1)
         elseif (weather == hweather.rainstorm) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_rainstorm, obj.rect, during)
+            hsound.sound2Rect(cg.gg_snd_voice_rect_rainstorm, obj.rect, during - 1)
         end
         local dur = 0
         htime.setInterval(4, function(t)
