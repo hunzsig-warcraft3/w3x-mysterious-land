@@ -7,7 +7,7 @@ local prestigeMap = {
     { mark = 5000, label = "天绝斗者" },
     { mark = 10000, label = "灭劫霸王" },
     { mark = 60000, label = "六御武帝" },
-    { mark = 99999, label = "九天武神" },
+    { mark = 99999, label = "九苍武神" },
 }
 dzCurrent = {}
 dzCurrent.calePrestige = function(power)
