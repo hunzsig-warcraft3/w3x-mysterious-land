@@ -11,6 +11,12 @@ hevent.onPickHero(function(evtPickData)
     hcamera.toUnit(owner, 0, newHero)
     -- 开启硬直
     hunit.openPunish(newHero)
+    -- 初始属性
+    hattr.set(newHero, 0, {
+        weight = "=3",
+        punish = "=1000",
+        punish_current = "=1000"
+    })
     -- 特性、技能、天赋
     if (heroSlk ~= nil) then
         local feature = heroSlk.CUSTOM_DATA.feature
@@ -31,8 +37,18 @@ hevent.onPickHero(function(evtPickData)
     end
     --- 升级
     hevent.onLevelUp(newHero, function(evtData)
-        hattr.set(newHero, 0, {
-            weight = "+0.5"
+        local primary = hhero.getPrimary(evtData.triggerUnit)
+        local punish = hhero.getCurLevel(evtData.triggerUnit)
+        if (primary == "STR") then
+            punish = punish + 70
+        elseif (primary == "AGI") then
+            punish = punish + 45
+        elseif (primary == "INT") then
+            punish = punish + 55
+        end
+        hattr.set(evtData.triggerUnit, 0, {
+            weight = "+0.5",
+            punish = "+" .. punish
         })
     end)
     --- 经验收获
@@ -92,6 +108,27 @@ hevent.onPickHero(function(evtPickData)
             hsound.bgm(bgm, p)
         end
     end)
+    -- dz奖励
+    local mapLv = hdzapi.mapLv(owner)
+    if (mapLv > 9) then
+        hitem.create({
+            itemId = hslk_global.name2Value.item["初始月钥-Max"].ITEM_ID,
+            charges = 1,
+            whichUnit = newHero,
+        })
+    else
+        hitem.create({
+            itemId = hslk_global.name2Value.item["初始月钥-Lv" .. mapLv].ITEM_ID,
+            charges = 1,
+            whichUnit = newHero,
+        })
+    end
+    local prestige = hplayer.getPrestige(owner)
+    hitem.create({
+        itemId = hslk_global.name2Value.item["诀尊阳钥[" .. prestige .. "专享]"].ITEM_ID,
+        charges = 1,
+        whichUnit = newHero,
+    })
 end)
 
 pickCourier = function(newCourier)

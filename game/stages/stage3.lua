@@ -113,15 +113,17 @@ stage3 = function()
             end
             return
         end
-        for i = 1, hplayer.qty_max, 1 do
-            if (his.playing(hplayer.players[i])) then
-                local hero = hhero.player_heroes[i][1]
-                if (math.getDistanceBetweenUnit(fire, hero) <= 700) then
-                    hattr.set(hero, 2, { life_back = "+80" })
-                    heffect.bindUnit(
-                        "Abilities\\Spells\\Human\\Heal\\HealTarget.mdl",
-                        hero, "origin", 1.5
-                    )
+        if (his.alive(fire)) then
+            for i = 1, hplayer.qty_max, 1 do
+                if (his.playing(hplayer.players[i])) then
+                    local hero = hhero.player_heroes[i][1]
+                    if (math.getDistanceBetweenUnit(fire, hero) <= 700) then
+                        hattr.set(hero, 2, { life_back = "+60" })
+                        heffect.bindUnit(
+                            "Abilities\\Spells\\Human\\Heal\\HealTarget.mdl",
+                            hero, "origin", 1.5
+                        )
+                    end
                 end
             end
         end
