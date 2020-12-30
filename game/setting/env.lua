@@ -257,7 +257,7 @@ autoWeather = function(obj)
                                     during = 2 + 0.3 * game.diff,
                                     odds = 100,
                                     effect = "Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl",
-                                    damageKind = CONST_DAMAGE_KIND.special,
+                                    damageSrc = CONST_DAMAGE_SRC.unknown,
                                     damageType = { CONST_DAMAGE_TYPE.thunder }
                                 })
                                 local duri = 7
@@ -409,7 +409,7 @@ autoWeather = function(obj)
                                     during = 1.6 + 0.2 * game.diff,
                                     odds = 100,
                                     effect = "Abilities\\Spells\\Other\\Volcano\\VolcanoDeath.mdl",
-                                    damageKind = CONST_DAMAGE_KIND.special,
+                                    damageSrc = CONST_DAMAGE_SRC.unknown,
                                     damageType = { CONST_DAMAGE_TYPE.fire, CONST_DAMAGE_TYPE.real }
                                 })
                             end, true)
@@ -438,7 +438,7 @@ autoWeather = function(obj)
                             effect = "", --特效（可选）
                             damage = burn, --单次伤害（大于0）
                             sourceUnit = nil, --伤害来源单位（可选）
-                            damageKind = CONST_DAMAGE_KIND.special,
+                            damageSrc = CONST_DAMAGE_SRC.unknown,
                             damageType = { CONST_DAMAGE_TYPE.fire },
                         })
                     end
@@ -476,7 +476,7 @@ autoWeather = function(obj)
                             during = 1.0 + 0.25 * game.diff,
                             odds = 100,
                             effect = "Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround.mdl",
-                            damageKind = CONST_DAMAGE_KIND.special,
+                            damageSrc = CONST_DAMAGE_SRC.unknown,
                             damageType = { CONST_DAMAGE_TYPE.dark }
                         })
                     end
@@ -507,7 +507,7 @@ autoWeather = function(obj)
                                     during = 2 + 0.3 * game.diff,
                                     odds = 100,
                                     effect = "Abilities\\Spells\\NightElf\\shadowstrike\\shadowstrike.mdl",
-                                    damageKind = CONST_DAMAGE_KIND.special,
+                                    damageSrc = CONST_DAMAGE_SRC.unknown,
                                     damageType = { CONST_DAMAGE_TYPE.thunder }
                                 })
                                 heffect.bindUnit(

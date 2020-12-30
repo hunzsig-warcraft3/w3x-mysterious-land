@@ -32,17 +32,17 @@ stage1 = function()
     local trap1 = hrect.create(-5183, -8893, 384, 700, "trap1")
     --
     hevent.onAttack(boss, function(evtData)
-        stage_ttg(evtData.attacker, "越战越强")
-        heffect.bindUnit("Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl", evtData.attacker, "weapon", 3)
-        hattr.set(evtData.attacker, 3, {
-            attack_white = "+" .. math.floor(hattr.get(evtData.attacker, "attack_white") * 0.2),
+        stage_ttg(evtData.triggerUnit, "越战越强")
+        heffect.bindUnit("Abilities\\Spells\\Other\\BreathOfFire\\BreathOfFireDamage.mdl", evtData.triggerUnit, "weapon", 3)
+        hattr.set(evtData.triggerUnit, 3, {
+            attack_white = "+" .. math.floor(hattr.get(evtData.triggerUnit, "attack_white") * 0.2),
             move = "+5",
         })
         henemy.create({
             unitId = hunit.n2i("秘地小傀儡"),
-            x = hunit.x(evtData.attacker),
-            y = hunit.y(evtData.attacker),
-            facing = hunit.getFacing(evtData.attacker),
+            x = hunit.x(evtData.triggerUnit),
+            y = hunit.y(evtData.triggerUnit),
+            facing = hunit.getFacing(evtData.triggerUnit),
             attr = {
                 attack_white = "=" .. 10 + game.diff,
                 life = "=50",
@@ -66,17 +66,17 @@ stage1 = function()
             end,
             function()
                 hskill.rangeSwim({
-                    range = radius,
+                    radius = radius,
                     during = 1.4,
                     odds = 100,
                     effect = "Abilities\\Spells\\Orc\\WarStomp\\WarStompCaster.mdl",
-                    whichUnit = u,
+                    targetUnit = u,
                     filter = function(filterUnit)
                         return his.alive(filterUnit) and his.allyPlayer(filterUnit, game.ALLY_PLAYER)
                     end,
                     damage = 200 + game.diff * 15,
                     sourceUnit = u,
-                    damageKind = CONST_DAMAGE_KIND.skill,
+                    damageSrc = CONST_DAMAGE_SRC.skill,
                     damageType = { CONST_DAMAGE_TYPE.physical, CONST_DAMAGE_TYPE.soil }
                 })
             end)

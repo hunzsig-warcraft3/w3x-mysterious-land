@@ -1,10 +1,10 @@
 onMapDestructableDestroy = function()
     -- 整理书籍
     local randomGifts = {
-        gift_weapon = { "武 - 大剑修炼", "武 - 回音剑技" },
-        gift_defend = { "御 - 蛮力抵抗", "御 - 反射盾牌" },
-        gift_speed = { "速 - 虚幻之刀", "速 - 断臂之勇" },
-        gift_tao = { "奇 - 无我", "奇 - 醍醐点化" },
+        gift_weapon = { "大剑修炼", "回音剑技" },
+        gift_defend = { "蛮力抵抗", "反射盾牌" },
+        gift_speed = { "虚幻之刀", "断臂之勇" },
+        gift_tao = { "无我", "醍醐点化" },
     }
     --
     hevent.onMapDestructableDestroy(function(evtData)
@@ -53,8 +53,19 @@ onMapDestructableDestroy = function()
             -- 木桶，给天赋书
             local types = { "gift_weapon", "gift_defend", "gift_speed", "gift_tao" }
             local t = table.random(types)
+            local rgn = table.random(randomGifts[t])
+            if (t == 'gift_weapon') then
+                rgn = '武 - ' .. rgn
+            elseif (t == 'gift_defend') then
+                rgn = '御 - ' .. rgn
+            elseif (t == 'gift_speed') then
+                rgn = '速 - ' .. rgn
+            elseif (t == 'gift_tao') then
+                rgn = '奇 - ' .. rgn
+            end
+            rgn = '秘笈：' .. rgn
             hitem.create({
-                itemId = hitem.n2i(table.random(randomGifts[t])),
+                itemId = hitem.n2i(rgn),
                 charges = 1,
                 x = cj.GetDestructableX(dest),
                 y = cj.GetDestructableY(dest),
