@@ -88,7 +88,7 @@ hevent.onPickHero(function(evtPickData)
             hsound.bgmStop(p)
             return
         end
-        if (his.death(newHero)) then
+        if (his.dead(newHero)) then
             return
         end
         local bgm = cg.gg_snd_bgm_main
@@ -285,7 +285,7 @@ cj.TriggerAddAction(
                             { value = "回避", icon = nil },
                             { value = "背包", icon = nil },
                             { value = "硬直", icon = nil },
-                            { value = "攻击类型", icon = nil },
+                            { value = "攻击附魔", icon = nil },
                         })
                         --然后是form
                         for pi = 1, hplayer.qty_max, 1 do

@@ -1,10 +1,10 @@
 onMapDestructableDestroy = function()
     -- 整理书籍
     local randomGifts = {
-        gift_weapon = { "大剑修炼", "回音剑技" },
-        gift_defend = { "蛮力抵抗", "反射盾牌" },
-        gift_speed = { "虚幻之刀", "断臂之勇" },
-        gift_tao = { "无我", "醍醐点化" },
+        gift_weapon = { "武 - 大剑修炼", "武 - 回音剑技" },
+        gift_defend = { "御 - 蛮力抵抗", "御 - 反射盾牌" },
+        gift_speed = { "速 - 虚幻之刀", "速 - 断臂之勇" },
+        gift_tao = { "奇 - 无我", "奇 - 醍醐点化" },
     }
     --
     hevent.onMapDestructableDestroy(function(evtData)
