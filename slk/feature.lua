@@ -1,9 +1,9 @@
 local features = {
     {
         Name = "典雅之月",
-        Desc = "在月光下行动的精灵使者，灵动而又不惧怕黑暗魔法",
+        _desc = "在月光下行动的精灵使者，灵动而又不惧怕黑暗魔法",
         Art = "ReplaceableTextures\\PassiveButtons\\PASBTNElunesBlessing.blp",
-        ATTR = {
+        _attr = {
             attack_speed = "+13",
             resistance = "+16",
             natural_dark_oppose = "+10"
@@ -11,9 +11,9 @@ local features = {
     },
     {
         Name = "剑圣",
-        Desc = "剑之圣者，一瞬断魂",
+        _desc = "剑之圣者，一瞬断魂",
         Art = "war3mapImported\\icon_pas_Spell_Nature_UnleashedRage.blp",
-        ATTR = {
+        _attr = {
             attack_speed = "+24",
             move = "+20",
             attack_effect = {
@@ -27,9 +27,9 @@ local features = {
     },
     {
         Name = "王权",
-        Desc = "身为领袖之人，具有王者气派",
+        _desc = "身为领袖之人，具有王者气派",
         Art = "war3mapImported\\icon_pas_Spell_Holy_Power.blp",
-        ATTR = {
+        _attr = {
             life = "+600",
             life_back = "+20",
             sight = "+300",
@@ -39,17 +39,17 @@ local features = {
     {
         Name = "皇家骑士",
         Art = "war3mapImported\\icon_pas_Holy_GreaterBlessingofKings.blp",
-        ATTR = {
+        _attr = {
             str_green = "+100",
             life = "+300",
         },
     },
     {
         Name = "暗夜精灵",
-        Desc = "远古神秘的暗夜精灵",
+        _desc = "远古神秘的暗夜精灵",
         Art = "war3mapImported\\icon_pas_AvengingAssassin.blp",
         PASSIVE = "在夜晚每隔30秒自动获得隐身5秒的效果",
-        ATTR = {
+        _attr = {
             natural_dark = "+30",
         },
     },

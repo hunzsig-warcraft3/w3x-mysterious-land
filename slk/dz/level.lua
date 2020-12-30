@@ -1,24 +1,24 @@
 local items = {
     {
-        ATTR = {
+        _attr = {
             life = "+30",
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+40",
             life_back = "+0.5",
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+50",
             life_back = "+1.0",
             defend = "+2",
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+70",
             life_back = "+1.2",
             mana = "+50",
@@ -26,7 +26,7 @@ local items = {
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+100",
             life_back = "+1.6",
             mana = "+70",
@@ -35,7 +35,7 @@ local items = {
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+130",
             life_back = "+2.0",
             mana = "+90",
@@ -45,7 +45,7 @@ local items = {
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+150",
             life_back = "+2.2",
             mana = "+100",
@@ -56,7 +56,7 @@ local items = {
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+180",
             life_back = "+2.5",
             mana = "+120",
@@ -67,7 +67,7 @@ local items = {
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+200",
             life_back = "+2.8",
             mana = "+150",
@@ -75,11 +75,11 @@ local items = {
             defend = "+8",
             move = "+40",
             aim = "+16",
-            toughness = "+10",
+            damage_reduction = "+10",
         }
     },
     {
-        ATTR = {
+        _attr = {
             life = "+300",
             life_back = "+3.0",
             mana = "+200",
@@ -87,7 +87,7 @@ local items = {
             defend = "+10",
             move = "+50",
             aim = "+20",
-            toughness = "+20",
+            damage_reduction = "+20",
             sight = "+200",
         }
     },
@@ -100,9 +100,9 @@ for k, v in ipairs(items) do
         v.Name = "初始月钥-Lv" .. k
     end
     v.Art = "ReplaceableTextures\\CommandButtons\\BTNMoonKey.blp"
-    v.ACTIVE = "使用消耗钥匙并获得50%的属性"
-    v.OVERLIE = 1
-    v.WEIGHT = 0
+    v._active = "使用消耗钥匙并获得50%的属性"
+    v._overlie = 1
+    v._weight = 0
     v.goldcost = 0
     v.lumbercost = 0
     v.powerup = 0

@@ -72,6 +72,7 @@ local couriers = {
 for _, v in ipairs(couriers) do
     v.race = "human"
     v.abilList = "Avul"
-    v.HP = 1000,
+    v.HP = 1000
+    v.autoSkill = true
     slkHelper.unit.courier(v)
 end

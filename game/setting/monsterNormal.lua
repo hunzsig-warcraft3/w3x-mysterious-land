@@ -541,7 +541,7 @@ autoMonsterNormal = function(delay)
                     local qty = math.random(m.qty[1], m.qty[2])
                     for _ = 1, qty, 1 do
                         local u = henemy.create({
-                            unitId = hslk_global.name2Value.unit["[小怪]" .. table.random(m.mon)].UNIT_ID,
+                            unitId = hunit.n2i("[小怪]" .. table.random(m.mon)),
                             x = m.loc[1], --创建坐标X，可选
                             y = m.loc[2], --创建坐标Y，可选
                         })
@@ -554,7 +554,7 @@ autoMonsterNormal = function(delay)
                             attr.defend = math.floor((m.level + game.diff) / 3)
                         end
                         if (m.level >= 50) then
-                            attr.toughness = math.floor((m.level + game.diff) / 3)
+                            attr.damage_reduction = math.floor((m.level + game.diff) / 3)
                             attr.avoid = m.level + game.diff - 50
                             attr.aim = m.level + game.diff - 50
                         end

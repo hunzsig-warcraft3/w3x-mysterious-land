@@ -1,21 +1,21 @@
 local items = {
     {
         prestige = "冒险者",
-        ATTR = {
+        _attr = {
             life = "+50",
             attack_green = "+10",
         }
     },
     {
         prestige = "历险者",
-        ATTR = {
+        _attr = {
             life = "+100",
             attack_green = "+30",
         }
     },
     {
         prestige = "先驱者",
-        ATTR = {
+        _attr = {
             life = "+150",
             attack_green = "+50",
             attack_speed = "+4",
@@ -23,7 +23,7 @@ local items = {
     },
     {
         prestige = "千军勇士",
-        ATTR = {
+        _attr = {
             life = "+250",
             attack_green = "+80",
             attack_speed = "+6",
@@ -31,7 +31,7 @@ local items = {
     },
     {
         prestige = "神武飞将",
-        ATTR = {
+        _attr = {
             life = "+350",
             attack_green = "+120",
             attack_speed = "+8",
@@ -40,7 +40,7 @@ local items = {
     },
     {
         prestige = "天绝斗者",
-        ATTR = {
+        _attr = {
             life = "+400",
             attack_green = "+150",
             attack_speed = "+12",
@@ -49,7 +49,7 @@ local items = {
     },
     {
         prestige = "灭劫霸王",
-        ATTR = {
+        _attr = {
             life = "+500",
             attack_green = "+200",
             attack_speed = "+16",
@@ -59,7 +59,7 @@ local items = {
     },
     {
         prestige = "六御武帝",
-        ATTR = {
+        _attr = {
             life = "+600",
             attack_green = "+250",
             attack_speed = "+20",
@@ -70,7 +70,7 @@ local items = {
     },
     {
         prestige = "九苍武神",
-        ATTR = {
+        _attr = {
             life = "+900",
             attack_green = "+300",
             attack_speed = "+30",
@@ -85,11 +85,11 @@ local items = {
 
 for _, v in ipairs(items) do
     v.Name = "诀尊阳钥[" .. v.prestige .. "专享]"
-    v.Desc = v.prestige .. "专用的太阳神钥匙"
+    v._desc = v.prestige .. "专用的太阳神钥匙"
     v.Art = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp"
-    v.ACTIVE = "使用消耗钥匙并获得50%的属性"
-    v.OVERLIE = 1
-    v.WEIGHT = 0
+    v._active = "使用消耗钥匙并获得50%的属性"
+    v._overlie = 1
+    v._weight = 0
     v.goldcost = 0
     v.lumbercost = 0
     v.powerup = 0

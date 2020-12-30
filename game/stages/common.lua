@@ -71,7 +71,7 @@ stage_spell = function(whichUnit, message, cd, animate, ready, call)
         stage_ttg_sk(whichUnit, message)
         hunit.animate(whichUnit, animate)
         hattr.set(whichUnit, stage_holdOn(), {
-            toughness = "+99999",
+            damage_reduction = "+99999",
             move = "-522"
         })
         htime.setTimeout(stage_holdOn(), function(curTimer)

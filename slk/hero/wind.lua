@@ -26,7 +26,7 @@ slkHelper.unit.hero({
     AGIplus = 3.1,
     INTplus = 2.0,
     race = "human",
-    CUSTOM_DATA = {
+    _hslk = {
         feature = "剑圣"
     },
 })

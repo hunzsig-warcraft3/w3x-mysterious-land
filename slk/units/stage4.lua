@@ -1,7 +1,7 @@
 local items = {
     {
         Name = "医疗剂",
-        Desc = "轻松制得的医疗药水，效果不佳但是免费",
+        _desc = "轻松制得的医疗药水，效果不佳但是免费",
         Art = "ReplaceableTextures\\CommandButtons\\BTNHealingSalve.blp",
         goldcost = 0,
         lumbercost = 0,
@@ -10,13 +10,13 @@ local items = {
         pawnable = 1,
         droppable = 1,
         cooldown = 50,
-        ACTIVE = "使用后在10秒内持续恢复共300点生命",
-        OVERLIE = 99,
+        _active = "使用后在10秒内持续恢复共300点生命",
+        _overlie = 99,
         Hotkey = "Q",
     },
     {
         Name = "魔法剂",
-        Desc = "轻松制得的魔法药水，效果不佳但是免费",
+        _desc = "轻松制得的魔法药水，效果不佳但是免费",
         Art = "ReplaceableTextures\\CommandButtons\\BTNHealingSalve.blp",
         goldcost = 0,
         lumbercost = 0,
@@ -25,8 +25,8 @@ local items = {
         pawnable = 1,
         droppable = 1,
         cooldown = 50,
-        ACTIVE = "使用后在10秒内持续恢复共250点魔法",
-        OVERLIE = 99,
+        _active = "使用后在10秒内持续恢复共250点魔法",
+        _overlie = 99,
         Hotkey = "W",
     },
 }

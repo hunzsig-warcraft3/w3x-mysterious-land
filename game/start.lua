@@ -19,21 +19,21 @@ hevent.onPickHero(function(evtPickData)
     })
     -- 特性、技能、天赋
     if (heroSlk ~= nil) then
-        local feature = heroSlk.CUSTOM_DATA.feature
+        local feature = heroSlk.feature
         if (feature ~= nil) then
             feature = "特性 - " .. feature
-            hskill.add(newHero, hslk_global.name2Value.ability[feature].ABILITY_ID)
+            hskill.add(newHero, hskill.n2i(feature))
         end
-        local ability = heroSlk.CUSTOM_DATA.ability
+        local ability = heroSlk.ability
         if (ability ~= nil) then
             for _, a in ipairs(ability) do
-                hskill.add(newHero, hslk_global.name2Value.ability[a].ABILITY_ID)
+                hskill.add(newHero, hskill.n2i(a))
             end
         end
-        hskill.add(newHero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)
-        hskill.add(newHero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)
-        hskill.add(newHero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)
-        hskill.add(newHero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)
+        hskill.add(newHero, hskill.n2i("武 - 封印"))
+        hskill.add(newHero, hskill.n2i("御 - 封印"))
+        hskill.add(newHero, hskill.n2i("速 - 封印"))
+        hskill.add(newHero, hskill.n2i("奇 - 封印"))
     end
     --- 升级
     hevent.onLevelUp(newHero, function(evtData)
@@ -112,20 +112,20 @@ hevent.onPickHero(function(evtPickData)
     local mapLv = hdzapi.mapLv(owner)
     if (mapLv > 9) then
         hitem.create({
-            itemId = hslk_global.name2Value.item["初始月钥-Max"].ITEM_ID,
+            itemId = hitem.n2i("初始月钥-Max"),
             charges = 1,
             whichUnit = newHero,
         })
     else
         hitem.create({
-            itemId = hslk_global.name2Value.item["初始月钥-Lv" .. mapLv].ITEM_ID,
+            itemId = hitem.n2i("初始月钥-Lv" .. mapLv),
             charges = 1,
             whichUnit = newHero,
         })
     end
     local prestige = hplayer.getPrestige(owner)
     hitem.create({
-        itemId = hslk_global.name2Value.item["诀尊阳钥[" .. prestige .. "专享]"].ITEM_ID,
+        itemId = hitem.n2i("诀尊阳钥[" .. prestige .. "专享]"),
         charges = 1,
         whichUnit = newHero,
     })
@@ -193,7 +193,6 @@ cj.TriggerAddAction(
             str = {
                 life = 16,
                 life_back = 0.03,
-                toughness = 0.02,
                 aim = 0.003
             },
             agi = {
@@ -255,7 +254,7 @@ cj.TriggerAddAction(
                     if (his.playing(hplayer.players[i])) then
                         local c = hunit.create({
                             whichPlayer = hplayer.players[i],
-                            unitId = hslk_global.name2Value.unit["小饥鸡"].UNIT_ID,
+                            unitId = hunit.n2i("小饥鸡"),
                             x = hhero.bornX,
                             y = hhero.bornY,
                         })
@@ -283,8 +282,6 @@ cj.TriggerAddAction(
                             { value = "攻速", icon = nil },
                             { value = "命中", icon = nil },
                             { value = "增幅", icon = nil },
-                            { value = "减伤", icon = nil },
-                            { value = "魔抗", icon = nil },
                             { value = "回避", icon = nil },
                             { value = "背包", icon = nil },
                             { value = "硬直", icon = nil },
@@ -305,12 +302,10 @@ cj.TriggerAddAction(
                                 local attack_speed = "-"
                                 local damage_extent = "-"
                                 local aim = "-"
-                                local toughness = "-"
-                                local resistance = "-"
                                 local avoid = "-"
                                 local weight = "-"
                                 local punish = "-"
-                                local attack_damage_type = "-"
+                                local attack_enchant = "-"
                                 hero = hhero.player_heroes[pi][1]
                                 if (hero ~= nil) then
                                     avatar = hunit.getAvatar(hero)
@@ -323,21 +318,21 @@ cj.TriggerAddAction(
                                     attack_speed = math.round(100 + hattr.get(hero, "attack_speed")) .. "%"
                                     damage_extent = math.round(hattr.get(hero, "damage_extent")) .. "%"
                                     aim = math.round(hattr.get(hero, "aim")) .. "%"
-                                    toughness = math.round(hattr.get(hero, "toughness"))
-                                    resistance = math.round(hattr.get(hero, "resistance")) .. "%"
                                     avoid = math.round(hattr.get(hero, "avoid")) .. "%"
                                     weight = math.round(hattr.get(hero, "weight_current")) .. "/"
                                         .. math.round(hattr.get(hero, "weight")) .. "Kg"
                                     punish = math.round(hattr.get(hero, "punish_current")) .. "/"
                                         .. math.round(hattr.get(hero, "punish"))
                                     local adt = {}
-                                    for _, v in ipairs(hattr.get(hero, "attack_damage_type")) do
-                                        local label = CONST_ATTR[v]
-                                        if (table.includes(label, adt) == false) then
-                                            table.insert(adt, label)
+                                    local ac = hattr.get(hero, "attack_enchant")
+                                    for _, v in ipairs(CONST_ENCHANT) do
+                                        if (ac[v.value] > 0) then
+                                            for _ = 1, ac[v.value], 1 do
+                                                table.insert(CONST_ATTR[v] .. ac[v.value], v.value)
+                                            end
                                         end
                                     end
-                                    attack_damage_type = string.implode('、', adt)
+                                    attack_enchant = string.implode('、', adt)
                                 end
                                 table.insert(data, {
                                     { value = "[" .. hplayer.getStatus(p) .. "]" .. cj.GetPlayerName(p), icon = nil },
@@ -350,12 +345,10 @@ cj.TriggerAddAction(
                                     { value = attack_speed, icon = nil },
                                     { value = aim, icon = nil },
                                     { value = damage_extent, icon = nil },
-                                    { value = toughness, icon = nil },
-                                    { value = resistance, icon = nil },
                                     { value = avoid, icon = nil },
                                     { value = weight, icon = nil },
                                     { value = punish, icon = nil },
-                                    { value = attack_damage_type, icon = nil },
+                                    { value = attack_enchant, icon = nil },
                                 })
                             end
                         end

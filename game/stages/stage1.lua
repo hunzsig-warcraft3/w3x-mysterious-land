@@ -2,7 +2,7 @@ stage1 = function()
     gameQuestEvent.state1()
     -- 土匪
     henemy.create({
-        unitId = hslk_global.name2Value.unit["土匪"].UNIT_ID,
+        unitId = hunit.n2i("土匪"),
         x = -6057,
         y = -8706,
         facing = 180,
@@ -16,7 +16,7 @@ stage1 = function()
     })
     -- boss
     local boss = henemy.create({
-        unitId = hslk_global.name2Value.unit["秘地傀儡"].UNIT_ID,
+        unitId = hunit.n2i("秘地傀儡"),
         x = -5036,
         y = -8908,
         facing = 180,
@@ -39,7 +39,7 @@ stage1 = function()
             move = "+5",
         })
         henemy.create({
-            unitId = hslk_global.name2Value.unit["秘地小傀儡"].UNIT_ID,
+            unitId = hunit.n2i("秘地小傀儡"),
             x = hunit.x(evtData.attacker),
             y = hunit.y(evtData.attacker),
             facing = hunit.getFacing(evtData.attacker),

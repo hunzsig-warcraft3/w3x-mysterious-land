@@ -71,7 +71,7 @@ autoMonsterElite = function(delay)
                     hgroup.clear(g, true, false)
                     for _ = 1, 3 do
                         local u = henemy.create({
-                            unitId = hslk_global.name2Value.unit["[精英]" .. table.random(m.mon)].UNIT_ID,
+                            unitId = hunit.n2i("[精英]" .. table.random(m.mon)),
                             x = m.loc[1], --创建坐标X，可选
                             y = m.loc[2], --创建坐标Y，可选
                         })
@@ -80,7 +80,7 @@ autoMonsterElite = function(delay)
                             life = "=" .. (199 + game.diff) * m.level,
                             attack_white = "=" .. (99 + game.diff) * m.level,
                             defend = "=" .. math.floor(m.level * 1.5 + game.diff / 2),
-                            toughness = "=" .. m.level + game.diff,
+                            damage_reduction = "=" .. m.level + game.diff,
                             avoid = "=" .. m.level + game.diff,
                             aim = "=" .. m.level + game.diff,
                         }

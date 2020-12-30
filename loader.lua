@@ -1,9 +1,6 @@
 -- 加载h-lua
 require "h-lua"
 
--- 镜头模式
-hcamera.setModel("normal")
-
 -- 设定玩家
 hplayer.qty_max = 7 -- 最大玩家数
 hplayer.convert_ratio = 1000000 -- 换算比率，100金 -> 1木

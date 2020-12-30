@@ -1,21 +1,21 @@
 local gift = {
     {
         Name = "封印",
-        Desc = "[速]字技，在于加快英雄的速度|n当前正处于封印状态",
+        _desc = "[速]字技，在于加快英雄的速度|n当前正处于封印状态",
         Art = "war3mapImported\\icon_pas_Slow_Grey.blp",
-        ATTR = nil,
+        _attr = nil,
     },
     {
         Name = "虚幻之刀",
         Art = "war3mapImported\\icon_pas_ThrowingKnife_06.blp",
-        ATTR = {
+        _attr = {
             attack_speed = "+45"
         },
     },
     {
         Name = "断臂之勇",
         Art = "war3mapImported\\icon_pas_Ability_Warrior_Intervene.blp",
-        ATTR = {
+        _attr = {
             attack_green = "-45",
             attack_speed = "+55",
         },
@@ -23,7 +23,7 @@ local gift = {
     {
         Name = "神行太保",
         Art = "war3mapImported\\icon_pas_Rogue_FleetFooted.blp",
-        ATTR = {
+        _attr = {
             move = "+50",
             avoid = "+15"
         },
@@ -31,7 +31,7 @@ local gift = {
     {
         Name = "猎豹拟态",
         Art = "war3mapImported\\icon_pas_Hunter_CatlikeReflexes.blp",
-        ATTR = {
+        _attr = {
             agi_green = "+50",
             move = "+30",
         },
@@ -39,7 +39,7 @@ local gift = {
     {
         Name = "飞火靴",
         Art = "war3mapImported\\icon_pas_Fire_BurningSpeed.blp",
-        ATTR = {
+        _attr = {
             move = "+60",
             natural_fire_oppose = "+40",
         },
@@ -47,7 +47,7 @@ local gift = {
     {
         Name = "远古弓术",
         Art = "war3mapImported\\icon_pas_Hunter_ZenArchery.blp",
-        ATTR = {
+        _attr = {
             aim = "+15",
             attack_speed = "+45",
             avoid = "+5",
@@ -56,7 +56,7 @@ local gift = {
     {
         Name = "缥缈",
         Art = "war3mapImported\\icon_pas_Inextricable.blp",
-        ATTR = {
+        _attr = {
             attack_speed = "+10",
             avoid = "+30",
             move = "+20",
@@ -65,7 +65,7 @@ local gift = {
     {
         Name = "瞄准",
         Art = "war3mapImported\\icon_pas_Ability_Hunter_SniperShot.blp",
-        ATTR = {
+        _attr = {
             aim = "+30",
             attack_debuff = {
                 {
@@ -90,26 +90,27 @@ local gift = {
 for _, v in ipairs(gift) do
     slkHelper.ability.empty({
         Art = v.Art,
-        Desc = v.Desc,
-        ATTR = v.ATTR,
+        _desc = v._desc,
+        _attr = v._attr,
         Name = "速 - " .. v.Name,
         Buttonpos1 = 2,
         Buttonpos2 = 1,
         race = "human",
-        ID_ARRAY = "gift_speed",
+        _hslk = {
+            gift_type = "gift_speed",
+        }
     })
 end
 
 for _, v in ipairs(gift) do
-    if (v.ATTR ~= nil) then
+    if (v._attr ~= nil) then
         slkHelper.item.normal({
             Art = v.Art,
-            ATTR_TXT = v.ATTR,
+            _attr_txt = v._attr,
             Name = "秘笈：速 - " .. v.Name,
-            ACTIVE = "使用习得[速技]：" .. v.Name,
+            _active = "使用习得[速技]：" .. v.Name,
             file = "Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl",
             race = "human",
-            ID_ARRAY = "gift_speed",
             cooldown = 0,
             perishable = 1,
         })

@@ -5,7 +5,7 @@ slkHelper.ability.ring({
     Area1 = 600,
     HotKey = "E",
     race = "human",
-    RING = {
+    _ring = {
         attack_green = "+90",
         aim = "+20"
     },
@@ -39,7 +39,7 @@ slkHelper.unit.hero({
     AGIplus = 2.5,
     INTplus = 2.5,
     race = "human",
-    CUSTOM_DATA = {
+    _hslk = {
         feature = "典雅之月",
         ability = { "月神强击" }
     },

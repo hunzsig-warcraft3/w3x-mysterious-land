@@ -1,4 +1,12 @@
 onMapDestructableDestroy = function()
+    -- 整理书籍
+    local randomGifts = {
+        gift_weapon = { "大剑修炼", "回音剑技" },
+        gift_defend = { "蛮力抵抗", "反射盾牌" },
+        gift_speed = { "虚幻之刀", "断臂之勇" },
+        gift_tao = { "无我", "醍醐点化" },
+    }
+    --
     hevent.onMapDestructableDestroy(function(evtData)
         if (math.random(1, 3) ~= 2) then
             return
@@ -45,9 +53,8 @@ onMapDestructableDestroy = function()
             -- 木桶，给天赋书
             local types = { "gift_weapon", "gift_defend", "gift_speed", "gift_tao" }
             local t = table.random(types)
-            local giftId = table.random(hslk_global.id_array.item[t])
             hitem.create({
-                itemId = giftId,
+                itemId = hitem.n2i(table.random(randomGifts[t])),
                 charges = 1,
                 x = cj.GetDestructableX(dest),
                 y = cj.GetDestructableY(dest),

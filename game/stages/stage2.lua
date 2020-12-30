@@ -3,14 +3,14 @@ stage2 = function()
     -- 小神木商店
     local shop = hunit.create({
         whichPlayer = game.ALLY_PLAYER,
-        unitId = hslk_global.name2Value.unit["小神木商店"].UNIT_ID,
+        unitId = hunit.n2i("小神木商店"),
         x = -2432,
         y = -8448,
         facing = 270,
     })
     -- 小鱼
     henemy.create({
-        unitId = hslk_global.name2Value.unit["小鱼妖"].UNIT_ID,
+        unitId = hunit.n2i("小鱼妖"),
         x = -3917,
         y = -9323,
         facing = 0,
@@ -22,7 +22,7 @@ stage2 = function()
         }
     })
     henemy.create({
-        unitId = hslk_global.name2Value.unit["青鱼妖"].UNIT_ID,
+        unitId = hunit.n2i("青鱼妖"),
         x = -3800,
         y = -8858,
         facing = 0,
@@ -34,7 +34,7 @@ stage2 = function()
         }
     })
     henemy.create({
-        unitId = hslk_global.name2Value.unit["夜鱼妖"].UNIT_ID,
+        unitId = hunit.n2i("夜鱼妖"),
         x = -4000,
         y = -8400,
         facing = 0,

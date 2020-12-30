@@ -1,4 +1,4 @@
-hitem.matchUsed({
+hmatcher.item({
     {
         "秘笈：.+",
         function(evtData)
@@ -11,23 +11,23 @@ hitem.matchUsed({
             end
             local itemName = hitem.getName(triggerItem)
             local abName = string.gsub(itemName, "秘笈：", "")
-            local abSlk = hslk_global.name2Value.ability[abName]
-            local abid = abSlk.ABILITY_ID
-            local id_array = abSlk.ID_ARRAY
-            if (id_array == "gift_weapon" and hskill.has(hero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)) then
-                hskill.del(hero, hslk_global.name2Value.ability["武 - 封印"].ABILITY_ID)
-            elseif (id_array == "gift_defend" and hskill.has(hero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)) then
-                hskill.del(hero, hslk_global.name2Value.ability["御 - 封印"].ABILITY_ID)
-            elseif (id_array == "gift_speed" and hskill.has(hero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)) then
-                hskill.del(hero, hslk_global.name2Value.ability["速 - 封印"].ABILITY_ID)
-            elseif (id_array == "gift_tao" and hskill.has(hero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)) then
-                hskill.del(hero, hslk_global.name2Value.ability["奇 - 封印"].ABILITY_ID)
+            local abSlk = hskill.getHSlk(abName)
+            local abid = abSlk._id
+            local gt = abSlk.gift_type
+            if (gt == "gift_weapon" and hskill.has(hero, hskill.n2i("武 - 封印"))) then
+                hskill.del(hero, hskill.n2i("武 - 封印"))
+            elseif (gt == "gift_defend" and hskill.n2i("御 - 封印")) then
+                hskill.del(hero, hskill.n2i("御 - 封印"))
+            elseif (gt == "gift_speed" and hskill.n2i("速 - 封印")) then
+                hskill.del(hero, hskill.n2i("速 - 封印"))
+            elseif (gt == "gift_tao" and hskill.n2i("奇 - 封印")) then
+                hskill.del(hero, hskill.n2i("奇 - 封印"))
             end
-            if (game.playerData.gift[playerIndex][id_array] ~= nil) then
-                hskill.del(hero, game.playerData.gift[playerIndex][id_array])
+            if (game.playerData.gift[playerIndex][gt] ~= nil) then
+                hskill.del(hero, game.playerData.gift[playerIndex][gt])
             end
             hskill.add(hero, abid)
-            game.playerData.gift[playerIndex][id_array] = abid
+            game.playerData.gift[playerIndex][gt] = abid
             heffect.toUnit("Abilities\\Spells\\Items\\AIem\\AIemTarget.mdl", hero)
             echo("学会了[" .. hColor.green(abName) .. "]")
         end

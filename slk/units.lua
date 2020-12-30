@@ -1,7 +1,7 @@
 local rebornItems = {
     {
         Name = "医疗剂",
-        Desc = "轻松制得的医疗药水，效果不佳当免费",
+        _desc = "轻松制得的医疗药水，效果不佳当免费",
         Art = "ReplaceableTextures\\CommandButtons\\BTNHealingSalve.blp",
         goldcost = 0,
         lumbercost = 0,
@@ -10,8 +10,8 @@ local rebornItems = {
         pawnable = 1,
         droppable = 1,
         cooldown = 45,
-        ACTIVE = "使用后在10秒内持续恢复共500点生命",
-        OVERLIE = 99,
+        _active = "使用后在10秒内持续恢复共500点生命",
+        _overlie = 99,
         Hotkey = "Q",
     },
 }
