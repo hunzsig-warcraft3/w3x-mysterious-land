@@ -26,19 +26,9 @@ local gift = {
         _attr = {
             attack_green = "+40",
             hemophagia = "+5",
-            attack_debuff = {
-                {
-                    attr = "life_back",
-                    odds = 50,
-                    val = 2.5,
-                    during = 3
-                },
-                {
-                    attr = "defend",
-                    odds = 50,
-                    val = 1,
-                    during = 3
-                },
+            xtras = {
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.life_back", val = -2.5, odds = 50, during = 3, effect = nil },
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.defend", val = -1, odds = 50, during = 3, effect = nil },
             },
         },
     },
@@ -46,28 +36,18 @@ local gift = {
         Name = "淬火铁手",
         Art = "war3mapImported\\icon_pas_AdvancedUnholyStrength.blp",
         _attr = {
-            attack_enchant = "+fire",
             str_green = "+180",
-            natural_fire = "+20",
+            e_fire_attack = "+1",
+            e_fire = "+20",
         },
     },
     {
         Name = "心碎",
         Art = "war3mapImported\\icon_pas_BrokenHeart.blp",
         _attr = {
-            attack_debuff = {
-                {
-                    attr = "life_back",
-                    odds = 50,
-                    val = 3.5,
-                    during = 4
-                },
-                {
-                    attr = "move",
-                    odds = 50,
-                    val = 5,
-                    during = 4
-                },
+            xtras = {
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.life_back", val = -3.5, odds = 50, during = 4, effect = nil },
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.move", val = -5, odds = 50, during = 4, effect = nil },
             },
         },
     },
@@ -75,14 +55,11 @@ local gift = {
         Name = "贤者之剑",
         Art = "war3mapImported\\icon_pas_Holy_PersuitofJustice.blp",
         _attr = {
-            attack_enchant = "+magic",
+            e_magic_attack = "+2",
             int_green = "+30",
-            attack_effect = {
-                {
-                    attr = "violence",
-                    odds = 60,
-                    percent = 35
-                },
+            xtras = {
+                { on = CONST_EVENT.attack, action = "targetUnit.spec.knocking", val = 'damage', odds = 60, percent = 35, effect = nil },
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.move", val = -5, odds = 50, during = 4, effect = nil },
             },
         },
     },
@@ -91,12 +68,12 @@ local gift = {
 for _, v in ipairs(gift) do
     slkHelper.ability.empty({
         Art = v.Art,
-        _desc = v._desc,
-        _attr = v._attr,
         Name = "武 - " .. v.Name,
         Buttonpos1 = 0,
         Buttonpos2 = 1,
         race = "human",
+        _desc = v._desc,
+        _attr = v._attr,
         _hslk = {
             gift_type = "gift_weapon",
         }
@@ -107,13 +84,13 @@ for _, v in ipairs(gift) do
     if (v._attr ~= nil) then
         slkHelper.item.normal({
             Art = v.Art,
-            _attr_txt = v._attr,
             Name = "秘笈：武 - " .. v.Name,
-            _active = "使用习得[武技]：" .. v.Name,
             file = "Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl",
             race = "human",
             cooldown = 0,
             perishable = 1,
+            _attr_txt = v._attr,
+            _active = "使用习得[武技]：" .. v.Name,
         })
     end
 end

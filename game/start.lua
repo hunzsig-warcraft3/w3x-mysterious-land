@@ -6,7 +6,7 @@ hevent.onPickHero(function(evtPickData)
     local newHero = evtPickData.triggerUnit
     local owner = hunit.getOwner(newHero)
     echo(hColor.green(hplayer.getName(owner)) .. "的英雄灵魂成为了" .. hColor.yellow("<" .. hunit.getName(newHero) .. ">"))
-    local heroSlk = hunit.getSlk(newHero)
+    local heroSlk = hunit.getHSlk(newHero)
     -- 镜头
     hcamera.toUnit(owner, 0, newHero)
     -- 开启硬直
@@ -285,7 +285,6 @@ cj.TriggerAddAction(
                             { value = "回避", icon = nil },
                             { value = "背包", icon = nil },
                             { value = "硬直", icon = nil },
-                            { value = "攻击附魔", icon = nil },
                         })
                         --然后是form
                         for pi = 1, hplayer.qty_max, 1 do
@@ -305,7 +304,6 @@ cj.TriggerAddAction(
                                 local avoid = "-"
                                 local weight = "-"
                                 local punish = "-"
-                                local attack_enchant = "-"
                                 hero = hhero.player_heroes[pi][1]
                                 if (hero ~= nil) then
                                     avatar = hunit.getAvatar(hero)
@@ -323,16 +321,6 @@ cj.TriggerAddAction(
                                         .. math.round(hattr.get(hero, "weight")) .. "Kg"
                                     punish = math.round(hattr.get(hero, "punish_current")) .. "/"
                                         .. math.round(hattr.get(hero, "punish"))
-                                    local adt = {}
-                                    local ac = hattr.get(hero, "attack_enchant")
-                                    for _, v in ipairs(CONST_ENCHANT) do
-                                        if (ac[v.value] > 0) then
-                                            for _ = 1, ac[v.value], 1 do
-                                                table.insert(CONST_ATTR[v] .. ac[v.value], v.value)
-                                            end
-                                        end
-                                    end
-                                    attack_enchant = string.implode('、', adt)
                                 end
                                 table.insert(data, {
                                     { value = "[" .. hplayer.getStatus(p) .. "]" .. cj.GetPlayerName(p), icon = nil },
@@ -348,7 +336,6 @@ cj.TriggerAddAction(
                                     { value = avoid, icon = nil },
                                     { value = weight, icon = nil },
                                     { value = punish, icon = nil },
-                                    { value = attack_enchant, icon = nil },
                                 })
                             end
                         end

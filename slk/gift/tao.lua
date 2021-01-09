@@ -33,9 +33,9 @@ local gift = {
         Name = "神的使者",
         Art = "war3mapImported\\icon_pas_Holy_Absolution.blp",
         _attr = {
-            attack_enchant = "+god",
-            natural_god = "+30",
-            natural_god_oppose = "+30",
+            e_god_attack = "+1",
+            e_god = "+30",
+            e_god_oppose = "+30",
         },
     },
 }
@@ -43,12 +43,12 @@ local gift = {
 for _, v in ipairs(gift) do
     slkHelper.ability.empty({
         Art = v.Art,
-        _desc = v._desc,
-        _attr = v._attr,
         Name = "奇 - " .. v.Name,
         Buttonpos1 = 3,
         Buttonpos2 = 1,
         race = "human",
+        _desc = v._desc,
+        _attr = v._attr,
         _hslk = {
             gift_type = "gift_tao",
         }
@@ -59,13 +59,13 @@ for _, v in ipairs(gift) do
     if (v._attr ~= nil) then
         slkHelper.item.normal({
             Art = v.Art,
-            _attr_txt = v._attr,
             Name = "秘笈：奇 - " .. v.Name,
-            _active = "使用习得[奇技]：" .. v.Name,
             file = "Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl",
             race = "human",
             cooldown = 0,
             perishable = 1,
+            _attr_txt = v._attr,
+            _active = "使用习得[奇技]：" .. v.Name,
         })
     end
 end

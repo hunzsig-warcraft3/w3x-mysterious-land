@@ -64,13 +64,13 @@ for _, v in ipairs(gift) do
     if (v._attr ~= nil) then
         slkHelper.item.normal({
             Art = v.Art,
-            _attr_txt = v._attr,
             Name = "秘笈：御 - " .. v.Name,
-            _active = "使用习得[御技]：" .. v.Name,
             file = "Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl",
             race = "human",
             cooldown = 0,
             perishable = 1,
+            _attr_txt = v._attr,
+            _active = "使用习得[御技]：" .. v.Name,
         })
     end
 end

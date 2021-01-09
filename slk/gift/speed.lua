@@ -41,7 +41,7 @@ local gift = {
         Art = "war3mapImported\\icon_pas_Fire_BurningSpeed.blp",
         _attr = {
             move = "+60",
-            natural_fire_oppose = "+40",
+            e_fire_oppose = "+40",
         },
     },
     {
@@ -67,21 +67,9 @@ local gift = {
         Art = "war3mapImported\\icon_pas_Ability_Hunter_SniperShot.blp",
         _attr = {
             aim = "+30",
-            attack_debuff = {
-                {
-                    attr = "avoid",
-                    odds = 100,
-                    val = 10,
-                    during = 3
-                },
-            },
-            attack_buff = {
-                {
-                    attr = "attack_speed",
-                    odds = 100,
-                    val = 10,
-                    during = 3
-                },
+            xtras = {
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.avoid", val = -10, odds = 100, during = 3, effect = nil },
+                { on = CONST_EVENT.attack, action = "triggerUnit.attr.attack_speed", val = 10, odds = 100, during = 3, effect = nil },
             },
         },
     },
@@ -106,13 +94,13 @@ for _, v in ipairs(gift) do
     if (v._attr ~= nil) then
         slkHelper.item.normal({
             Art = v.Art,
-            _attr_txt = v._attr,
             Name = "秘笈：速 - " .. v.Name,
-            _active = "使用习得[速技]：" .. v.Name,
             file = "Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl",
             race = "human",
             cooldown = 0,
             perishable = 1,
+            _attr_txt = v._attr,
+            _active = "使用习得[速技]：" .. v.Name,
         })
     end
 end
