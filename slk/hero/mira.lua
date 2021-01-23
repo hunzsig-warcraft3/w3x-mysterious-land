@@ -3,7 +3,7 @@ slkHelper.ability.ring({
     Art = "ReplaceableTextures\\PassiveButtons\\PASBTNTrueShot.blp",
     TargetArt = "Abilities\\Spells\\NightElf\\TrueshotAura\\TrueshotAura.mdl",
     Area1 = 600,
-    HotKey = "E",
+    Hotkey = "E",
     race = "human",
     _ring = {
         attack_green = "+90",
@@ -41,6 +41,6 @@ slkHelper.unit.hero({
     race = "human",
     _hslk = {
         feature = "典雅之月",
-        ability = { "月神强击" }
+        ability = { "月神强击E" }
     },
 })
