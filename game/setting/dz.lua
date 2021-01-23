@@ -30,7 +30,7 @@ dzCurrent.doRecord = function(whichPlayer)
     local heroLv = hhero.getCurLevel(hhero.player_heroes[playerIndex][1])
     -- item
     local itLv = 0
-    hitem.slotLoop(hhero.player_heroes[playerIndex][1], function(slotItem)
+    hitem.forEach(hhero.player_heroes[playerIndex][1], function(slotItem)
         if (slotItem ~= nil) then
             itLv = itLv + hitem.getLevel(slotItem) * (hitem.getCharges(slotItem) + 1)
         end

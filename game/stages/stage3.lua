@@ -44,10 +44,11 @@ stage3 = function()
                 attack_white = "=" .. 51 + game.diff * 4,
                 life = "=" .. 96 + game.diff * 4,
                 move = "=90",
-                attack_debuff = {
+                xtras = {
                     add = {
                         {
-                            attr = "life_back",
+                            on = CONST_EVENT.attack,
+                            action = "targetUnit.attr.life_back",
                             odds = 50,
                             val = 3.5 + game.diff * 0.3,
                             during = 3
@@ -100,7 +101,7 @@ stage3 = function()
     end
 
     htime.setInterval(1.5, function(curTimer)
-        if (his.death(boss) == true) then
+        if (his.dead(boss) == true) then
             htime.delTimer(curTimer)
             for i = 1, hplayer.qty_max, 1 do
                 if (his.playing(hplayer.players[i])) then

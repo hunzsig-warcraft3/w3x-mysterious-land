@@ -108,7 +108,7 @@ hmatcher.item({
             local g = hgroup.createByUnit(evtData.triggerUnit, 600, function(filterUnit)
                 return his.alive(filterUnit) and his.ally(triggerUnit, filterUnit)
             end)
-            hgroup.loop(g, function(enumUnit)
+            hgroup.forEach(g, function(enumUnit)
                 heffect.toUnit("Abilities\\Spells\\Human\\Heal\\HealTarget.mdl", enumUnit)
                 hunit.addCurLife(enumUnit, 300)
             end, true)
@@ -121,7 +121,7 @@ hmatcher.item({
             local g = hgroup.createByUnit(evtData.triggerUnit, 600, function(filterUnit)
                 return his.alive(filterUnit) and his.ally(triggerUnit, filterUnit)
             end)
-            hgroup.loop(g, function(enumUnit)
+            hgroup.forEach(g, function(enumUnit)
                 heffect.bindUnit(
                     "Abilities\\Spells\\Items\\AIsp\\SpeedTarget.mdl",
                     enumUnit, "overhead", 30

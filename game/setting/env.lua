@@ -161,7 +161,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 4) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "阳光回照", 10, "FFD700", 1, 2, 50),
@@ -180,7 +180,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit) and his.playing(hunit.getOwner(filterUnit))
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 4) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "月光护佑", 10, "00BFFF", 1, 2, 50),
@@ -199,7 +199,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "雨水浸透", 10, "87CEFA", 1, 2, 50),
@@ -219,7 +219,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "大雨蹉跎", 10, "4682B4", 1, 2, 50),
@@ -250,7 +250,7 @@ autoWeather = function(obj)
                             local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
                                 return his.hero(filterUnit) and his.alive(filterUnit)
                             end)
-                            hgroup.loop(g2, function(enumUnit)
+                            hgroup.forEach(g2, function(enumUnit)
                                 hskill.swim({
                                     whichUnit = enumUnit,
                                     damage = (0.35 + 0.05 * game.diff) * hunit.getCurLife(enumUnit),
@@ -279,7 +279,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "飘雪冻结", 10, "F0FFFF", 1, 2, 50),
@@ -300,7 +300,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 2) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "雪崩", 10, "F0FFFF", 1, 2, 50),
@@ -322,7 +322,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "大风吹刮", 10, "7FFFAA", 1, 2, 50),
@@ -347,7 +347,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "狂风割裂", 10, "00FA9A", 1, 2, 50),
@@ -373,7 +373,7 @@ autoWeather = function(obj)
                     local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
                     return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "白雾蔽目", 10, "F5FFFA", 1, 2, 50),
@@ -402,7 +402,7 @@ autoWeather = function(obj)
                             local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
                                 return his.hero(filterUnit) and his.alive(filterUnit)
                             end)
-                            hgroup.loop(g2, function(enumUnit)
+                            hgroup.forEach(g2, function(enumUnit)
                                 hskill.swim({
                                     whichUnit = enumUnit,
                                     damage = (0.5 + 0.1 * game.diff) * hunit.getCurLife(enumUnit),
@@ -421,7 +421,7 @@ autoWeather = function(obj)
                     local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
                     return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     httg.style(
                         httg.create2Unit(enumUnit, "山火焚身", 10, "FF6347", 1, 2, 50),
                         'scale', 0, 0.05
@@ -447,7 +447,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         httg.style(
                             httg.create2Unit(enumUnit, "毒雾侵蚀", 10, "7FFF00", 1, 2, 50),
@@ -468,7 +468,7 @@ autoWeather = function(obj)
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
                     return his.hero(filterUnit) and his.alive(filterUnit)
                 end)
-                hgroup.loop(g, function(enumUnit)
+                hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
                         hskill.swim({
                             whichUnit = enumUnit,
@@ -500,7 +500,7 @@ autoWeather = function(obj)
                             local g2 = hgroup.createByXY(x, y, radius, function(filterUnit)
                                 return his.hero(filterUnit) and his.alive(filterUnit)
                             end)
-                            hgroup.loop(g2, function(enumUnit)
+                            hgroup.forEach(g2, function(enumUnit)
                                 hskill.swim({
                                     whichUnit = enumUnit,
                                     damage = (0.4 + 0.05 * game.diff) * hunit.getMaxLife(enumUnit),

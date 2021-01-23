@@ -1,4 +1,5 @@
 -- 加载h-lua
+HLUA_DEBUG = true
 require "h-lua"
 
 -- 设定玩家
@@ -6,13 +7,7 @@ hplayer.qty_max = 7 -- 最大玩家数
 hplayer.convert_ratio = 1000000 -- 换算比率，100金 -> 1木
 
 -- 设定敌军
-henemy.setName("怪物")
--- henemy.setShareSight(true)
-henemy.setColor(cj.ConvertPlayerColor(12)) -- black
-henemy.setPlayer(hplayer.players[8])
-henemy.setPlayer(hplayer.players[9])
-henemy.setPlayer(hplayer.players[10])
-henemy.setPlayer(hplayer.players[11])
+henemy.set("怪物", CONST_PLAYER_COLOR.BLACK, { 8, 9, 10, 11 })
 
 -- 加载本地图的设置
 require "game.setting.global"
