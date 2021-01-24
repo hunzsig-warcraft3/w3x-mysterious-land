@@ -551,7 +551,7 @@ autoMonsterNormal = function(delay)
                             attack_white = "=" .. (19 + game.diff) * m.level,
                         }
                         if (m.level >= 5) then
-                            attr.defend = math.floor((m.level + game.diff) / 3)
+                            attr.defend_green = math.floor((m.level + game.diff) / 3)
                         end
                         if (m.level >= 50) then
                             attr.damage_reduction = math.floor((m.level + game.diff) / 3)

@@ -178,7 +178,7 @@ local items = {
         _weight = 0.2,
         Hotkey = "C",
         _attr = {
-            defend = "+4",
+            defend_green = "+4",
             damage_reduction = "+5",
         }
     },

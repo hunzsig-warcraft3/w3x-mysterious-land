@@ -79,7 +79,7 @@ autoMonsterElite = function(delay)
                         local attr = {
                             life = "=" .. (199 + game.diff) * m.level,
                             attack_white = "=" .. (99 + game.diff) * m.level,
-                            defend = "=" .. math.floor(m.level * 1.5 + game.diff / 2),
+                            defend_green = "=" .. math.floor(m.level * 1.5 + game.diff / 2),
                             damage_reduction = "=" .. m.level + game.diff,
                             avoid = "=" .. m.level + game.diff,
                             aim = "=" .. m.level + game.diff,

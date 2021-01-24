@@ -9,7 +9,7 @@ local gift = {
         Name = "蛮力抵抗",
         Art = "war3mapImported\\icon_pas_Ability_Warrior_ShieldGuard.blp",
         _attr = {
-            defend = "+15",
+            defend_green = "+15",
         },
     },
     {
@@ -24,7 +24,7 @@ local gift = {
         Name = "苦难之炼",
         Art = "war3mapImported\\icon_pas_Mage_MoltenArmor.blp",
         _attr = {
-            defend = "-25",
+            defend_green = "-25",
             damage_rebound = "+30",
         },
     },
@@ -32,7 +32,7 @@ local gift = {
         Name = "胜者之盾",
         Art = "war3mapImported\\icon_pas_Invulnerable.blp",
         _attr = {
-            defend = "+20",
+            defend_green = "+20",
             invincible = "+10",
         },
     },

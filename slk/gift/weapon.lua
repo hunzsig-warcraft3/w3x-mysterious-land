@@ -28,7 +28,7 @@ local gift = {
             hemophagia = "+5",
             xtras = {
                 { on = CONST_EVENT.attack, action = "targetUnit.attr.life_back", val = -2.5, odds = 50, during = 3, effect = nil },
-                { on = CONST_EVENT.attack, action = "targetUnit.attr.defend", val = -1, odds = 50, during = 3, effect = nil },
+                { on = CONST_EVENT.attack, action = "targetUnit.attr.defend_green", val = -1, odds = 50, during = 3, effect = nil },
             },
         },
     },

@@ -211,7 +211,7 @@ autoWeather = function(obj)
                         )
                         hattr.set(enumUnit, 5, {
                             move = "-" .. (20 + game.diff),
-                            defend = "-" .. (1 + game.diff),
+                            defend_green = "-" .. (1 + game.diff),
                         })
                     end
                 end, true)
@@ -232,7 +232,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 7, {
                             attack_speed = "-" .. (10 + game.diff),
                             move = "-" .. (30 + game.diff),
-                            defend = "-" .. (3 + game.diff),
+                            defend_green = "-" .. (3 + game.diff),
                         })
                     end
                 end, true)
@@ -314,7 +314,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 12, {
                             attack_speed = "-" .. (6 + game.diff),
                             move = "-" .. (18 + game.diff),
-                            defend = "-" .. game.diff,
+                            defend_green = "-" .. game.diff,
                         })
                     end
                 end, true)
@@ -515,7 +515,7 @@ autoWeather = function(obj)
                                     enumUnit, "origin", 7
                                 )
                                 hattr.set(enumUnit, 7, {
-                                    defend = "-" .. (5 + 2 * game.diff),
+                                    defend_green = "-" .. (5 + 2 * game.diff),
                                 })
                                 hsound.sound2Player(cg.gg_snd_voice_ghost, hunit.getOwner(enumUnit))
                             end, true)

@@ -8,7 +8,7 @@ stage3 = function()
         y = -8641,
         _attr = {
             life = "=" .. (2900 + game.diff * 100),
-            defend = "=20",
+            defend_green = "=20",
         }
     })
     local boss = henemy.create({
@@ -20,7 +20,7 @@ stage3 = function()
             move = "=180",
             life = "=" .. (17500 + game.diff * 2500),
             life_back = "=33",
-            defend = "=" .. (3 + game.diff * 2),
+            defend_green = "=" .. (3 + game.diff * 2),
         }
     })
     hunit.hide(boss)
