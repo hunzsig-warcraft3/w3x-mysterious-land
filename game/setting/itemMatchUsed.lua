@@ -29,7 +29,7 @@ hmatcher.item({
             hskill.add(hero, abid)
             game.playerData.gift[playerIndex][gt] = abid
             heffect.toUnit("Abilities\\Spells\\Items\\AIem\\AIemTarget.mdl", hero)
-            echo("学会了[" .. hColor.green(abName) .. "]")
+            echo("学会了[" .. hcolor.green(abName) .. "]")
         end
     },
     {

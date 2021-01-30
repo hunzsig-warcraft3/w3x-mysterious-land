@@ -1,7 +1,7 @@
 slkHelper.unit.hero({
     Name = "山丘之王",
     Propernames = "波尔",
-    Ubertip = hColor.sky("特性：王权") .. "|n" .. hColor.grey("波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。"),
+    Ubertip = hcolor.sky("特性：王权") .. "|n" .. hcolor.grey("波尔是矮人族的暴力狂王者，大力无穷。在任期时常冲锋陷阵，开山劈海，所向披靡。在一次机缘之下，感悟雷电之力，可操纵雷鸣。"),
     Art = "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp",
     file = "units\\human\\HeroMountainKing\\HeroMountainKing",
     unitSound = "HeroMountainKing",

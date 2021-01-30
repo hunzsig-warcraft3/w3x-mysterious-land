@@ -14,7 +14,7 @@ slkHelper.ability.ring({
 slkHelper.unit.hero({
     Name = "白虎女祭祀",
     Propernames = "米拉",
-    Ubertip = hColor.sky("特性：典雅之月") .. "|n" .. hColor.grey("侍奉月神的骑白虎女弓手，在月光的照耀下优雅游击战斗"),
+    Ubertip = hcolor.sky("特性：典雅之月") .. "|n" .. hcolor.grey("侍奉月神的骑白虎女弓手，在月光的照耀下优雅游击战斗"),
     Art = "ReplaceableTextures\\CommandButtons\\BTNPriestessOfTheMoon.blp",
     file = "units\\nightelf\\HeroMoonPriestess\\HeroMoonPriestess",
     unitSound = "HeroMoonPriestess",

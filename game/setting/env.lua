@@ -141,13 +141,13 @@ autoWeather = function(obj)
         })
         -- 音效
         if (weather == hweather.sun) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_sun, obj.rect, during - 1)
+            hsound.voice2Rect(cg.gg_snd_voice_rect_sun, obj.rect, during - 1)
         elseif (weather == hweather.moon) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_moon, obj.rect, during - 1)
+            hsound.voice2Rect(cg.gg_snd_voice_rect_moon, obj.rect, during - 1)
         elseif (weather == hweather.wind or weather == hweather.windstorm) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_wind, obj.rect, during - 1)
+            hsound.voice2Rect(cg.gg_snd_voice_rect_wind, obj.rect, during - 1)
         elseif (weather == hweather.rainstorm) then
-            hsound.sound2Rect(cg.gg_snd_voice_rect_rainstorm, obj.rect, during - 1)
+            hsound.voice2Rect(cg.gg_snd_voice_rect_rainstorm, obj.rect, during - 1)
         end
         local dur = 0
         htime.setInterval(4, function(t)
@@ -270,7 +270,7 @@ autoWeather = function(obj)
                                     move = "-" .. (100 + game.diff),
                                 })
                                 htexture.mark(htexture.DEFAULT_MARKS.DIAGONAL_SLASH, duri, hunit.getOwner(enumUnit), 0, 0, 255)
-                                hsound.sound2Player(cg.gg_snd_voice_thunder, hunit.getOwner(enumUnit))
+                                hsound.voice2Player(cg.gg_snd_voice_thunder, hunit.getOwner(enumUnit))
                             end, true)
                         end)
                     end)
@@ -340,7 +340,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 2.5, {
                             move = "-" .. (30 + game.diff),
                         })
-                        hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
+                        hsound.voice2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
                     end
                 end, true)
             elseif (weather == hweather.windstorm) then
@@ -365,7 +365,7 @@ autoWeather = function(obj)
                         hattr.set(enumUnit, 2.5, {
                             move = "-" .. (50 + game.diff),
                         })
-                        hsound.sound2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
+                        hsound.voice2Player(cg.gg_snd_voice_wind, hunit.getOwner(enumUnit))
                     end
                 end, true)
             elseif (weather == hweather.mistwhite) then
@@ -517,7 +517,7 @@ autoWeather = function(obj)
                                 hattr.set(enumUnit, 7, {
                                     defend_green = "-" .. (5 + 2 * game.diff),
                                 })
-                                hsound.sound2Player(cg.gg_snd_voice_ghost, hunit.getOwner(enumUnit))
+                                hsound.voice2Player(cg.gg_snd_voice_ghost, hunit.getOwner(enumUnit))
                             end, true)
                         end)
                     end)
@@ -539,6 +539,6 @@ for _, v in ipairs(islands) do
     end)
     -- 海域
     if (v.name == "斑斓海" or v.name == "斑斓海2") then
-        hsound.sound2Rect(cg.gg_snd_voice_rect_sea, v.rect)
+        hsound.voice2Rect(cg.gg_snd_voice_rect_sea, v.rect)
     end
 end

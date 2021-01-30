@@ -5,7 +5,7 @@
 hevent.onPickHero(function(evtPickData)
     local newHero = evtPickData.triggerUnit
     local owner = hunit.getOwner(newHero)
-    echo(hColor.green(hplayer.getName(owner)) .. "的英雄灵魂成为了" .. hColor.yellow("<" .. hunit.getName(newHero) .. ">"))
+    echo(hcolor.green(hplayer.getName(owner)) .. "的英雄灵魂成为了" .. hcolor.yellow("<" .. hunit.getName(newHero) .. ">"))
     local heroSlk = hunit.getHSlk(newHero)
     -- 镜头
     hcamera.toUnit(owner, 0, newHero)
@@ -60,13 +60,13 @@ hevent.onPickHero(function(evtPickData)
     hevent.onDead(newHero, function(evtData)
         if (game.rebornQty <= 0) then
             local deadOwner = hunit.getOwner(evtData.triggerUnit)
-            echo(hColor.red(hplayer.getName(deadOwner)) .. "的英雄不幸死亡了，他离开了我们")
+            echo(hcolor.red(hplayer.getName(deadOwner)) .. "的英雄不幸死亡了，他离开了我们")
             hplayer.defeat(deadOwner, "冒险失败")
             return
         end
         game.rebornQty = game.rebornQty - 1
         local rebornTime = 5
-        echo(hColor.green(hplayer.getName(owner)) .. "的英雄死亡了，" .. hColor.yellow(rebornTime) .. '秒后复活')
+        echo(hcolor.green(hplayer.getName(owner)) .. "的英雄死亡了，" .. hcolor.yellow(rebornTime) .. '秒后复活')
         -- 血幕
         htexture.mark(htexture.DEFAULT_MARKS.DREAM, rebornTime, p, 255, 0, 0)
         hhero.rebornAtXY(
@@ -77,7 +77,7 @@ hevent.onPickHero(function(evtPickData)
         -- 中途心跳声
         htime.setTimeout(2, function(heartTimer)
             htime.delTimer(heartTimer)
-            hsound.sound2Player(cg.gg_snd_voice_heart_beat, owner)
+            hsound.voice2Player(cg.gg_snd_voice_heart_beat, owner)
         end)
     end)
     --- 检测环境音效
@@ -141,7 +141,7 @@ pickCourier = function(newCourier)
         hunit.del(prevCourier)
     end
     game.playerData.courier[playerIndex] = newCourier
-    echo(hColor.green(hplayer.getName(owner)) .. "得到了宠物" .. hColor.yellow("<" .. hunit.getName(newCourier) .. ">"))
+    echo(hcolor.green(hplayer.getName(owner)) .. "得到了宠物" .. hcolor.yellow("<" .. hunit.getName(newCourier) .. ">"))
     hevent.onDead(newCourier, function(evtData)
         local courierId = hunit.getId(evtData.triggerUnit)
         local nc = hunit.create({
@@ -168,7 +168,7 @@ cj.TriggerAddAction(
         ]]
         hsound.bgmStop()
         -- hello
-        echo("^_^ 您来到了秘境，请选择" .. hColor.yellow("你的英雄"))
+        echo("^_^ 您来到了秘境，请选择" .. hcolor.yellow("你的英雄"))
         -- 可破坏物
         htime.setTimeout(20, function(curTimer)
             htime.delTimer(curTimer)
@@ -219,24 +219,24 @@ cj.TriggerAddAction(
             },
             function(btnIdx)
                 local diff = 1
-                local diffColor = hColor.yellowLight
+                local diffColor = hcolor.yellowLight
                 local rebornQty = 20
                 if (btnIdx == "非常困难") then
                     diff = 5
-                    diffColor = hColor.yellow
+                    diffColor = hcolor.yellow
                     rebornQty = 10
                 elseif (btnIdx == "极其困难") then
                     diff = 20
-                    diffColor = hColor.redLight
+                    diffColor = hcolor.redLight
                     rebornQty = 3
                 elseif (btnIdx == "破天荒难") then
                     diff = 50
-                    diffColor = hColor.red
+                    diffColor = hcolor.red
                     rebornQty = 1
                 end
                 game.diff = diff
                 game.rebornQty = hplayer.qty_current * rebornQty
-                echo("选择了：" .. diffColor(btnIdx) .. ",全体复活次数有：" .. hColor.green(game.rebornQty) .. "次")
+                echo("选择了：" .. diffColor(btnIdx) .. ",全体复活次数有：" .. hcolor.green(game.rebornQty) .. "次")
                 --- 英雄选择
                 hhero.setBornXY(-7044, -8965)
                 --- 酒馆商店
@@ -268,7 +268,7 @@ cj.TriggerAddAction(
                     1.5,
                     function(mb)
                         --拼凑多面板数据，二维数组，行列模式
-                        hmultiBoard.setTitle(mb, "秘地探索誌[剩余复活: " .. hColor.green(game.rebornQty) .. " 次]")
+                        hmultiBoard.setTitle(mb, "秘地探索誌[剩余复活: " .. hcolor.green(game.rebornQty) .. " 次]")
                         --开始当然是title了
                         local data = {}
                         table.insert(data, {
