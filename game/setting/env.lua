@@ -370,8 +370,8 @@ autoWeather = function(obj)
                 end, true)
             elseif (weather == hweather.mistwhite) then
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
-                    return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
+                    local owner = hunit.getOwner(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit) and (true ~= his.marking(owner))
                 end)
                 hgroup.forEach(g, function(enumUnit)
                     if (math.random(1, 3) == 1) then
@@ -418,8 +418,8 @@ autoWeather = function(obj)
                 end
                 -- 火焰灼烧
                 local g = hgroup.createByRect(obj.rect, function(filterUnit)
-                    local playerIndex = hplayer.index(hunit.getOwner(filterUnit))
-                    return his.hero(filterUnit) and his.alive(filterUnit) and hRuntime.player[playerIndex].marking ~= true
+                    local owner = hunit.getOwner(filterUnit)
+                    return his.hero(filterUnit) and his.alive(filterUnit) and (true ~= his.marking(owner))
                 end)
                 hgroup.forEach(g, function(enumUnit)
                     httg.style(

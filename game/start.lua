@@ -10,9 +10,10 @@ hevent.onPickHero(function(evtPickData)
     -- 镜头
     hcamera.toUnit(owner, 0, newHero)
     -- 开启硬直
-    hunit.openPunish(newHero)
+    hunit.enablePunish(newHero)
     -- 初始属性
     hattr.set(newHero, 0, {
+        life_back = "-50",
         weight = "=3",
         punish = "=1000",
         punish_current = "=1000"
@@ -177,13 +178,8 @@ cj.TriggerAddAction(
         -- 玩家配置
         for i = 1, hplayer.qty_max, 1 do
             if (his.playing(hplayer.players[i])) then
-                -- 允许调节镜头
-                hplayer.setAllowCameraDistance(hplayer.players[i], true)
-                -- 使用random、repick
-                hplayer.setAllowCommandPick(hplayer.players[i], true)
                 -- 称号
                 hplayer.setPrestige(hplayer.players[i], "冒险者")
-                --
                 dzCurrent.enableRecord(hplayer.players[i])
             end
         end
@@ -298,7 +294,7 @@ cj.TriggerAddAction(
                                 local name = "-"
                                 local life_back = "-"
                                 local mana_back = "-"
-                                local attack_speed = "-"
+                                local attack_space = "-"
                                 local damage_extent = "-"
                                 local aim = "-"
                                 local avoid = "-"
@@ -313,7 +309,7 @@ cj.TriggerAddAction(
                                     kill = math.integerFormat(hplayer.getKill(p))
                                     life_back = math.round(hattr.get(hero, "life_back")) .. "/秒"
                                     mana_back = math.round(hattr.get(hero, "mana_back")) .. "/秒"
-                                    attack_speed = math.round(100 + hattr.get(hero, "attack_speed")) .. "%"
+                                    attack_space = hattr.get(hero, "attack_space") .. "秒每击"
                                     damage_extent = math.round(hattr.get(hero, "damage_extent")) .. "%"
                                     aim = math.round(hattr.get(hero, "aim")) .. "%"
                                     avoid = math.round(hattr.get(hero, "avoid")) .. "%"
@@ -330,7 +326,7 @@ cj.TriggerAddAction(
                                     { value = name, icon = avatar },
                                     { value = life_back, icon = nil },
                                     { value = mana_back, icon = nil },
-                                    { value = attack_speed, icon = nil },
+                                    { value = attack_space, icon = nil },
                                     { value = aim, icon = nil },
                                     { value = damage_extent, icon = nil },
                                     { value = avoid, icon = nil },

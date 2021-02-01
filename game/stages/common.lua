@@ -53,17 +53,15 @@ stage_spell = function(whichUnit, message, cd, animate, ready, call)
     end
     htime.setTimeout(1.75, function(curTimer2)
         htime.delTimer(curTimer2)
-        if (hRuntime.unit[whichUnit] == nil) then
-            hRuntime.unit[whichUnit] = {}
-        end
-        if (hRuntime.unit[whichUnit][message .. cd] == true) then
+        local cdIng = hcache.get(whichUnit, message .. cd, false)
+        if (cdIng == true) then
             return
         end
-        if (hRuntime.unit[whichUnit][message .. cd] == nil) then
-            hRuntime.unit[whichUnit][message .. cd] = true
+        if (cdIng == nil) then
+            hcache.set(whichUnit, message .. cd, true)
             htime.setTimeout(cd, function(curTimer)
                 htime.delTimer(curTimer)
-                hRuntime.unit[whichUnit][message .. cd] = nil
+                hcache.set(whichUnit, message .. cd, nil)
             end)
         end
         ready()

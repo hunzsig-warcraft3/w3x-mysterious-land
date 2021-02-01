@@ -2,6 +2,9 @@
 HLUA_DEBUG = true
 require "h-lua"
 
+-- 设定玩家支持的默认命令
+hcmd.conf({ "-gg", "-apm", "-eff", "-random", "-repick", "-d" }, { 1 })
+
 -- 设定玩家
 hplayer.qty_max = 7 -- 最大玩家数
 hplayer.convert_ratio = 1000000 -- 换算比率，100金 -> 1木
@@ -33,10 +36,7 @@ require "game.setting.destructable"
 -- 设定友军
 game.ALLY_PLAYER = hplayer.players[12]
 require "game.setting.f9"
--- H-LUA F9提示
-hLuaF9({ 'all' })
 require "game.setting.quest"
--- 物品匹配使用
 require "game.setting.itemMatchUsed"
 -- stage
 require "game.stages.common"

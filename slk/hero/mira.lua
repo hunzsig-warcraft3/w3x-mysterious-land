@@ -6,8 +6,10 @@ slkHelper.ability.ring({
     Hotkey = "E",
     race = "human",
     _ring = {
-        attack_green = "+90",
-        aim = "+20"
+        attr = {
+            attack_green = "+90",
+            aim = "+20"
+        },
     },
 })
 

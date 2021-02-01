@@ -50,7 +50,7 @@ stage3 = function()
                             on = CONST_EVENT.attack,
                             action = "targetUnit.attr.life_back",
                             odds = 50,
-                            val = 3.5 + game.diff * 0.3,
+                            val = -3.5 + game.diff * -0.3,
                             during = 3
                         }
                     }
