@@ -1,5 +1,13 @@
 stage1 = function()
     gameQuestEvent.state1()
+    -- 小神木商店
+    FIRST_SHOP = hunit.create({
+        whichPlayer = hplayer.player_passive,
+        unitId = hunit.n2i("小神木商店"),
+        x = -7040,
+        y = -8317,
+        facing = 270,
+    })
     -- 土匪
     henemy.create({
         unitId = hunit.n2i("土匪"),

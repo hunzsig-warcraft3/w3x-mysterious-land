@@ -13,7 +13,6 @@ hevent.onPickHero(function(evtPickData)
     hunit.enablePunish(newHero)
     -- 初始属性
     hattr.set(newHero, 0, {
-        life_back = "-50",
         weight = "=3",
         punish = "=1000",
         punish_current = "=1000"
