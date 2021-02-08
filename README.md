@@ -2,6 +2,11 @@
 【h-lua实践开源地图】秘地探奇
  * 半成品地图
 
+## 使用h-lua版本：tag -> v1.0-beta.1
+```
+https://github.com/hunzsig-warcraft3/h-lua/releases/tag/v1.0-beta.1
+```
+
 称号
 ```
 冒险者 无条件
